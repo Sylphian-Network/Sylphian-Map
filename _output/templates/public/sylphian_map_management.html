@@ -1,0 +1,88 @@
+<xf:title>{{ phrase('manage_markers') }}</xf:title>
+
+<div class="block">
+    <div class="block-container">
+        <h2 class="block-header">{{ phrase('current_markers') }}</h2>
+        <div class="block-body">
+            <xf:datalist>
+                <xf:datarow rowtype="header">
+                    <xf:cell>{{ phrase('title') }}</xf:cell>
+                    <xf:cell>{{ phrase('type') }}</xf:cell>
+                    <xf:cell>{{ phrase('icon') }}</xf:cell>
+                    <xf:cell>{{ phrase('position') }}</xf:cell>
+                    <xf:cell>{{ phrase('created_by') }}</xf:cell>
+                    <xf:cell>{{ phrase('update_date') }}</xf:cell>
+                    <xf:cell>{{ phrase('creation_date') }}</xf:cell>
+                    <xf:cell>{{ phrase('status') }}</xf:cell>
+                    <xf:cell></xf:cell>
+                    <xf:cell></xf:cell>
+                </xf:datarow>
+        
+                <xf:foreach loop="$allMarkers" value="$marker">
+                    <xf:datarow>
+                        <xf:main label="{{ $marker.title }}" />
+                        <xf:cell>{{ $marker.type }}</xf:cell>
+                        <xf:cell>
+                            <xf:fa icon="fa-{{ $marker.icon }}" fw="true" /> 
+                        </xf:cell>
+                        <xf:cell>
+                            <span title="{{ $marker.lat }}, {{ $marker.lng }}">
+                                <xf:fa icon="fa-map-marker-alt" /> {{ $marker.lat | number(4) }}, {{ $marker.lng | number(4) }}
+                            </span>
+                        </xf:cell>
+                        <xf:cell>
+                            <xf:if is="$marker.User">
+                                <xf:username user="$marker.User" />
+                            <xf:else />
+                                {{ phrase('unknown') }}
+                            </xf:if>
+                        </xf:cell>
+                        <xf:cell>
+                            {{ date($marker.update_date, 'M j, Y g:i A') }}
+                        </xf:cell>
+                        <xf:cell>
+                            {{ date($marker.create_date, 'M j, Y g:i A') }}
+                        </xf:cell>
+                        <xf:cell>
+                            <xf:if is="$marker.active">
+                                <span class="label label--success">
+                                    <xf:fa icon="fa-check" /> {{ phrase('active') }}
+                                </span>
+                            <xf:else />
+                                <span class="label label--warning">
+                                    <xf:fa icon="fa-ban" /> {{ phrase('inactive') }}
+                                </span>
+                            </xf:if>
+                        </xf:cell>
+                        <xf:action href="{{ link('map/edit', null, {'marker_id': $marker.marker_id}) }}" 
+                                 overlay="true"
+                                 title="{{ phrase('edit_marker') }}">
+                            <xf:fa icon="fa-edit" />
+                        </xf:action>
+                        <xf:action href="{{ link('map/delete', null, {'marker_id': $marker.marker_id}) }}"
+                                  overlay="true"
+                                  title="{{ phrase('delete_marker') }}">
+                            <xf:fa icon="fa-trash" />
+                        </xf:action>
+                    </xf:datarow>
+                </xf:foreach>
+            </xf:datalist>
+            
+            <div class="block-footer">
+                <span class="block-footer-controls">
+                    <xf:button href="{{ link('map/add') }}" 
+                               class="button--primary" 
+                               data-xf-click="overlay">
+                        <xf:fa icon="fa-plus" /> {{ phrase('add_new_marker') }}
+                    </xf:button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display: flex; justify-content: center;">
+	<xf:pagenav page="{$page}" perpage="{$perPage}" total="{$total}" 
+				link="map/management" 
+				params="{$pageNavParams}"/>
+</div>

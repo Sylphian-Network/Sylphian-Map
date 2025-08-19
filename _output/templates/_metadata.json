@@ -1,0 +1,42 @@
+{
+    "public/leaflet.less": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "5e4a7d9eab0fc5afd6e3b237d304af06"
+    },
+    "public/leaflet_awesome_markers.less": {
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "5986daeb629cd0fbdc78061f6aa0e080"
+    },
+    "public/sylphian_map.html": {
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "497c7b5269e9147e33c3a7fcb5d2c800"
+    },
+    "public/sylphian_map.less": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "b79f198396f233015dbe1019e9337f4f"
+    },
+    "public/sylphian_map_management.html": {
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "4b41061d1e782d258b5d35f79e0869ff"
+    },
+    "public/sylphian_map_marker_form.html": {
+        "version_id": 1000040,
+        "version_string": "1.0.4",
+        "hash": "175056d954914ef6eda53f42072ed67f"
+    },
+    "public/sylphian_map_suggestion_process.html": {
+        "version_id": 1000030,
+        "version_string": "1.0.3",
+        "hash": "b29c9c2340210cd1ca140c2a17735d6a"
+    },
+    "public/sylphian_map_suggestions.html": {
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "7637ce01390b27f2100c41530253c3b9"
+    }
+}

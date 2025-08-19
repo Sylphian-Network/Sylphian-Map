@@ -1,0 +1,57 @@
+#mapContainer {
+    height: 500px;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+	z-index: 1;
+}
+
+#mapIconFilters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.map-icon-filter-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.map-icon-filter-item:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.map-icon-filter-item label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 13px;
+    color: @xf-textColor;
+}
+
+.map-icon-filter-item input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.map-icon-filter-item .icon-preview {
+    margin-left: 8px;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 3px;
+    padding: 3px;
+}
+
+.map-icon-filter-item .icon-preview svg {
+    width: 2em;
+    height: 2em;
+}

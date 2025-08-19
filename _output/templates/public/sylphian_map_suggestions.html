@@ -1,0 +1,68 @@
+<xf:title>{{ phrase('marker_suggestions') }}</xf:title>
+
+<div class="block">
+    <div class="block-container">
+        <h2 class="block-header">{{ phrase('marker_suggestions') }}</h2>
+        <div class="block-body">
+            <xf:if is="$pendingSuggestions">
+                <xf:datalist>
+                    <xf:datarow rowtype="header">
+                        <xf:cell>{{ phrase('title') }}</xf:cell>
+                        <xf:cell>{{ phrase('type') }}</xf:cell>
+                        <xf:cell>{{ phrase('icon') }}</xf:cell>
+                        <xf:cell>{{ phrase('position') }}</xf:cell>
+                        <xf:cell>{{ phrase('suggested_by') }}</xf:cell>
+                        <xf:cell>{{ phrase('suggestion_date') }}</xf:cell>
+                        <xf:cell></xf:cell>
+                        <xf:cell></xf:cell>
+                    </xf:datarow>
+            
+                    <xf:foreach loop="$pendingSuggestions" value="$suggestion">
+                        <xf:datarow>
+                            <xf:main label="{{ $suggestion.title }}" />
+                            <xf:cell>{{ $suggestion.type }}</xf:cell>
+                            <xf:cell>
+                                <xf:fa icon="fa-{{ $suggestion.icon }}" fw="true" /> 
+                            </xf:cell>
+                            <xf:cell>
+                                <span title="{{ $suggestion.lat }}, {{ $suggestion.lng }}">
+                                    <xf:fa icon="fa-map-marker-alt" /> {{ $suggestion.lat | number(4) }}, {{ $suggestion.lng | number(4) }}
+                                </span>
+                            </xf:cell>
+                            <xf:cell>
+                                <xf:if is="$suggestion.User">
+                                    <xf:username user="$suggestion.User" />
+                                <xf:else />
+                                    {{ phrase('unknown') }}
+                                </xf:if>
+                            </xf:cell>
+                            <xf:cell>
+                                {{ date($suggestion.create_date, 'M j, Y g:i A') }}
+                            </xf:cell>
+                            <xf:action href="{{ link('map/approve-suggestion', null, {'suggestion_id': $suggestion.suggestion_id}) }}" 
+                                     overlay="true"
+                                     title="{{ phrase('approve_suggestion') }}">
+                                <xf:fa icon="fa-check" class="u-accentColor" />
+                            </xf:action>
+                            <xf:action href="{{ link('map/reject-suggestion', null, {'suggestion_id': $suggestion.suggestion_id}) }}"
+                                      overlay="true"
+                                      title="{{ phrase('reject_suggestion') }}">
+                                <xf:fa icon="fa-times" class="u-negativeColor" />
+                            </xf:action>
+                        </xf:datarow>
+                    </xf:foreach>
+                </xf:datalist>
+            <xf:else />
+                <div class="block-row">
+                    {{ phrase('no_pending_marker_suggestions') }}
+                </div>
+            </xf:if>
+        </div>
+    </div>
+</div>
+
+<div style="display: flex; justify-content: center;">
+	<xf:pagenav page="{$page}" perpage="{$perPage}" total="{$total}" 
+				link="map/suggestion" 
+				params="{$pageNavParams}"/>
+</div>

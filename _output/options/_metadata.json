@@ -1,0 +1,14 @@
+{
+    "map_markers_per_page.json": {
+        "hash": "c35becbe2651336ab5b2f04318f5b7b1"
+    },
+    "map_starting_lat.json": {
+        "hash": "028ea77fed2fab21e33f8794f4afba31"
+    },
+    "map_starting_lng.json": {
+        "hash": "acc3febc1ffb8fe9b0436f90cb89e4ee"
+    },
+    "map_starting_zoom.json": {
+        "hash": "eaa61d174a8c1e7b893df3f416f6cef2"
+    }
+}

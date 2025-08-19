@@ -1,0 +1,1 @@
+Enter the name of a Font Awesome icon (e.g., 'home', 'coffee', 'star'). Visit <a href="https://fontawesome.com/icons" target="_blank" rel="noopener noreferrer">fontawesome.com/icons</a> to browse available icons.

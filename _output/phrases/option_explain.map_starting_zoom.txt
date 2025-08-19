@@ -1,0 +1,1 @@
+How close would you like the map to be? The lower the number, the further away the map will render. The higher the number the closer you'll be zoomed in.

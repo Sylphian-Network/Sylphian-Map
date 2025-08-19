@@ -1,0 +1,356 @@
+{
+    "active.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "4d3d769b812b6faa6b76e1a8abaece2d"
+    },
+    "add_form_title.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "48864bd133d5c88fb52b241e482e7d65"
+    },
+    "add_new_marker.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "cfc46908a8c6307535ec531e9406a26e"
+    },
+    "appearance.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "a1c58e94227389415de133efdf78ea6e"
+    },
+    "apply_filters.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "79ee641715155ec7d121815215f2b70c"
+    },
+    "approve_marker_suggestion.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "a15b65ee05b6f8990d89bc904dda9c37"
+    },
+    "approve_suggestion.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "4fe04ab38891a7a87812060178223ef5"
+    },
+    "confirm_delete_marker.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "f1846b5b18a888d76fd87aff58e4421c"
+    },
+    "creation_date.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "3112209b2dd9b55cf5dbc4865dd15afd"
+    },
+    "current_markers.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "2c60354452adf89cdfc69d800545312b"
+    },
+    "delete_marker.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "4ea040489186173151d2a92b73a3bed7"
+    },
+    "edit_form_title.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "e81b55f1eda501b85201e723a5cce135"
+    },
+    "edit_marker.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "616552daf567c8d8966976d1b7dca792"
+    },
+    "fetching_location.txt": {
+        "global_cache": false,
+        "version_id": 1000040,
+        "version_string": "1.0.4",
+        "hash": "5bc718efc05bf4254f641e56cea996f7"
+    },
+    "filter_by_type.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "d16f71a779d2791fbb152e99eda7f0e6"
+    },
+    "icon_color.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "534b7c706186028f1b4f51344bbca176"
+    },
+    "icon_variant.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "45a9d9d61faa7c3377cf71cb78a5d71d"
+    },
+    "inactive.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "3cab03c00dbd11bc3569afa0748013f0"
+    },
+    "latitude.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "3b0eb7469ba9c95f3a05c4cef1f6aac4"
+    },
+    "longitude.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "9b4dabc50f0b8ccba1c8981831abdad8"
+    },
+    "manage_map_markers.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "469e6893c9c1f7e77dc643f14c9fd1f5"
+    },
+    "manage_markers.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "cca1a0953589e1621437635b745cf7c4"
+    },
+    "manage_suggestion_markers.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "976c3c0c6a5b75bda6a9e204f14241db"
+    },
+    "marker_color.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "6bef89a8bd66bce6a1ecec728f821fbf"
+    },
+    "marker_suggestions.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "62c14a28d5cac39f32ef62fc20dea93f"
+    },
+    "nav.map.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "46f3ea056caa3126b91f3f70beea068c"
+    },
+    "nav.map_marker_management.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "97dfeffca273d2cbc1cdaee6be215c22"
+    },
+    "nav.map_sub.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "46f3ea056caa3126b91f3f70beea068c"
+    },
+    "nav.map_suggestion_management.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "a7db03ed8f0b36f9ec08caf8eee24c4b"
+    },
+    "no_pending_marker_suggestions.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "a942625941595e5d25536ab925d8b96a"
+    },
+    "option.map_markers_per_page.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "b9e8d156d4ff56dc514986e8c408508c"
+    },
+    "option.map_starting_lat.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "da6282bab86ff4c44367d949e4b9411f"
+    },
+    "option.map_starting_lng.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "200e519e34052641dd609d2393b1211b"
+    },
+    "option.map_starting_zoom.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "d6980fd5e1e80c088bc25a27c136a832"
+    },
+    "option_explain.map_markers_per_page.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "521f88779752bdbbb7d34744456d446e"
+    },
+    "option_explain.map_starting_lat.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "option_explain.map_starting_lng.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "option_explain.map_starting_zoom.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "cf96b7a6e1e25fef38da3f1ad9e9935e"
+    },
+    "option_group.map.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "6ac8038eb8690f26f93b02bc37d523ee"
+    },
+    "option_group_description.map.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "5c40bc1ac3c360b09bf9abf7fed62fa6"
+    },
+    "permission.general_manageMapMarkers.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "3ac24ddc48e238db4916b6281bf8112c"
+    },
+    "permission.general_manageSuggestedMapMarkers.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "5556a5e6285c1d956ec5d53d5daf94ea"
+    },
+    "permission.general_suggestMarkers.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "f175805af1674a4538b719e02085b384"
+    },
+    "permission.general_viewMap.txt": {
+        "global_cache": false,
+        "version_id": 1000040,
+        "version_string": "1.0.4",
+        "hash": "84e1ffef5470cb74f95d084a837e36b9"
+    },
+    "reject_marker_suggestion.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "4f6d2378568fe26579812fa6705c8506"
+    },
+    "reject_marker_warning.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "b31444115ccbbc63669e91dfeab8e19a"
+    },
+    "reject_suggestion.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "3eb405ce3d45453ad98ba58d1517f6bf"
+    },
+    "reset_filters.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "268d1dca05a4dd6c3d647a4de01bf9d5"
+    },
+    "specify_fontawesome_icon_name.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "d195b5903fb42a7da4e319c4f3532b2c"
+    },
+    "suggest_form_title.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "f4321fc4169a8937d655fd40be11a5ad"
+    },
+    "suggest_marker.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "3e987d9da744747e387757dd3686c88d"
+    },
+    "suggest_new_marker.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "b74a6d7bccfc76bb937731a8254da5cd"
+    },
+    "suggested_by.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "8e5e5e584f94b8d2e004af18a954b15c"
+    },
+    "suggested_on.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "41e8367a146ff475a514947b294ff1f7"
+    },
+    "suggestion_date.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "913088dfb1fd19e6564c8082a90cdf38"
+    },
+    "sylphian_map_suggestion_process_approve_title.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "d7ce597c260ad9aac2a5dcba0e4c70d6"
+    },
+    "sylphian_map_suggestion_process_reject_title.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "5d06a2a599284e56a71802e34aeec025"
+    },
+    "update_date.txt": {
+        "global_cache": false,
+        "version_id": 1000020,
+        "version_string": "1.0.2",
+        "hash": "6c4528510842f314f32ce40a6d43b391"
+    },
+    "use_my_location.txt": {
+        "global_cache": false,
+        "version_id": 1000040,
+        "version_string": "1.0.4",
+        "hash": "6be4601f66e68f4cb834bcff67b124ad"
+    }
+}

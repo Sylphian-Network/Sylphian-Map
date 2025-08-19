@@ -1,0 +1,11 @@
+{
+    "parent_navigation_id": "map",
+    "display_order": 90,
+    "navigation_type_id": "basic",
+    "type_config": {
+        "link": "{{ link('map/management') }}",
+        "display_condition": "$xf.visitor.hasPermission('general', 'manageMapMarkers')",
+        "extra_attributes": []
+    },
+    "enabled": true
+}

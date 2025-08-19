@@ -1,0 +1,96 @@
+<xf:title>{{ phrase_dynamic($formType) }}</xf:title>
+
+<xf:js src="sylphian/map/form-geolocation-fetcher.js" min="1" addon="Sylphian/Map" />
+
+<xf:form action="{{ $formAction }}" class="block" ajax="true">
+    <div class="block-container">
+        <div class="block-body">
+            <xf:textboxrow name="title" value="{{ $entity.title }}" 
+                         label="{{ phrase('title') }}" 
+                         required="required" 
+                         maxlength="100" />
+                         
+            <xf:textarearow name="content" value="{{ $entity.content }}"
+                          label="{{ phrase('content') }}" 
+                          rows="3" />
+                          
+            <xf:numberboxrow name="lat" value="{{ $entity.lat }}"
+                           label="{{ phrase('latitude') }}"
+                           required="required"
+                           step="any" />
+                           
+            <xf:numberboxrow name="lng" value="{{ $entity.lng }}"
+                           label="{{ phrase('longitude') }}"
+                           required="required"
+                           step="any" />
+
+			<xf:formrow label="">
+				<xf:button class="button--primary" id="use-my-location" data-xf-init="sylphian-location-button">
+					<xf:fa icon="fa-map-marker-alt" />
+					{{ phrase('use_my_location') }}
+				</xf:button>
+				<span id="location-status" style="margin-left: 10px; display: none;">
+					<xf:fa icon="fa-spinner fa-spin" /> {{ phrase('fetching_location') }}
+				</span>
+			</xf:formrow>
+                           
+            <xf:textboxrow name="type" value="{{ $entity.type }}"
+                         label="{{ phrase('type') }}"
+                         required="required"
+                         maxlength="50" />
+                         
+            <xf:textboxrow name="icon" value="{{ $entity.icon }}"
+                         label="{{ phrase('icon') }}"
+                         maxlength="50"
+                         placeholder="home"
+                         explain="{{ phrase('specify_fontawesome_icon_name') }}" />
+                         
+            <xf:selectrow name="icon_var" value="{{ $entity.icon_var ?: 'solid' }}"
+                        label="{{ phrase('icon_variant') }}">
+                <xf:option value="light">{{ phrase('light') }}</xf:option>
+                <xf:option value="regular">{{ phrase('regular') }}</xf:option>
+                <xf:option value="solid">{{ phrase('solid') }}</xf:option>
+                <xf:option value="duotone">{{ phrase('duotone') }}</xf:option>
+                <xf:option value="brands">{{ phrase('brands') }}</xf:option>
+            </xf:selectrow>
+            
+            <xf:textboxrow name="icon_color" value="{{ $entity.icon_color ?: 'black' }}"
+                         label="{{ phrase('icon_color') }}"
+                         placeholder="black"
+                         maxlength="30" />
+            
+            <xf:selectrow name="marker_color" value="{{ $entity.marker_color ?: 'blue' }}"
+                        label="{{ phrase('marker_color') }}">
+                <xf:option value="red">{{ phrase('red') }}</xf:option>
+                <xf:option value="darkred">{{ phrase('darkred') }}</xf:option>
+                <xf:option value="lightred">{{ phrase('lightred') }}</xf:option>
+                <xf:option value="orange">{{ phrase('orange') }}</xf:option>
+                <xf:option value="beige">{{ phrase('beige') }}</xf:option>
+                <xf:option value="green">{{ phrase('green') }}</xf:option>
+                <xf:option value="darkgreen">{{ phrase('darkgreen') }}</xf:option>
+                <xf:option value="lightgreen">{{ phrase('lightgreen') }}</xf:option>
+                <xf:option value="blue">{{ phrase('blue') }}</xf:option>
+                <xf:option value="darkblue">{{ phrase('darkblue') }}</xf:option>
+                <xf:option value="lightblue">{{ phrase('lightblue') }}</xf:option>
+                <xf:option value="purple">{{ phrase('purple') }}</xf:option>
+                <xf:option value="darkpurple">{{ phrase('darkpurple') }}</xf:option>
+                <xf:option value="pink">{{ phrase('pink') }}</xf:option>
+                <xf:option value="cadetblue">{{ phrase('cadetblue') }}</xf:option>
+                <xf:option value="white">{{ phrase('white') }}</xf:option>
+                <xf:option value="gray">{{ phrase('gray') }}</xf:option>
+                <xf:option value="lightgray">{{ phrase('lightgray') }}</xf:option>
+                <xf:option value="black">{{ phrase('black') }}</xf:option>
+            </xf:selectrow>
+            
+            <xf:if is="$formType != 'suggest' && $canManageActive">
+                <xf:checkboxrow>
+                    <xf:option name="active" selected="{{ $entity.active !== false }}"
+                             label="{{ phrase('active') }}" />
+                </xf:checkboxrow>
+            </xf:if>
+        </div>
+        
+        <xf:submitrow sticky="true" icon="save" 
+                     label="{{ $formType == 'suggest' ? phrase('suggest_marker') : '' }}" />
+    </div>
+</xf:form>

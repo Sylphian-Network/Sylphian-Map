@@ -1,0 +1,159 @@
+<xf:title>{{ phrase('nav.map') }}</xf:title>
+
+<xf:css src="public:leaflet.less" />
+<xf:js src="sylphian/map/leaflet/leaflet.js" min="1" addon="Sylphian/Map" />
+<xf:css src="public:leaflet_awesome_markers.less" />
+<xf:js src="sylphian/map/leaflet/leaflet.awesome-markers.js" min="1" addon="Sylphian/Map" />
+
+<xf:css src="public:sylphian_map.less" />
+
+<xf:if is="$xf.visitor.hasPermission('general', 'suggestMarkers')">
+	<xf:pageaction>
+		<xf:button href="{{ link('map/suggest') }}" 
+					class="button--primary" 
+					overlay="true">
+			<xf:fa icon="fa-lightbulb" /> {{ phrase('suggest_marker') }}
+		</xf:button>
+		
+		<xf:if is="$canManageMarkers">
+			<xf:button href="{{ link('map/management') }}" class="button">
+				<xf:fa icon="fa-cog" /> {{ phrase('manage_markers') }}
+			</xf:button>
+			
+			<xf:if is="$xf.visitor.hasPermission('general', 'manageSuggestedMapMarkers')">
+				<xf:button href="{{ link('map/suggestion') }}" class="button">
+					{{ phrase('manage_suggestion_markers') }}
+					<xf:if is="$pendingSuggestions">
+						<span class="badge badge--highlighted">{{ $pendingSuggestions }}</span>
+					</xf:if>
+				</xf:button>
+			</xf:if>
+		</xf:if>
+	</xf:pageaction>
+</xf:if>
+
+<div class="block">
+    <div class="block-container">
+        <div class="block-body">
+            <div id="mapContainer" style="height: 500px;"></div>
+        </div>
+    </div>
+</div>
+
+<div class="block">
+    <div class="block-container">
+        <h2 class="block-header">{{ phrase('filter_by_type') }}</h2>
+        <div class="block-body">
+            <div class="block-row">
+                <div class="formRow">
+                    <div class="formRow-main">
+						<div id="mapIconFilters" class="inputChoices inputChoices--multiple">
+							<xf:foreach loop="$markerTypes" value="$type">
+								<label class="inputChoice">
+									<input type="checkbox" 
+										   class="js-typeFilter" 
+										   value="{{ $type.name }}" 
+										   checked="checked" 
+										   data-type="{{ $type.name }}" />
+									<span class="inputChoice-label">{{ $type.name }}</span>
+								</label>
+							</xf:foreach>
+						</div>
+                    </div>
+                </div>
+            </div>
+            <div class="block-row formSubmitRow formSubmitRow--sticky formSubmitRow--simple">
+                <div class="formSubmitRow-main">
+                    <div class="formSubmitRow-controls">
+                        <xf:button class="button--primary" id="applyMapFilters">{{ phrase('apply_filters') }}</xf:button>
+                        <xf:button class="button--link" id="resetMapFilters">{{ phrase('reset_filters') }}</xf:button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<xf:js>
+(function() {
+    if (!window.L || !L.AwesomeMarkers) {
+        console.error('Leaflet or AwesomeMarkers not loaded.');
+        return;
+    }
+
+    const markersData = {{ $markers|json }};
+    const markerTypes = {{ $markerTypes|json }};
+    
+    const map = L.map('mapContainer').setView(
+        [{{ $mapCenter.lat }}, {{ $mapCenter.lng }}],
+        {{ $startingZoom }}
+    );
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		minZoom: {{ $minZoom }},
+		maxZoom: {{ $maxZoom }},
+		attribution: 'Map data from <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+    
+    const markerGroup = L.layerGroup().addTo(map);
+    const markersByType = {};
+    
+    markerTypes.forEach(type => {
+        markersByType[type.name] = [];
+    });
+    
+    markersData.forEach(markerData => {
+        const marker = L.marker(
+            [markerData.lat, markerData.lng],
+            {
+                icon: L.AwesomeMarkers.icon({
+                    icon: markerData.icon,
+                    iconVar: markerData.iconVar,
+                    iconColor: markerData.iconColor,
+                    markerColor: markerData.markerColor
+                })
+            }
+        ).bindPopup(`
+			<strong>${markerData.title}</strong><br>
+			${markerData.content}<br>
+			<small style="color: #666;">
+				<xf:fa icon="fa-map-marker-alt" /> ${markerData.lat}, ${markerData.lng}
+			</small>
+		`);
+        
+        if (!markersByType[markerData.type]) {
+            markersByType[markerData.type] = [];
+        }
+        markersByType[markerData.type].push(marker);
+    });
+    
+    function updateMarkers() {
+        markerGroup.clearLayers();
+        
+        const selectedTypes = Array.from(
+            document.querySelectorAll('.js-typeFilter:checked')
+        ).map(cb => cb.dataset.type);
+        
+        selectedTypes.forEach(type => {
+            if (markersByType[type]) {
+                markersByType[type].forEach(marker => {
+                    markerGroup.addLayer(marker);
+                });
+            }
+        });
+    }
+    
+    document.getElementById('applyMapFilters').addEventListener('click', function() {
+        updateMarkers();
+    });
+    
+    document.getElementById('resetMapFilters').addEventListener('click', function() {
+        document.querySelectorAll('.js-typeFilter').forEach(cb => {
+            cb.checked = true;
+        });
+        updateMarkers();
+    });
+    
+    updateMarkers();
+})();
+</xf:js>

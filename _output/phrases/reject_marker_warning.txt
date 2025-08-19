@@ -1,0 +1,1 @@
+{icon::exclamation-triangle} Rejecting this suggestion will delete it from the database, and it will be lost.

@@ -1,0 +1,11 @@
+{
+    "route_type": "public",
+    "route_prefix": "map",
+    "sub_name": "",
+    "format": "",
+    "build_class": "",
+    "build_method": "",
+    "controller": "Sylphian\\Map:Map",
+    "context": "map",
+    "action_prefix": ""
+}

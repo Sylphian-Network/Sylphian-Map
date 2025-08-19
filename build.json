@@ -1,0 +1,15 @@
+{
+  "additional_files": [
+    "js/sylphian/map"
+  ],
+  "minify": [
+    "js/sylphian/map/leaflet/leaflet.js",
+    "js/sylphian/map/leaflet/leaflet-src.js",
+    "js/sylphian/map/leaflet/leaflet.awesome-markers.js",
+    "js/sylphian/map/suggestion-process.js",
+    "js/sylphian/map/form-geolocation-fetcher.js"
+  ],
+  "exec": [
+    "echo '{title} v{version_string} has been built successfully!'"
+  ]
+}

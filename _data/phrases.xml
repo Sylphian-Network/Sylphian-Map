@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phrases>
+  <phrase title="active" version_id="1000020" version_string="1.0.2"><![CDATA[Active]]></phrase>
+  <phrase title="add_form_title" version_id="1000020" version_string="1.0.2"><![CDATA[Add Marker Form]]></phrase>
+  <phrase title="add_new_marker" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Add new marker]]></phrase>
+  <phrase title="appearance" version_id="1000020" version_string="1.0.2"><![CDATA[Appearance]]></phrase>
+  <phrase title="apply_filters" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Apply filters]]></phrase>
+  <phrase title="approve_marker_suggestion" version_id="1000020" version_string="1.0.2"><![CDATA[Approve Marker Suggestion]]></phrase>
+  <phrase title="approve_suggestion" version_id="1000020" version_string="1.0.2"><![CDATA[Approve suggestion]]></phrase>
+  <phrase title="confirm_delete_marker" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Are you sure you would like to delete this map marker?]]></phrase>
+  <phrase title="creation_date" version_id="1000020" version_string="1.0.2"><![CDATA[Creation date]]></phrase>
+  <phrase title="current_markers" version_id="1000020" version_string="1.0.2"><![CDATA[Current Markers]]></phrase>
+  <phrase title="delete_marker" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Delete marker]]></phrase>
+  <phrase title="edit_form_title" version_id="1000020" version_string="1.0.2"><![CDATA[Edit Marker Form]]></phrase>
+  <phrase title="edit_marker" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Edit marker]]></phrase>
+  <phrase title="fetching_location" version_id="1000040" version_string="1.0.4"><![CDATA[Fetching your location]]></phrase>
+  <phrase title="filter_by_type" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Filter by marker types]]></phrase>
+  <phrase title="icon_color" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Icon color]]></phrase>
+  <phrase title="icon_variant" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Icon variant]]></phrase>
+  <phrase title="inactive" version_id="1000020" version_string="1.0.2"><![CDATA[Inactive]]></phrase>
+  <phrase title="latitude" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Latitude]]></phrase>
+  <phrase title="longitude" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Longitude]]></phrase>
+  <phrase title="manage_map_markers" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Manage map makers]]></phrase>
+  <phrase title="manage_markers" version_id="1000020" version_string="1.0.2"><![CDATA[Manage Markers]]></phrase>
+  <phrase title="manage_suggestion_markers" version_id="1000020" version_string="1.0.2"><![CDATA[Manage Suggested Markers]]></phrase>
+  <phrase title="marker_color" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Marker color]]></phrase>
+  <phrase title="marker_suggestions" version_id="1000020" version_string="1.0.2"><![CDATA[Marker Suggestions]]></phrase>
+  <phrase title="nav.map" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Map]]></phrase>
+  <phrase title="nav.map_marker_management" version_id="1000020" version_string="1.0.2"><![CDATA[Marker Management]]></phrase>
+  <phrase title="nav.map_sub" version_id="1000020" version_string="1.0.2"><![CDATA[Map]]></phrase>
+  <phrase title="nav.map_suggestion_management" version_id="1000020" version_string="1.0.2"><![CDATA[Suggestion Management]]></phrase>
+  <phrase title="no_pending_marker_suggestions" version_id="1000020" version_string="1.0.2"><![CDATA[No pending marker suggestions exist at this time.]]></phrase>
+  <phrase title="option.map_markers_per_page" version_id="1000020" version_string="1.0.2"><![CDATA[Markers per page]]></phrase>
+  <phrase title="option.map_max_zoom" version_id="1000020" version_string="1.0.2"><![CDATA[Max Zoom]]></phrase>
+  <phrase title="option.map_min_zoom" version_id="1000020" version_string="1.0.2"><![CDATA[Minimum Zoom]]></phrase>
+  <phrase title="option.map_starting_lat" version_id="1000020" version_string="1.0.2"><![CDATA[Starting Latitude]]></phrase>
+  <phrase title="option.map_starting_lng" version_id="1000020" version_string="1.0.2"><![CDATA[Starting Longitude]]></phrase>
+  <phrase title="option.map_starting_zoom" version_id="1000020" version_string="1.0.2"><![CDATA[Starting Zoom]]></phrase>
+  <phrase title="option_explain.map_markers_per_page" version_id="1000020" version_string="1.0.2"><![CDATA[How many markers do you want to see at a time on the marker and suggestion management pages?]]></phrase>
+  <phrase title="option_explain.map_max_zoom" version_id="1000020" version_string="1.0.2"><![CDATA[]]></phrase>
+  <phrase title="option_explain.map_min_zoom" version_id="1000020" version_string="1.0.2"><![CDATA[How close in do you want users to be able to zoom in? The lower the number, the further away the map will render. The higher the number the closer you'll be zoomed in.]]></phrase>
+  <phrase title="option_explain.map_starting_lat" version_id="1000020" version_string="1.0.2"><![CDATA[]]></phrase>
+  <phrase title="option_explain.map_starting_lng" version_id="1000020" version_string="1.0.2"><![CDATA[]]></phrase>
+  <phrase title="option_explain.map_starting_zoom" version_id="1000020" version_string="1.0.2"><![CDATA[How close would you like the map to be? The lower the number, the further away the map will render. The higher the number the closer you'll be zoomed in.]]></phrase>
+  <phrase title="option_group.map" version_id="1000020" version_string="1.0.2"><![CDATA[Map options]]></phrase>
+  <phrase title="option_group_description.map" version_id="1000020" version_string="1.0.2"><![CDATA[Customise some basic logic for Syphian/Map]]></phrase>
+  <phrase title="permission.general_manageMapMarkers" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Manage Map Markers]]></phrase>
+  <phrase title="permission.general_manageSuggestedMapMarkers" version_id="1000020" version_string="1.0.2"><![CDATA[Manage Suggested Map Markers]]></phrase>
+  <phrase title="permission.general_suggestMarkers" version_id="1000020" version_string="1.0.2"><![CDATA[Suggest Map Markers]]></phrase>
+  <phrase title="permission.general_viewMap" version_id="1000040" version_string="1.0.4"><![CDATA[View Map]]></phrase>
+  <phrase title="reject_marker_suggestion" version_id="1000020" version_string="1.0.2"><![CDATA[Reject Marker Suggestion]]></phrase>
+  <phrase title="reject_marker_warning" version_id="1000020" version_string="1.0.2"><![CDATA[{icon::exclamation-triangle} Rejecting this suggestion will delete it from the database, and it will be lost.]]></phrase>
+  <phrase title="reject_suggestion" version_id="1000020" version_string="1.0.2"><![CDATA[Reject suggestion]]></phrase>
+  <phrase title="reset_filters" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Reset filters]]></phrase>
+  <phrase title="specify_fontawesome_icon_name" version_id="1000020" version_string="1.0.2"><![CDATA[Enter the name of a Font Awesome icon (e.g., 'home', 'coffee', 'star'). Visit <a href="https://fontawesome.com/icons" target="_blank" rel="noopener noreferrer">fontawesome.com/icons</a> to browse available icons.]]></phrase>
+  <phrase title="suggest_form_title" version_id="1000020" version_string="1.0.2"><![CDATA[Suggest Marker Form]]></phrase>
+  <phrase title="suggest_marker" version_id="1000020" version_string="1.0.2"><![CDATA[Suggest marker]]></phrase>
+  <phrase title="suggest_new_marker" version_id="1000020" version_string="1.0.2"><![CDATA[Suggest a new marker]]></phrase>
+  <phrase title="suggested_by" version_id="1000020" version_string="1.0.2"><![CDATA[Suggested by]]></phrase>
+  <phrase title="suggested_on" version_id="1000020" version_string="1.0.2"><![CDATA[Suggested on]]></phrase>
+  <phrase title="suggestion_date" version_id="1000020" version_string="1.0.2"><![CDATA[Suggestion date]]></phrase>
+  <phrase title="sylphian_map_suggestion_process_approve_title" version_id="1000020" version_string="1.0.2"><![CDATA[Approve this marker?]]></phrase>
+  <phrase title="sylphian_map_suggestion_process_reject_title" version_id="1000020" version_string="1.0.2"><![CDATA[Reject this marker?]]></phrase>
+  <phrase title="update_date" version_id="1000020" version_string="1.0.2"><![CDATA[Update date]]></phrase>
+  <phrase title="use_my_location" version_id="1000040" version_string="1.0.4"><![CDATA[Use my location]]></phrase>
+</phrases>

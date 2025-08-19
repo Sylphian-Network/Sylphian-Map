@@ -1,0 +1,1 @@
+How many markers do you want to see at a time on the marker and suggestion management pages?
