@@ -10,9 +10,9 @@
         "hash": "5986daeb629cd0fbdc78061f6aa0e080"
     },
     "public/sylphian_map.html": {
-        "version_id": 1000020,
-        "version_string": "1.0.2",
-        "hash": "497c7b5269e9147e33c3a7fcb5d2c800"
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "fdf537a0867d0619cfd98d57f6c27e6e"
     },
     "public/sylphian_map.less": {
         "version_id": 1000010,
@@ -25,14 +25,14 @@
         "hash": "4b41061d1e782d258b5d35f79e0869ff"
     },
     "public/sylphian_map_marker_form.html": {
-        "version_id": 1000040,
-        "version_string": "1.0.4",
-        "hash": "175056d954914ef6eda53f42072ed67f"
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "4a4f425cf3bef5636107e1717e07b964"
     },
     "public/sylphian_map_suggestion_process.html": {
-        "version_id": 1000030,
-        "version_string": "1.0.3",
-        "hash": "b29c9c2340210cd1ca140c2a17735d6a"
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "298a10c36f0fb1a49cad00f5bbf32e73"
     },
     "public/sylphian_map_suggestions.html": {
         "version_id": 1000020,

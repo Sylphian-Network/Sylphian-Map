@@ -81,6 +81,14 @@
                 <xf:option value="lightgray">{{ phrase('lightgray') }}</xf:option>
                 <xf:option value="black">{{ phrase('black') }}</xf:option>
             </xf:selectrow>
+			
+			<xf:if is="$xf.options.enableThreadCreation">
+				<xf:checkboxrow>
+					<xf:option name="create_thread" value="1"
+							 label="{{ phrase('create_thread_for_marker') }}"
+							 checked="{{ $entity.thread_id ? true : false }}" />
+				</xf:checkboxrow>
+			</xf:if>
             
             <xf:if is="$formType != 'suggest' && $canManageActive">
                 <xf:checkboxrow>

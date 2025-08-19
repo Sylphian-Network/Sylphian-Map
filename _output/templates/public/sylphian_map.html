@@ -103,29 +103,42 @@
     });
     
     markersData.forEach(markerData => {
-        const marker = L.marker(
-            [markerData.lat, markerData.lng],
-            {
-                icon: L.AwesomeMarkers.icon({
-                    icon: markerData.icon,
-                    iconVar: markerData.iconVar,
-                    iconColor: markerData.iconColor,
-                    markerColor: markerData.markerColor
-                })
-            }
-        ).bindPopup(`
+		const marker = L.marker(
+			[markerData.lat, markerData.lng],
+			{
+				icon: L.AwesomeMarkers.icon({
+					icon: markerData.icon,
+					iconVar: markerData.iconVar,
+					iconColor: markerData.iconColor,
+					markerColor: markerData.markerColor
+				})
+			}
+		);
+
+		let popupContent = `
 			<strong>${markerData.title}</strong><br>
 			${markerData.content}<br>
 			<small style="color: #666;">
 				<xf:fa icon="fa-map-marker-alt" /> ${markerData.lat}, ${markerData.lng}
 			</small>
-		`);
-        
-        if (!markersByType[markerData.type]) {
-            markersByType[markerData.type] = [];
-        }
-        markersByType[markerData.type].push(marker);
-    });
+		`;
+
+		if (markerData.thread_id) {
+			popupContent += `
+				<br><br>
+				<a href="${markerData.thread_url}" class="button button--primary">
+					{{ phrase('view_discussion') }}
+				</a>
+			`;
+		}
+
+		marker.bindPopup(popupContent);
+
+		if (!markersByType[markerData.type]) {
+			markersByType[markerData.type] = [];
+		}
+		markersByType[markerData.type].push(marker);
+	});
     
     function updateMarkers() {
         markerGroup.clearLayers();

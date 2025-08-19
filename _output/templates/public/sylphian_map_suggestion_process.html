@@ -35,6 +35,13 @@
                     <xf:formrow label="{{ phrase('suggested_on') }}">
                         {{ date($suggestion.create_date, 'M j, Y g:i A') }}
                     </xf:formrow>
+					
+					<xf:checkboxrow>
+						<xf:option name="create_thread" value="1"
+								  label="{{ phrase('create_thread_for_marker') }}"
+								  checked="true"
+								  readonly="true" />
+					</xf:checkboxrow>
                     
                     <xf:if is="$actionType == 'reject'">
                         <xf:formrow rowtype="explainRow">

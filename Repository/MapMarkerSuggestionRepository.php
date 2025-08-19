@@ -3,6 +3,7 @@
 namespace Sylphian\Map\Repository;
 
 use Exception;
+use Sylphian\Map\Entity\MapMarker;
 use Sylphian\Map\Entity\MapMarkerSuggestion;
 use XF;
 use XF\Mvc\Entity\Repository;
@@ -172,7 +173,13 @@ class MapMarkerSuggestionRepository extends Repository
                 'active' => true
             ];
 
-            $markerRepo->createMapMarker($markerData);
+            $marker = $markerRepo->createMapMarker($markerData);
+
+            if ($suggestion->create_thread) {
+                /** @var MapMarkerRepository $markerRepo */
+                $markerRepo = $this->repository('Sylphian\Map:MapMarker');
+                $markerRepo->createThreadForMarker($marker);
+            }
 
             $suggestion->status = 'approved';
             $suggestion->save();
@@ -202,5 +209,19 @@ class MapMarkerSuggestionRepository extends Repository
             XF::logException($e, false, 'Error rejecting map marker suggestion: ');
             return false;
         }
+    }
+
+    /**
+     * Generates thread message content from a map marker
+     *
+     * @param MapMarker $marker
+     * @return string
+     */
+    protected function getThreadMessageFromMarker(MapMarker $marker): string
+    {
+        return "This thread is associated with a map marker:\n\n" .
+            "Title: {$marker->title}\n" .
+            "Description: {$marker->content}\n" .
+            "Location: {$marker->lat}, {$marker->lng}";
     }
 }

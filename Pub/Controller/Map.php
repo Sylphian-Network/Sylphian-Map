@@ -70,10 +70,10 @@ class Map extends Controller
      * Displays the marker creation form or processes form submission.
      * Validation is handled in the repository layer.
      *
+     * @return Redirect|View|Error Redirects to the map page on success or displays the form
      * @throws PrintableException If marker creation fails
-     * @return Redirect|View Redirects to the map page on success or displays the form
      */
-    public function actionAdd(): Redirect|View
+    public function actionAdd(): Redirect|View|Error
     {
         if (!$this->isPost()) {
             $viewParams = [
@@ -95,13 +95,31 @@ class Map extends Controller
             'icon_var' => 'str',
             'icon_color' => 'str',
             'marker_color' => 'str',
-            'active' => 'bool'
+            'active' => 'bool',
+            'create_thread' => 'bool'
         ]);
 
         $markerRepo = $this->getMapMarkerRepo();
 
-        $input['user_id'] = XF::visitor()->user_id;
-        $markerRepo->createMapMarker($input);
+        $markerData = [
+            'title' => $input['title'],
+            'content' => $input['content'],
+            'lat' => $input['lat'],
+            'lng' => $input['lng'],
+            'type' => $input['type'],
+            'icon' => $input['icon'],
+            'icon_var' => $input['icon_var'],
+            'icon_color' => $input['icon_color'],
+            'marker_color' => $input['marker_color'],
+            'active' => $input['active'],
+            'user_id' => XF::visitor()->user_id
+        ];
+
+        $marker = $markerRepo->createMapMarker($markerData);
+
+        if ($input['create_thread']) {
+            $markerRepo->createThreadForMarker($marker);
+        }
 
         return $this->redirect($this->buildLink('map'));
     }
@@ -214,7 +232,8 @@ class Map extends Controller
             'icon' => 'str',
             'icon_var' => 'str',
             'icon_color' => 'str',
-            'marker_color' => 'str'
+            'marker_color' => 'str',
+            'create_thread' => 'bool'
         ]);
 
         $suggestionRepo = $this->getMapMarkerSuggestionRepo();
