@@ -4,7 +4,9 @@ namespace Sylphian\Map\Repository;
 
 use Exception;
 use Sylphian\Map\Entity\MapMarker;
+use Sylphian\Map\MarkerStatus;
 use XF;
+use XF\Entity\Thread;
 use XF\Mvc\Entity\AbstractCollection;
 use XF\Mvc\Entity\Repository;
 use XF\PrintableException;
@@ -340,8 +342,15 @@ class MapMarkerRepository extends Repository
             /** @var CreatorService $creator */
             $creator = XF::service('XF:Thread\CreatorService', $forum);
 
+            //TODO: To be changed at some point.
+            // Placeholder until I figure out how to create prefixes on addon instillation.
+            $status = MarkerStatus::fromMarker($marker->active, $marker->create_thread);
+
+            $baseTitle = $customTitle ?: $marker->title;
+            $formattedTitle = "[{$status->value}] {$baseTitle}";
+
             $creator->setContent(
-                $customTitle ?: $marker->title,
+                $formattedTitle,
                 $this->getThreadMessageFromMarker($marker)
             );
 
@@ -361,6 +370,42 @@ class MapMarkerRepository extends Repository
             XF::logException($e, false, 'Error creating thread for map marker: ');
             return false;
         }
+    }
+
+    /**
+     * Updates the title of a thread associated with a marker
+     *
+     * @param MapMarker $marker The marker with an associated thread
+     * @return bool Whether the update was successful
+     * @throws PrintableException
+     */
+    public function updateThreadTitle(MapMarker $marker): bool
+    {
+        if (!$marker->thread_id) {
+            return false;
+        }
+
+        /** @var Thread $thread */
+        $thread = XF::em()->find('XF:Thread', $marker->thread_id);
+        if (!$thread) {
+            return false;
+        }
+
+        $status = MarkerStatus::fromMarker($marker->active, $marker->create_thread);
+
+        $pattern = MarkerStatus::getRegexPattern();
+        $currentTitle = $thread->title;
+
+        if (preg_match('/^\[(' . $pattern . ')\] (.+)$/i', $currentTitle, $matches)) {
+            $baseTitle = $matches[2];
+        } else {
+            $baseTitle = $currentTitle;
+        }
+
+        $thread->title = "[{$status->value}] {$baseTitle}";
+        $thread->save();
+
+        return true;
     }
 
     /**

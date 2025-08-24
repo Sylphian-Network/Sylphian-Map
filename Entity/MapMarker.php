@@ -20,6 +20,7 @@ use XF\Mvc\Entity\Structure;
  * @property string|null $marker_color
  * @property string|null $type
  * @property int|null $user_id
+ * @property bool $create_thread
  * @property int|null $thread_id
  * @property int $create_date
  * @property int $update_date
@@ -47,6 +48,7 @@ class MapMarker extends Entity
             'marker_color' => ['type' => self::STR, 'maxLength' => 30, 'default' => 'blue'],
             'type' => ['type' => self::STR, 'maxLength' => 50, 'nullable' => true],
             'user_id' => ['type' => self::UINT, 'nullable' => true],
+            'create_thread' => ['type' => self::BOOL, 'default' => false],
             'thread_id' => ['type' => self::UINT, 'nullable' => true],
             'create_date' => ['type' => self::UINT, 'default' => XF::$time],
             'update_date' => ['type' => self::UINT, 'default' => XF::$time],

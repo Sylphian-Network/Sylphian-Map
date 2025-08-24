@@ -2,10 +2,12 @@
 
 namespace Sylphian\Map\Pub\Controller;
 
+use Sylphian\Map\Entity\MapMarker;
 use Sylphian\Map\Repository\MapMarkerRepository as MapMarkerRepository;
 use Sylphian\Map\Repository\MapMarkerSuggestionRepository as MapMarkerSuggestionRepository;
 use XF;
 use XF\ControllerPlugin\DeletePlugin;
+use XF\Entity\Thread;
 use XF\Mvc\Controller;
 use XF\Mvc\Reply\Error;
 use XF\Mvc\Reply\Redirect;
@@ -138,6 +140,8 @@ class Map extends Controller
         $markerRepo = $this->getMapMarkerRepo();
         $markerId = $this->filter('marker_id', 'uint');
         $marker = $markerRepo->getMarkerOrFail($markerId);
+        $originalCreateThread = $marker->create_thread;
+        $originalActive = $marker->active;
 
         if (!$this->isPost()) {
             $viewParams = [
@@ -159,10 +163,22 @@ class Map extends Controller
             'icon_var' => 'str',
             'icon_color' => 'str',
             'marker_color' => 'str',
-            'active' => 'bool'
+            'active' => 'bool',
+            'create_thread' => 'bool'
         ]);
 
-        $markerRepo->updateMapMarker($marker, $input);
+        $updatedMarker = $markerRepo->updateMapMarker($marker, $input);
+
+        if ($updatedMarker) {
+            if ($input['create_thread'] && !$marker->thread_id) {
+                $markerRepo->createThreadForMarker($updatedMarker);
+            }
+            else if ($marker->thread_id &&
+                ($originalCreateThread != $input['create_thread'] ||
+                    $originalActive != $input['active'])) {
+                $markerRepo->updateThreadTitle($updatedMarker);
+            }
+        }
 
         return $this->redirect($this->buildLink('map'));
     }

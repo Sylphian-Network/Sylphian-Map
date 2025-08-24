@@ -33,6 +33,7 @@ class Setup extends AbstractSetup
                 $table->addColumn('marker_color', 'varchar', 30)->nullable()->setDefault('blue');
                 $table->addColumn('type', 'varchar', 50)->nullable();
                 $table->addColumn('user_id', 'int')->nullable()->setDefault(null);
+                $table->addColumn('create_thread', 'tinyint', 1)->setDefault(0);
                 $table->addColumn('thread_id', 'int')->nullable()->setDefault(null);
                 $table->addColumn('create_date', 'int')->setDefault(XF::$time);
                 $table->addColumn('update_date', 'int')->setDefault(XF::$time);
@@ -169,6 +170,26 @@ class Setup extends AbstractSetup
             return true;
         } catch (Exception $e) {
             XF::logException($e, false, 'Error adding create_thread column to map marker suggestions table: ');
+
+            if (str_contains($e->getMessage(), 'Duplicate column name')) {
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    public function upgrade1000510Step3(): bool
+    {
+        try {
+            $this->schemaManager()->alterTable('xf_map_markers', function(Alter $table)
+            {
+                $table->addColumn('create_thread', 'tinyint', 1)->setDefault(0);
+            });
+
+            return true;
+        } catch (Exception $e) {
+            XF::logException($e, false, 'Error adding create_thread column to map markers table: ');
 
             if (str_contains($e->getMessage(), 'Duplicate column name')) {
                 return true;
