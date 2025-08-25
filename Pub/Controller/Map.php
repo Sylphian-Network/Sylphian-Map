@@ -120,7 +120,8 @@ class Map extends Controller
             'icon_color' => $input['icon_color'],
             'marker_color' => $input['marker_color'],
             'active' => $input['active'],
-            'user_id' => XF::visitor()->user_id
+            'user_id' => XF::visitor()->user_id,
+            'create_thread' => $input['create_thread']
         ];
 
         $marker = $markerRepo->createMapMarker($markerData);
@@ -147,8 +148,6 @@ class Map extends Controller
         $markerRepo = $this->getMapMarkerRepo();
         $markerId = $this->filter('marker_id', 'uint');
         $marker = $markerRepo->getMarkerOrFail($markerId);
-        $originalCreateThread = $marker->create_thread;
-        $originalActive = $marker->active;
 
         if (!$this->isPost()) {
             $viewParams = [
@@ -178,13 +177,7 @@ class Map extends Controller
 
         if ($updatedMarker) {
             $threadMarkerRepo = $this->getThreadMarkerRepo();
-
-            if ($input['create_thread'] && !$marker->thread_id) {
-                $threadMarkerRepo->createThreadForMarker($updatedMarker);
-            }
-            else if ($marker->thread_id && ($originalCreateThread != $input['create_thread'] || $originalActive != $input['active'])) {
-                $threadMarkerRepo->updateThreadTitle($updatedMarker);
-            }
+            $threadMarkerRepo->handleMarkerThreadUpdates($updatedMarker);
         }
 
         return $this->redirect($this->buildLink('map'));

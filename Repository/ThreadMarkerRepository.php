@@ -13,6 +13,52 @@ use XF\Service\Thread\CreatorService;
 class ThreadMarkerRepository extends Repository
 {
     /**
+     * Gets a thread associated with a marker or returns null
+     *
+     * @param MapMarker $marker The marker to get the thread for
+     * @return Thread|null The associated thread or null
+     */
+    protected function getThreadFromMarker(MapMarker $marker): ?Thread
+    {
+        if (!$marker->thread_id) {
+            return null;
+        }
+
+        /** @var Thread $thread */
+        $thread = XF::em()->find('XF:Thread', $marker->thread_id);
+        return $thread;
+    }
+
+    /**
+     * Extracts the base title from a thread title by removing the status prefix
+     *
+     * @param string $threadTitle The current thread title
+     * @return string The base title without a status prefix
+     */
+    protected function extractBaseTitle(string $threadTitle): string
+    {
+        $pattern = MarkerStatus::getRegexPattern();
+
+        if (preg_match('/^\[(' . $pattern . ')\] (.+)$/i', $threadTitle, $matches)) {
+            return $matches[2];
+        }
+
+        return $threadTitle;
+    }
+
+    /**
+     * Formats a thread title with the appropriate status prefix
+     *
+     * @param string $baseTitle The base title without status
+     * @param MarkerStatus $status The status to prefix
+     * @return string The formatted title
+     */
+    protected function formatThreadTitle(string $baseTitle, MarkerStatus $status): string
+    {
+        return "[{$status->value}] {$baseTitle}";
+    }
+
+    /**
      * Creates a thread for a map marker
      *
      * @param MapMarker $marker The marker to create a thread for
@@ -40,12 +86,10 @@ class ThreadMarkerRepository extends Repository
         /** @var CreatorService $creator */
         $creator = XF::service('XF:Thread\CreatorService', $forum);
 
-        //TODO: To be changed at some point.
-        // Placeholder until I figure out how to create prefixes on addon instillation.
         $status = MarkerStatus::fromMarker($marker->active, $marker->create_thread);
 
         $baseTitle = $customTitle ?: $marker->title;
-        $formattedTitle = "[{$status->value}] {$baseTitle}";
+        $formattedTitle = $this->formatThreadTitle($baseTitle, $status);
 
         $creator->setContent(
             $formattedTitle,
@@ -67,39 +111,41 @@ class ThreadMarkerRepository extends Repository
     }
 
     /**
-     * Updates the title of a thread associated with a marker
+     * Updates a thread associated with a marker
      *
      * @param MapMarker $marker The marker with an associated thread
+     * @param bool $updateContent Whether to update the content
+     * @param bool $updateTitle Whether to update the title
      * @return bool Whether the update was successful
      * @throws PrintableException
      */
-    public function updateThreadTitle(MapMarker $marker): bool
+    public function updateThread(MapMarker $marker, bool $updateContent = true, bool $updateTitle = true): bool
     {
-        if (!$marker->thread_id) {
-            return false;
-        }
-
-        /** @var Thread $thread */
-        $thread = XF::em()->find('XF:Thread', $marker->thread_id);
+        $thread = $this->getThreadFromMarker($marker);
         if (!$thread) {
             return false;
         }
 
-        $status = MarkerStatus::fromMarker($marker->active, $marker->create_thread);
+        $success = true;
 
-        $pattern = MarkerStatus::getRegexPattern();
-        $currentTitle = $thread->title;
-
-        if (preg_match('/^\[(' . $pattern . ')\] (.+)$/i', $currentTitle, $matches)) {
-            $baseTitle = $matches[2];
-        } else {
-            $baseTitle = $currentTitle;
+        if ($updateContent) {
+            $firstPost = $thread->FirstPost;
+            if ($firstPost) {
+                $firstPost->message = $this->getThreadMessageFromMarker($marker);
+                $firstPost->save();
+            } else {
+                $success = false;
+            }
         }
 
-        $thread->title = "[{$status->value}] {$baseTitle}";
-        $thread->save();
+        if ($updateTitle) {
+            $status = MarkerStatus::fromMarker($marker->active, $marker->create_thread);
+            $baseTitle = $this->extractBaseTitle($thread->title);
+            $thread->title = $this->formatThreadTitle($baseTitle, $status);
+            $thread->save();
+        }
 
-        return true;
+        return $success;
     }
 
     /**
@@ -111,27 +157,34 @@ class ThreadMarkerRepository extends Repository
      */
     public function markThreadAsDeleted(MapMarker $marker): bool
     {
-        if (!$marker->thread_id) {
-            return false;
-        }
-
-        /** @var Thread $thread */
-        $thread = XF::em()->find('XF:Thread', $marker->thread_id);
+        $thread = $this->getThreadFromMarker($marker);
         if (!$thread) {
             return false;
         }
 
-        $pattern = MarkerStatus::getRegexPattern();
-        $currentTitle = $thread->title;
-
-        if (preg_match('/^\[(' . $pattern . ')\] (.+)$/i', $currentTitle, $matches)) {
-            $baseTitle = $matches[2];
-        } else {
-            $baseTitle = $currentTitle;
-        }
-
+        $baseTitle = $this->extractBaseTitle($thread->title);
         $thread->title = "[" . MarkerStatus::DELETED->value . "] {$baseTitle}";
         $thread->save();
+
+        return true;
+    }
+
+    /**
+     * Handles all marker thread updates in one call
+     *
+     * @param MapMarker $marker The updated marker
+     * @return bool Whether updates were successful
+     *
+     * @throws PrintableException
+     */
+    public function handleMarkerThreadUpdates(MapMarker $marker): bool
+    {
+        if ($marker->create_thread && !$marker->thread_id) {
+            return $this->createThreadForMarker($marker);
+        }
+        else if ($marker->thread_id) {
+            return $this->updateThread($marker);
+        }
 
         return true;
     }
@@ -144,9 +197,16 @@ class ThreadMarkerRepository extends Repository
      */
     protected function getThreadMessageFromMarker(MapMarker $marker): string
     {
-        return "This thread is associated with a map marker:\n\n" .
-            "Title: {$marker->title}\n" .
-            "Description: {$marker->content}\n" .
-            "Location: {$marker->lat}, {$marker->lng}";
+        $status = MarkerStatus::fromMarker($marker->active, $marker->create_thread);
+        $mapUrl = XF::app()->router()->buildLink('full:map');
+
+        return "[B]Title:[/B] {$marker->title}\n" .
+            "[B]Description:[/B] {$marker->content}\n" .
+            "[B]Location:[/B] {$marker->lat}, {$marker->lng}\n" .
+            "[B]Status:[/B] {$status->value}\n" .
+            "[B]Type:[/B] {$marker->type}\n\n" .
+            "[URL={$mapUrl}]View on Map[/URL]\n\n" .
+            "[CENTER][B]This thread is associated with a map marker[/B][/CENTER]\n" .
+            "[CENTER][SIZE=1]Last updated: " . XF::language()->dateTime(XF::$time) . "[/SIZE][/CENTER]";
     }
 }
