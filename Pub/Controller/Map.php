@@ -2,12 +2,11 @@
 
 namespace Sylphian\Map\Pub\Controller;
 
-use Sylphian\Map\Entity\MapMarker;
 use Sylphian\Map\Repository\MapMarkerRepository as MapMarkerRepository;
 use Sylphian\Map\Repository\MapMarkerSuggestionRepository as MapMarkerSuggestionRepository;
+use Sylphian\Map\Repository\ThreadMarkerRepository;
 use XF;
 use XF\ControllerPlugin\DeletePlugin;
-use XF\Entity\Thread;
 use XF\Mvc\Controller;
 use XF\Mvc\Reply\Error;
 use XF\Mvc\Reply\Redirect;
@@ -27,6 +26,13 @@ class Map extends Controller
     {
         /** @var MapMarkerSuggestionRepository $repo */
         $repo = XF::repository('Sylphian\Map:MapMarkerSuggestion');
+        return $repo;
+    }
+
+    protected function getThreadMarkerRepo(): ThreadMarkerRepository
+    {
+        /** @var ThreadMarkerRepository $repo */
+        $repo = XF::repository('Sylphian\Map:ThreadMarkerRepository');
         return $repo;
     }
 
@@ -120,7 +126,8 @@ class Map extends Controller
         $marker = $markerRepo->createMapMarker($markerData);
 
         if ($input['create_thread']) {
-            $markerRepo->createThreadForMarker($marker);
+            $threadMarkerRepo = $this->getThreadMarkerRepo();
+            $threadMarkerRepo->createThreadForMarker($marker);
         }
 
         return $this->redirect($this->buildLink('map'));
@@ -170,13 +177,13 @@ class Map extends Controller
         $updatedMarker = $markerRepo->updateMapMarker($marker, $input);
 
         if ($updatedMarker) {
+            $threadMarkerRepo = $this->getThreadMarkerRepo();
+
             if ($input['create_thread'] && !$marker->thread_id) {
-                $markerRepo->createThreadForMarker($updatedMarker);
+                $threadMarkerRepo->createThreadForMarker($updatedMarker);
             }
-            else if ($marker->thread_id &&
-                ($originalCreateThread != $input['create_thread'] ||
-                    $originalActive != $input['active'])) {
-                $markerRepo->updateThreadTitle($updatedMarker);
+            else if ($marker->thread_id && ($originalCreateThread != $input['create_thread'] || $originalActive != $input['active'])) {
+                $threadMarkerRepo->updateThreadTitle($updatedMarker);
             }
         }
 
@@ -196,9 +203,14 @@ class Map extends Controller
     public function actionDelete(): Redirect|View|Error
     {
         $markerRepo = $this->getMapMarkerRepo();
+        $threadMarkerRepo = $this->getThreadMarkerRepo();
 
         $markerId = $this->filter('marker_id', 'uint');
         $marker = $markerRepo->getMarkerOrFail($markerId);
+
+        if ($marker->thread_id) {
+            $threadMarkerRepo->markThreadAsDeleted($marker);
+        }
 
         /** @var DeletePlugin $plugin */
         $plugin = $this->plugin('XF:DeletePlugin');
