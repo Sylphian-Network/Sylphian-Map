@@ -140,8 +140,7 @@ class ThreadMarkerRepository extends Repository
 
         if ($updateTitle) {
             $status = MarkerStatus::fromMarker($marker->active, $marker->create_thread);
-            $baseTitle = $this->extractBaseTitle($thread->title);
-            $thread->title = $this->formatThreadTitle($baseTitle, $status);
+            $thread->title = $this->formatThreadTitle($marker->title, $status);
             $thread->save();
         }
 
