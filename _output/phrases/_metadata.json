@@ -119,6 +119,12 @@
         "version_string": "1.0.0 Alpha",
         "hash": "3b0eb7469ba9c95f3a05c4cef1f6aac4"
     },
+    "lock_thread_replies.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "8381060793ba4728f8c521eaf0e2ce26"
+    },
     "longitude.txt": {
         "global_cache": false,
         "version_id": 1000010,
@@ -370,6 +376,12 @@
         "version_id": 1000020,
         "version_string": "1.0.2",
         "hash": "5d06a2a599284e56a71802e34aeec025"
+    },
+    "thread_lock_explanation.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "e99cbe1ba10ebce28ffe65e3f758cd9a"
     },
     "update_date.txt": {
         "global_cache": false,

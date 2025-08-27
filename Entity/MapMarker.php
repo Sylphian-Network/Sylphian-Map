@@ -22,6 +22,7 @@ use XF\Mvc\Entity\Structure;
  * @property int|null $user_id
  * @property bool $create_thread
  * @property int|null $thread_id
+ * @property bool $thread_lock
  * @property int $create_date
  * @property int $update_date
  * @property bool $active
@@ -50,6 +51,7 @@ class MapMarker extends Entity
             'user_id' => ['type' => self::UINT, 'nullable' => true],
             'create_thread' => ['type' => self::BOOL, 'default' => false],
             'thread_id' => ['type' => self::UINT, 'nullable' => true],
+            'thread_lock' => ['type' => self::BOOL, 'default' => false],
             'create_date' => ['type' => self::UINT, 'default' => XF::$time],
             'update_date' => ['type' => self::UINT, 'default' => XF::$time],
             'active' => ['type' => self::BOOL, 'default' => true],

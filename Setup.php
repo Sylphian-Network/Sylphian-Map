@@ -35,6 +35,7 @@ class Setup extends AbstractSetup
                 $table->addColumn('user_id', 'int')->nullable()->setDefault(null);
                 $table->addColumn('create_thread', 'tinyint', 1)->setDefault(0);
                 $table->addColumn('thread_id', 'int')->nullable()->setDefault(null);
+                $table->addColumn('thread_lock', 'tinyint', 1)->setDefault(0);
                 $table->addColumn('create_date', 'int')->setDefault(XF::$time);
                 $table->addColumn('update_date', 'int')->setDefault(XF::$time);
                 $table->addColumn('active', 'tinyint', 1)->setDefault(1);
@@ -73,6 +74,7 @@ class Setup extends AbstractSetup
                 $table->addColumn('create_date', 'int')->setDefault(XF::$time);
                 $table->addColumn('status', 'varchar', 20)->setDefault('pending');
                 $table->addColumn('create_thread', 'tinyint', 1)->setDefault(0);
+                $table->addColumn('thread_lock', 'tinyint', 1)->setDefault(0);
 
                 $table->addPrimaryKey('suggestion_id');
                 $table->addKey(['lat', 'lng']);
@@ -145,11 +147,13 @@ class Setup extends AbstractSetup
             {
                 $table->addColumn('thread_id', 'int')->nullable()->setDefault(null);
                 $table->addKey('thread_id');
+                $table->addColumn('create_thread', 'tinyint', 1)->setDefault(0);
+                $table->addColumn('thread_lock', 'tinyint', 1)->setDefault(0);
             });
 
             return true;
         } catch (Exception $e) {
-            XF::logException($e, false, 'Error adding thread_id column to map markers table: ');
+            XF::logException($e, false, 'Error updating database tables for Map addon: ' . $e->getMessage());
 
             if (str_contains($e->getMessage(), 'Duplicate column name')) {
                 return true;
@@ -165,31 +169,12 @@ class Setup extends AbstractSetup
             $this->schemaManager()->alterTable('xf_map_marker_suggestions', function(Alter $table)
             {
                 $table->addColumn('create_thread', 'tinyint', 1)->setDefault(0);
+                $table->addColumn('thread_lock', 'tinyint', 1)->setDefault(0);
             });
 
             return true;
         } catch (Exception $e) {
-            XF::logException($e, false, 'Error adding create_thread column to map marker suggestions table: ');
-
-            if (str_contains($e->getMessage(), 'Duplicate column name')) {
-                return true;
-            }
-
-            return false;
-        }
-    }
-
-    public function upgrade1000510Step3(): bool
-    {
-        try {
-            $this->schemaManager()->alterTable('xf_map_markers', function(Alter $table)
-            {
-                $table->addColumn('create_thread', 'tinyint', 1)->setDefault(0);
-            });
-
-            return true;
-        } catch (Exception $e) {
-            XF::logException($e, false, 'Error adding create_thread column to map markers table: ');
+            XF::logException($e, false, 'Error updating database tables for Map addon: ' . $e->getMessage());
 
             if (str_contains($e->getMessage(), 'Duplicate column name')) {
                 return true;

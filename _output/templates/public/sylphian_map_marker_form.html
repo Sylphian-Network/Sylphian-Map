@@ -4,101 +4,144 @@
 
 <xf:form action="{{ $formAction }}" class="block" ajax="true">
     <div class="block-container">
-        <div class="block-body">
-            <xf:textboxrow name="title" value="{{ $entity.title }}" 
-                         label="{{ phrase('title') }}" 
-                         required="required" 
-                         maxlength="100" />
-                         
-            <xf:textarearow name="content" value="{{ $entity.content }}"
-                          label="{{ phrase('content') }}" 
-                          rows="3" />
-                          
-            <xf:numberboxrow name="lat" value="{{ $entity.lat }}"
-                           label="{{ phrase('latitude') }}"
-                           required="required"
-                           step="any" />
-                           
-            <xf:numberboxrow name="lng" value="{{ $entity.lng }}"
-                           label="{{ phrase('longitude') }}"
-                           required="required"
-                           step="any" />
+        <h2 class="block-tabHeader tabs" data-xf-init="tabs" role="tablist">
+            <a class="tabs-tab is-active" role="tab" tabindex="0" aria-controls="markerBasicInfo">{{ phrase('basic_information') }}</a>
+            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerLocation">{{ phrase('location') }}</a>
+            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerAppearance">{{ phrase('appearance') }}</a>
+            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerOptions">{{ phrase('options') }}</a>
+        </h2>
 
-			<xf:formrow label="">
-				<xf:button class="button--primary" id="use-my-location" data-xf-init="sylphian-location-button">
-					<xf:fa icon="fa-map-marker-alt" />
-					{{ phrase('use_my_location') }}
-				</xf:button>
-				<span id="location-status" style="margin-left: 10px; display: none;">
-					<xf:fa icon="fa-spinner fa-spin" /> {{ phrase('fetching_location') }}
-				</span>
-			</xf:formrow>
-                           
-            <xf:textboxrow name="type" value="{{ $entity.type }}"
-                         label="{{ phrase('type') }}"
-                         required="required"
-                         maxlength="50" />
-                         
-            <xf:textboxrow name="icon" value="{{ $entity.icon }}"
-                         label="{{ phrase('icon') }}"
-                         maxlength="50"
-                         placeholder="home"
-                         explain="{{ phrase('specify_fontawesome_icon_name') }}" />
-                         
-            <xf:selectrow name="icon_var" value="{{ $entity.icon_var ?: 'solid' }}"
-                        label="{{ phrase('icon_variant') }}">
-                <xf:option value="light">{{ phrase('light') }}</xf:option>
-                <xf:option value="regular">{{ phrase('regular') }}</xf:option>
-                <xf:option value="solid">{{ phrase('solid') }}</xf:option>
-                <xf:option value="duotone">{{ phrase('duotone') }}</xf:option>
-                <xf:option value="brands">{{ phrase('brands') }}</xf:option>
-            </xf:selectrow>
-            
-            <xf:textboxrow name="icon_color" value="{{ $entity.icon_color ?: 'black' }}"
-                         label="{{ phrase('icon_color') }}"
-                         placeholder="black"
-                         maxlength="30" />
-            
-            <xf:selectrow name="marker_color" value="{{ $entity.marker_color ?: 'blue' }}"
-                        label="{{ phrase('marker_color') }}">
-                <xf:option value="red">{{ phrase('red') }}</xf:option>
-                <xf:option value="darkred">{{ phrase('darkred') }}</xf:option>
-                <xf:option value="lightred">{{ phrase('lightred') }}</xf:option>
-                <xf:option value="orange">{{ phrase('orange') }}</xf:option>
-                <xf:option value="beige">{{ phrase('beige') }}</xf:option>
-                <xf:option value="green">{{ phrase('green') }}</xf:option>
-                <xf:option value="darkgreen">{{ phrase('darkgreen') }}</xf:option>
-                <xf:option value="lightgreen">{{ phrase('lightgreen') }}</xf:option>
-                <xf:option value="blue">{{ phrase('blue') }}</xf:option>
-                <xf:option value="darkblue">{{ phrase('darkblue') }}</xf:option>
-                <xf:option value="lightblue">{{ phrase('lightblue') }}</xf:option>
-                <xf:option value="purple">{{ phrase('purple') }}</xf:option>
-                <xf:option value="darkpurple">{{ phrase('darkpurple') }}</xf:option>
-                <xf:option value="pink">{{ phrase('pink') }}</xf:option>
-                <xf:option value="cadetblue">{{ phrase('cadetblue') }}</xf:option>
-                <xf:option value="white">{{ phrase('white') }}</xf:option>
-                <xf:option value="gray">{{ phrase('gray') }}</xf:option>
-                <xf:option value="lightgray">{{ phrase('lightgray') }}</xf:option>
-                <xf:option value="black">{{ phrase('black') }}</xf:option>
-            </xf:selectrow>
-			
-			<xf:if is="$xf.options.enableThreadCreation">
-				<xf:checkboxrow>
-					<xf:option name="create_thread" value="1"
-							 label="{{ phrase('create_thread_for_marker') }}"
-							 checked="{{ $entity.create_thread ? true : false }}" />
-				</xf:checkboxrow>
-			</xf:if>
-            
-            <xf:if is="$formType != 'suggest' && $canManageActive">
-                <xf:checkboxrow>
-                    <xf:option name="active" selected="{{ $entity.active !== false }}"
-                             label="{{ phrase('active') }}" />
-                </xf:checkboxrow>
-            </xf:if>
-        </div>
-        
-        <xf:submitrow sticky="true" icon="save" 
-                     label="{{ $formType == 'suggest' ? phrase('suggest_marker') : '' }}" />
+        <ul class="tabPanes">
+            <!-- Basic Information Tab -->
+            <li class="is-active" role="tabpanel" id="markerBasicInfo">
+                <div class="block-body">
+                    <xf:textboxrow name="title" value="{{ $entity.title }}"
+                                   label="{{ phrase('title') }}"
+                                   required="required"
+                                   maxlength="100" />
+
+                    <xf:textarearow name="content" value="{{ $entity.content }}"
+                                    label="{{ phrase('content') }}"
+                                    rows="3" />
+
+                    <xf:textboxrow name="type" value="{{ $entity.type }}"
+                                   label="{{ phrase('type') }}"
+                                   required="required"
+                                   maxlength="50" />
+                </div>
+            </li>
+
+            <!-- Location Tab -->
+            <li role="tabpanel" id="markerLocation">
+                <div class="block-body">
+                    <xf:numberboxrow name="lat" value="{{ $entity.lat }}"
+                                     label="{{ phrase('latitude') }}"
+                                     required="required"
+                                     step="any" />
+
+                    <xf:numberboxrow name="lng" value="{{ $entity.lng }}"
+                                     label="{{ phrase('longitude') }}"
+                                     required="required"
+                                     step="any" />
+
+                    <xf:formrow label="">
+                        <xf:button class="button--primary" id="use-my-location" data-xf-init="sylphian-location-button">
+                            <xf:fa icon="fa-map-marker-alt" />
+                            {{ phrase('use_my_location') }}
+                        </xf:button>
+                        <span id="location-status" style="margin-left: 10px; display: none;">
+                            <xf:fa icon="fa-spinner fa-spin" /> {{ phrase('fetching_location') }}
+                        </span>
+                    </xf:formrow>
+                </div>
+            </li>
+
+            <!-- Appearance Tab -->
+            <li role="tabpanel" id="markerAppearance">
+                <div class="block-body">
+                    <xf:textboxrow name="icon" value="{{ $entity.icon }}"
+                                   label="{{ phrase('icon') }}"
+                                   maxlength="50"
+                                   placeholder="home"
+                                   explain="{{ phrase('specify_fontawesome_icon_name') }}" />
+
+                    <xf:selectrow name="icon_var" value="{{ $entity.icon_var ?: 'solid' }}"
+                                  label="{{ phrase('icon_variant') }}">
+                        <xf:option value="light">{{ phrase('light') }}</xf:option>
+                        <xf:option value="regular">{{ phrase('regular') }}</xf:option>
+                        <xf:option value="solid">{{ phrase('solid') }}</xf:option>
+                        <xf:option value="duotone">{{ phrase('duotone') }}</xf:option>
+                        <xf:option value="brands">{{ phrase('brands') }}</xf:option>
+                    </xf:selectrow>
+
+                    <xf:textboxrow name="icon_color" value="{{ $entity.icon_color ?: 'black' }}"
+                                   label="{{ phrase('icon_color') }}"
+                                   placeholder="black"
+                                   maxlength="30" />
+
+                    <xf:selectrow name="marker_color" value="{{ $entity.marker_color ?: 'blue' }}"
+                                  label="{{ phrase('marker_color') }}">
+                        <xf:option value="red">{{ phrase('red') }}</xf:option>
+                        <xf:option value="darkred">{{ phrase('darkred') }}</xf:option>
+                        <xf:option value="lightred">{{ phrase('lightred') }}</xf:option>
+                        <xf:option value="orange">{{ phrase('orange') }}</xf:option>
+                        <xf:option value="beige">{{ phrase('beige') }}</xf:option>
+                        <xf:option value="green">{{ phrase('green') }}</xf:option>
+                        <xf:option value="darkgreen">{{ phrase('darkgreen') }}</xf:option>
+                        <xf:option value="lightgreen">{{ phrase('lightgreen') }}</xf:option>
+                        <xf:option value="blue">{{ phrase('blue') }}</xf:option>
+                        <xf:option value="darkblue">{{ phrase('darkblue') }}</xf:option>
+                        <xf:option value="lightblue">{{ phrase('lightblue') }}</xf:option>
+                        <xf:option value="purple">{{ phrase('purple') }}</xf:option>
+                        <xf:option value="darkpurple">{{ phrase('darkpurple') }}</xf:option>
+                        <xf:option value="pink">{{ phrase('pink') }}</xf:option>
+                        <xf:option value="cadetblue">{{ phrase('cadetblue') }}</xf:option>
+                        <xf:option value="white">{{ phrase('white') }}</xf:option>
+                        <xf:option value="gray">{{ phrase('gray') }}</xf:option>
+                        <xf:option value="lightgray">{{ phrase('lightgray') }}</xf:option>
+                        <xf:option value="black">{{ phrase('black') }}</xf:option>
+                    </xf:selectrow>
+                </div>
+            </li>
+
+            <!-- Options Tab -->
+            <li role="tabpanel" id="markerOptions">
+                <div class="block-body">
+                    <xf:if is="$xf.options.enableThreadCreation">
+                        <xf:if is="$entity.thread_id || ($formType === 'add' || $formType === 'suggest') && $entity.create_thread">
+                            <xf:checkboxrow>
+                                <xf:option name="create_thread" value="1"
+                                           label="{{ phrase('create_thread_for_marker') }}"
+                                           checked="{{ $entity.create_thread ? true : false }}"
+                                           readonly="true"/>
+                            </xf:checkboxrow>
+                            <xf:else />
+                            <xf:checkboxrow>
+                                <xf:option name="create_thread" value="1"
+                                           label="{{ phrase('create_thread_for_marker') }}"
+                                           checked="{{ $entity.create_thread ? true : false }}" />
+                            </xf:checkboxrow>
+                        </xf:if>
+
+                        <xf:checkboxrow>
+                            <xf:option name="thread_lock" value="1"
+                                       label="{{ phrase('lock_thread_replies') }}"
+                                       checked="{{ $entity.thread_lock ? true : false }}"
+									   explain="{{ phrase('thread_lock_explanation') }}" />
+                        </xf:checkboxrow>
+                    </xf:if>
+
+                    <xf:if is="$formType != 'suggest' && $canManageActive">
+                        <xf:checkboxrow>
+                            <xf:option name="active" selected="{{ $entity.active !== false }}"
+                                       label="{{ phrase('active') }}" />
+                        </xf:checkboxrow>
+                    </xf:if>
+                </div>
+            </li>
+        </ul>
+
+        <xf:submitrow sticky="true" icon="save"
+                      label="{{ $formType == 'suggest' ? phrase('suggest_marker') : '' }}" />
     </div>
 </xf:form>

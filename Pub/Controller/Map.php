@@ -104,7 +104,8 @@ class Map extends Controller
             'icon_color' => 'str',
             'marker_color' => 'str',
             'active' => 'bool',
-            'create_thread' => 'bool'
+            'create_thread' => 'bool',
+            'thread_lock' => 'bool'
         ]);
 
         $markerRepo = $this->getMapMarkerRepo();
@@ -121,7 +122,8 @@ class Map extends Controller
             'marker_color' => $input['marker_color'],
             'active' => $input['active'],
             'user_id' => XF::visitor()->user_id,
-            'create_thread' => $input['create_thread']
+            'create_thread' => $input['create_thread'],
+            'thread_lock' => $input['thread_lock'],
         ];
 
         $marker = $markerRepo->createMapMarker($markerData);
@@ -170,7 +172,8 @@ class Map extends Controller
             'icon_color' => 'str',
             'marker_color' => 'str',
             'active' => 'bool',
-            'create_thread' => 'bool'
+            'create_thread' => 'bool',
+            'thread_lock' => 'bool'
         ]);
 
         $updatedMarker = $markerRepo->updateMapMarker($marker, $input);
@@ -254,7 +257,8 @@ class Map extends Controller
             'icon_var' => 'str',
             'icon_color' => 'str',
             'marker_color' => 'str',
-            'create_thread' => 'bool'
+            'create_thread' => 'bool',
+            'thread_lock' => 'bool'
         ]);
 
         $suggestionRepo = $this->getMapMarkerSuggestionRepo();

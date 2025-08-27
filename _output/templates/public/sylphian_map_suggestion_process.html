@@ -39,7 +39,14 @@
 					<xf:checkboxrow>
 						<xf:option name="create_thread" value="1"
 								  label="{{ phrase('create_thread_for_marker') }}"
-								  checked="true"
+								  checked="{{$suggestion.create_thread}}"
+								  readonly="true" />
+					</xf:checkboxrow>
+					
+					<xf:checkboxrow>
+						<xf:option name="thread_lock" value="1"
+								  label="{{ phrase('lock_thread_replies') }}"
+								  checked="{{$suggestion.thread_lock}}"
 								  readonly="true" />
 					</xf:checkboxrow>
                     

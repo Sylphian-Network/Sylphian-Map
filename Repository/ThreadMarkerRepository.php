@@ -86,7 +86,7 @@ class ThreadMarkerRepository extends Repository
         /** @var CreatorService $creator */
         $creator = XF::service('XF:Thread\CreatorService', $forum);
 
-        $status = MarkerStatus::fromMarker($marker->active, $marker->create_thread);
+        $status = MarkerStatus::fromMarker($marker->active);
 
         $baseTitle = $customTitle ?: $marker->title;
         $formattedTitle = $this->formatThreadTitle($baseTitle, $status);
@@ -99,6 +99,11 @@ class ThreadMarkerRepository extends Repository
         $errors = [];
         if ($creator->validate($errors)) {
             $thread = $creator->save();
+
+            if ($marker->thread_lock) {
+                $thread->discussion_open = false;
+                $thread->save();
+            }
 
             $marker->thread_id = $thread->thread_id;
             $marker->save();
@@ -138,8 +143,11 @@ class ThreadMarkerRepository extends Repository
             }
         }
 
+        $thread->discussion_open = !$marker->thread_lock;
+        $thread->save();
+
         if ($updateTitle) {
-            $status = MarkerStatus::fromMarker($marker->active, $marker->create_thread);
+            $status = MarkerStatus::fromMarker($marker->active);
             $thread->title = $this->formatThreadTitle($marker->title, $status);
             $thread->save();
         }
@@ -196,7 +204,7 @@ class ThreadMarkerRepository extends Repository
      */
     protected function getThreadMessageFromMarker(MapMarker $marker): string
     {
-        $status = MarkerStatus::fromMarker($marker->active, $marker->create_thread);
+        $status = MarkerStatus::fromMarker($marker->active);
         $mapUrl = XF::app()->router()->buildLink('full:map');
 
         return "[B]Title:[/B] {$marker->title}\n" .

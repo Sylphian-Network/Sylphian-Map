@@ -170,7 +170,8 @@ class MapMarkerSuggestionRepository extends Repository
                 'type' => $suggestion->type,
                 'user_id' => $suggestion->user_id,
                 'active' => true,
-                'create_thread' => $suggestion->create_thread
+                'create_thread' => $suggestion->create_thread,
+                'thread_lock' => $suggestion->thread_lock,
             ];
 
             $marker = $markerRepo->createMapMarker($markerData);
