@@ -1,0 +1,1 @@
+When a thread is created, if this is checked it will use the account specified to post threads attached to map markers, else it will use the user who suggested / created the marker.

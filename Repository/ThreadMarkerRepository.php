@@ -2,10 +2,12 @@
 
 namespace Sylphian\Map\Repository;
 
+use Exception;
 use Sylphian\Map\Entity\MapMarker;
 use Sylphian\Map\MarkerStatus;
 use XF;
 use XF\Entity\Thread;
+use XF\Entity\User;
 use XF\Mvc\Entity\Repository;
 use XF\PrintableException;
 use XF\Service\Thread\CreatorService;
@@ -64,7 +66,9 @@ class ThreadMarkerRepository extends Repository
      * @param MapMarker $marker The marker to create a thread for
      * @param string|null $customTitle Optional custom title for the thread
      * @return bool Whether the thread was successfully created
+     *
      * @throws PrintableException
+     * @throws Exception
      */
     public function createThreadForMarker(MapMarker $marker, ?string $customTitle = null): bool
     {
@@ -83,36 +87,54 @@ class ThreadMarkerRepository extends Repository
             return false;
         }
 
-        /** @var CreatorService $creator */
-        $creator = XF::service('XF:Thread\CreatorService', $forum);
-
-        $status = MarkerStatus::fromMarker($marker->active);
-
-        $baseTitle = $customTitle ?: $marker->title;
-        $formattedTitle = $this->formatThreadTitle($baseTitle, $status);
-
-        $creator->setContent(
-            $formattedTitle,
-            $this->getThreadMessageFromMarker($marker)
-        );
-
-        $errors = [];
-        if ($creator->validate($errors)) {
-            $thread = $creator->save();
-
-            if ($marker->thread_lock) {
-                $thread->discussion_open = false;
-                $thread->save();
-            }
-
-            $marker->thread_id = $thread->thread_id;
-            $marker->save();
-
-            return true;
-        } else {
-            XF::logError('Thread creation validation failed: ' . implode(', ', $errors));
-            return false;
+        $threadUser = null;
+        if (XF::options()->use_specific_account_for_threads) {
+            $threadUser = XF::em()->find('XF:User', XF::options()->specific_account_for_thread);
+        } else if ($marker->user_id) {
+            $threadUser = XF::em()->find('XF:User', $marker->user_id);
         }
+
+        if (!($threadUser instanceof User)) {
+            $threadUser = XF::em()->find('XF:User', 1);
+
+            if (!($threadUser instanceof User)) {
+                XF::logError('Thread creation failed: Could not find a valid user for thread creation');
+                return false;
+            }
+        }
+
+        return XF::asVisitor($threadUser, function() use ($marker, $customTitle, $forum) {
+            $status = MarkerStatus::fromMarker($marker->active);
+
+            $baseTitle = $customTitle ?: $marker->title;
+            $formattedTitle = $this->formatThreadTitle($baseTitle, $status);
+
+            /** @var CreatorService $creator */
+            $creator = XF::service('XF:Thread\CreatorService', $forum);
+
+            $creator->setContent(
+                $formattedTitle,
+                $this->getThreadMessageFromMarker($marker)
+            );
+
+            $errors = [];
+            if ($creator->validate($errors)) {
+                $thread = $creator->save();
+
+                if ($marker->thread_lock) {
+                    $thread->discussion_open = false;
+                    $thread->save();
+                }
+
+                $marker->thread_id = $thread->thread_id;
+                $marker->save();
+
+                return true;
+            } else {
+                XF::logError('Thread creation validation failed: ' . implode(', ', $errors));
+                return false;
+            }
+        });
     }
 
     /**

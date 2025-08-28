@@ -14,7 +14,13 @@
     "map_starting_zoom.json": {
         "hash": "eaa61d174a8c1e7b893df3f416f6cef2"
     },
+    "specific_account_for_thread.json": {
+        "hash": "e1eddf0a025a590683bd1c4711a402bb"
+    },
     "threadCreationLocation.json": {
         "hash": "0e752b3ac51d96ee24a42da6fc741c45"
+    },
+    "use_specific_account_for_threads.json": {
+        "hash": "8b8491f9b802c2a73f706d84c0a26acc"
     }
 }

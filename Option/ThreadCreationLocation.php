@@ -24,10 +24,7 @@ class ThreadCreationLocation extends AbstractOption
         /** @var NodeRepository $nodeRepo */
         $nodeRepo = \XF::repository('XF:Node');
 
-        // This is the key function that properly formats nodes with icons
         $choices = $nodeRepo->getNodeOptionsData(true, 'Forum', 'option');
-
-        // Don't escape the labels - the template system will handle this correctly
 
         return [
             'choices' => $choices,
