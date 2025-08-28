@@ -44,7 +44,7 @@ class Map extends Controller
         $canManageMarkers = $visitor->hasPermission('general', 'manageMapMarkers');
 
         $markersCollection = $canManageMarkers
-            ? $markerRepo->getAllMapMarkers()
+            ? $markerRepo->getAllMapMarkersWithoutLimit()
             : $markerRepo->getActiveMapMarkers();
 
         $processedData = $markerRepo->processMarkersForDisplay($markersCollection, $canManageMarkers);

@@ -213,6 +213,25 @@ class MapMarkerRepository extends Repository
     }
 
     /**
+     * Gets all map markers regardless of active status
+     *
+     * @param array|string|null $with Related data to fetch with the entities
+     *
+     * @return XF\Mvc\Entity\AbstractCollection
+     */
+    public function getAllMapMarkersWithoutLimit(array|string|null $with = null): XF\Mvc\Entity\AbstractCollection
+    {
+        $finder = $this->finder('Sylphian\Map:MapMarker')
+            ->order('create_date', 'DESC');
+
+        if ($with) {
+            $finder->with($with);
+        }
+
+        return $finder->fetch();
+    }
+
+    /**
      * Gets a map marker by ID or throws an exception if it doesn't exist
      *
      * This is a convenience wrapper around getMapMarkerOrFail() that provides consistent
