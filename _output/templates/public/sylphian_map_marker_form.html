@@ -8,7 +8,7 @@
             <a class="tabs-tab is-active" role="tab" tabindex="0" aria-controls="markerBasicInfo">{{ phrase('basic_information') }}</a>
             <a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerLocation">{{ phrase('location') }}</a>
             <a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerAppearance">{{ phrase('appearance') }}</a>
-            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerOptions">{{ phrase('options') }}</a>
+			<a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerThread">{{ phrase('thread_options') }}</a>
         </h2>
 
         <ul class="tabPanes">
@@ -27,7 +27,15 @@
                     <xf:textboxrow name="type" value="{{ $entity.type }}"
                                    label="{{ phrase('type') }}"
                                    required="required"
-                                   maxlength="50" />
+                                   maxlength="50"
+								   explain="{{ phrase('type_explanation') }}"/>
+					
+					<xf:if is="$formType != 'suggest' && $canManageActive">
+                        <xf:checkboxrow explain="{{ phrase('active_explanation') }}">
+                            <xf:option name="active" selected="{{ $entity.active !== false }}"
+                                       label="{{ phrase('active') }}" />
+                        </xf:checkboxrow>
+                    </xf:if>
                 </div>
             </li>
 
@@ -77,7 +85,8 @@
                     <xf:textboxrow name="icon_color" value="{{ $entity.icon_color ?: 'black' }}"
                                    label="{{ phrase('icon_color') }}"
                                    placeholder="black"
-                                   maxlength="30" />
+                                   maxlength="30"
+								   explain="{{ phrase('icon_color_explanation') }}" />
 
                     <xf:selectrow name="marker_color" value="{{ $entity.marker_color ?: 'blue' }}"
                                   label="{{ phrase('marker_color') }}">
@@ -103,12 +112,12 @@
                     </xf:selectrow>
                 </div>
             </li>
-
-            <!-- Options Tab -->
-            <li role="tabpanel" id="markerOptions">
+			
+			<!-- Thread Options Tab -->
+            <li role="tabpanel" id="markerThread">
                 <div class="block-body">
                     <xf:if is="$xf.options.enableThreadCreation">
-                        <xf:if is="$entity.thread_id || ($formType === 'add' || $formType === 'suggest') && $entity.create_thread">
+                        <xf:if is="($formType === 'add' || $formType === 'suggest') && $entity.create_thread">
                             <xf:checkboxrow>
                                 <xf:option name="create_thread" value="1"
                                            label="{{ phrase('create_thread_for_marker') }}"
@@ -128,13 +137,6 @@
                                        label="{{ phrase('lock_thread_replies') }}"
                                        checked="{{ $entity.thread_lock ? true : false }}"
 									   explain="{{ phrase('thread_lock_explanation') }}" />
-                        </xf:checkboxrow>
-                    </xf:if>
-
-                    <xf:if is="$formType != 'suggest' && $canManageActive">
-                        <xf:checkboxrow>
-                            <xf:option name="active" selected="{{ $entity.active !== false }}"
-                                       label="{{ phrase('active') }}" />
                         </xf:checkboxrow>
                     </xf:if>
                 </div>

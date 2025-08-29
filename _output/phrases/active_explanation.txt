@@ -1,0 +1,1 @@
+When active, the marker will be visible on the map.

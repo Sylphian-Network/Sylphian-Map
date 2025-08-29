@@ -5,6 +5,12 @@
         "version_string": "1.0.2",
         "hash": "4d3d769b812b6faa6b76e1a8abaece2d"
     },
+    "active_explanation.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "01478418d251b98964fe6e8c30a844ac"
+    },
     "add_form_title.txt": {
         "global_cache": false,
         "version_id": 1000020,
@@ -106,6 +112,12 @@
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "534b7c706186028f1b4f51344bbca176"
+    },
+    "icon_color_explanation.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "6a5e0ae5f5d718cce709f98ae5f459fc"
     },
     "icon_variant.txt": {
         "global_cache": false,
@@ -279,7 +291,7 @@
         "global_cache": false,
         "version_id": 1000510,
         "version_string": "1.0.5",
-        "hash": "2d160aa001a96ad015e566fd043e2a3c"
+        "hash": "fb0a2b0e887eb985e978985bccb438e2"
     },
     "option_explain.threadCreationLocation.txt": {
         "global_cache": false,
@@ -412,6 +424,18 @@
         "version_id": 1000510,
         "version_string": "1.0.5",
         "hash": "e99cbe1ba10ebce28ffe65e3f758cd9a"
+    },
+    "thread_options.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "97d2c380b59fbdcb4f9c211b7f26bf72"
+    },
+    "type_explanation.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "237f16efd761ae9859a0a07d43cc9c8d"
     },
     "update_date.txt": {
         "global_cache": false,
