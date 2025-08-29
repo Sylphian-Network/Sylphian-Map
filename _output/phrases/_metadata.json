@@ -5,6 +5,12 @@
         "version_string": "1.0.2",
         "hash": "4d3d769b812b6faa6b76e1a8abaece2d"
     },
+    "active_explanation.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "01478418d251b98964fe6e8c30a844ac"
+    },
     "add_form_title.txt": {
         "global_cache": false,
         "version_id": 1000020,
@@ -41,11 +47,23 @@
         "version_string": "1.0.2",
         "hash": "4fe04ab38891a7a87812060178223ef5"
     },
+    "basic_information.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "807402b2447c57bd90060f83ba51c561"
+    },
     "confirm_delete_marker.txt": {
         "global_cache": false,
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "f1846b5b18a888d76fd87aff58e4421c"
+    },
+    "create_thread_for_marker.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "3fd17c1c7aa9ad36ef863a001c881482"
     },
     "creation_date.txt": {
         "global_cache": false,
@@ -95,6 +113,12 @@
         "version_string": "1.0.0 Alpha",
         "hash": "534b7c706186028f1b4f51344bbca176"
     },
+    "icon_color_explanation.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "6a5e0ae5f5d718cce709f98ae5f459fc"
+    },
     "icon_variant.txt": {
         "global_cache": false,
         "version_id": 1000010,
@@ -112,6 +136,12 @@
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "3b0eb7469ba9c95f3a05c4cef1f6aac4"
+    },
+    "lock_thread_replies.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "8381060793ba4728f8c521eaf0e2ce26"
     },
     "longitude.txt": {
         "global_cache": false,
@@ -179,6 +209,12 @@
         "version_string": "1.0.2",
         "hash": "a942625941595e5d25536ab925d8b96a"
     },
+    "option.enableThreadCreation.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "8e1f13aa1dca5928449779ffd85fae68"
+    },
     "option.map_markers_per_page.txt": {
         "global_cache": false,
         "version_id": 1000020,
@@ -203,6 +239,30 @@
         "version_string": "1.0.2",
         "hash": "d6980fd5e1e80c088bc25a27c136a832"
     },
+    "option.specific_account_for_thread.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "23f945ae60a574099cb480838ab6deaa"
+    },
+    "option.threadCreationLocation.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "ccd48d0290519437b158f226f829ceb4"
+    },
+    "option.use_specific_account_for_threads.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "3c6c167db54bc94440a92e2592cc4437"
+    },
+    "option_explain.enableThreadCreation.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "7a9490d9d414217aad8779fab3252358"
+    },
     "option_explain.map_markers_per_page.txt": {
         "global_cache": false,
         "version_id": 1000020,
@@ -226,6 +286,24 @@
         "version_id": 1000020,
         "version_string": "1.0.2",
         "hash": "cf96b7a6e1e25fef38da3f1ad9e9935e"
+    },
+    "option_explain.specific_account_for_thread.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "fb0a2b0e887eb985e978985bccb438e2"
+    },
+    "option_explain.threadCreationLocation.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "ba520aa06da56aa90153c01e144d782d"
+    },
+    "option_explain.use_specific_account_for_threads.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "8ab36ebdfd86d778a5bd56ec85b7cb20"
     },
     "option_group.map.txt": {
         "global_cache": false,
@@ -341,6 +419,24 @@
         "version_string": "1.0.2",
         "hash": "5d06a2a599284e56a71802e34aeec025"
     },
+    "thread_lock_explanation.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "e99cbe1ba10ebce28ffe65e3f758cd9a"
+    },
+    "thread_options.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "97d2c380b59fbdcb4f9c211b7f26bf72"
+    },
+    "type_explanation.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "237f16efd761ae9859a0a07d43cc9c8d"
+    },
     "update_date.txt": {
         "global_cache": false,
         "version_id": 1000020,
@@ -352,5 +448,11 @@
         "version_id": 1000040,
         "version_string": "1.0.4",
         "hash": "6be4601f66e68f4cb834bcff67b124ad"
+    },
+    "view_discussion.txt": {
+        "global_cache": false,
+        "version_id": 1000510,
+        "version_string": "1.0.5",
+        "hash": "7f91dba0ea3b2851d3af92811b2ce58b"
     }
 }

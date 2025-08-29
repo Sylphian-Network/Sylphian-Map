@@ -22,6 +22,8 @@ use XF\Mvc\Entity\Structure;
  * @property int|null $user_id
  * @property int $create_date
  * @property string $status
+ * @property boolean $create_thread
+ * @property bool $thread_lock
  *
  * RELATIONS
  * @property-read User|null $User
@@ -47,6 +49,8 @@ class MapMarkerSuggestion extends Entity
             'user_id' => ['type' => self::UINT, 'nullable' => true],
             'create_date' => ['type' => self::UINT, 'default' => XF::$time],
             'status' => ['type' => self::STR, 'default' => 'pending', 'allowedValues' => ['pending', 'approved', 'rejected']],
+            'create_thread' => ['type' => self::BOOL, 'default' => false],
+            'thread_lock' => ['type' => self::BOOL, 'default' => false],
         ];
 
         $structure->getters = [];

@@ -8,6 +8,7 @@ use XF\AddOn\AbstractSetup;
 use XF\AddOn\StepRunnerInstallTrait;
 use XF\AddOn\StepRunnerUninstallTrait;
 use XF\AddOn\StepRunnerUpgradeTrait;
+use XF\Db\Schema\Alter;
 use XF\Db\Schema\Create;
 
 class Setup extends AbstractSetup
@@ -32,6 +33,9 @@ class Setup extends AbstractSetup
                 $table->addColumn('marker_color', 'varchar', 30)->nullable()->setDefault('blue');
                 $table->addColumn('type', 'varchar', 50)->nullable();
                 $table->addColumn('user_id', 'int')->nullable()->setDefault(null);
+                $table->addColumn('create_thread', 'tinyint', 1)->setDefault(0);
+                $table->addColumn('thread_id', 'int')->nullable()->setDefault(null);
+                $table->addColumn('thread_lock', 'tinyint', 1)->setDefault(0);
                 $table->addColumn('create_date', 'int')->setDefault(XF::$time);
                 $table->addColumn('update_date', 'int')->setDefault(XF::$time);
                 $table->addColumn('active', 'tinyint', 1)->setDefault(1);
@@ -40,6 +44,7 @@ class Setup extends AbstractSetup
                 $table->addKey(['lat', 'lng']);
                 $table->addKey('type');
                 $table->addKey('user_id');
+                $table->addKey('thread_id');
                 $table->addKey('active');
             });
 
@@ -68,6 +73,8 @@ class Setup extends AbstractSetup
                 $table->addColumn('user_id', 'int')->nullable()->setDefault(null);
                 $table->addColumn('create_date', 'int')->setDefault(XF::$time);
                 $table->addColumn('status', 'varchar', 20)->setDefault('pending');
+                $table->addColumn('create_thread', 'tinyint', 1)->setDefault(0);
+                $table->addColumn('thread_lock', 'tinyint', 1)->setDefault(0);
 
                 $table->addPrimaryKey('suggestion_id');
                 $table->addKey(['lat', 'lng']);
@@ -126,6 +133,50 @@ class Setup extends AbstractSetup
             XF::logException($e, false, 'Error creating map marker suggestions table during upgrade: ');
 
             if (str_contains($e->getMessage(), 'already exists')) {
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    public function upgrade1000510Step1(): bool
+    {
+        try {
+            $this->schemaManager()->alterTable('xf_map_markers', function(Alter $table)
+            {
+                $table->addColumn('thread_id', 'int')->nullable()->setDefault(null);
+                $table->addKey('thread_id');
+                $table->addColumn('create_thread', 'tinyint', 1)->setDefault(0);
+                $table->addColumn('thread_lock', 'tinyint', 1)->setDefault(0);
+            });
+
+            return true;
+        } catch (Exception $e) {
+            XF::logException($e, false, 'Error updating database tables for Map addon: ' . $e->getMessage());
+
+            if (str_contains($e->getMessage(), 'Duplicate column name')) {
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    public function upgrade1000510Step2(): bool
+    {
+        try {
+            $this->schemaManager()->alterTable('xf_map_marker_suggestions', function(Alter $table)
+            {
+                $table->addColumn('create_thread', 'tinyint', 1)->setDefault(0);
+                $table->addColumn('thread_lock', 'tinyint', 1)->setDefault(0);
+            });
+
+            return true;
+        } catch (Exception $e) {
+            XF::logException($e, false, 'Error updating database tables for Map addon: ' . $e->getMessage());
+
+            if (str_contains($e->getMessage(), 'Duplicate column name')) {
                 return true;
             }
 

@@ -1,0 +1,1 @@
+Locking a thread will stop people from replying to this thread.

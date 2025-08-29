@@ -1,0 +1,1 @@
+Colour name or hex code for the icon (e.g., red, blue, #ffffff)

@@ -169,10 +169,18 @@ class MapMarkerSuggestionRepository extends Repository
                 'marker_color' => $suggestion->marker_color,
                 'type' => $suggestion->type,
                 'user_id' => $suggestion->user_id,
-                'active' => true
+                'active' => true,
+                'create_thread' => $suggestion->create_thread,
+                'thread_lock' => $suggestion->thread_lock,
             ];
 
-            $markerRepo->createMapMarker($markerData);
+            $marker = $markerRepo->createMapMarker($markerData);
+
+            if ($suggestion->create_thread) {
+                /** @var ThreadMarkerRepository $threadMarkerRepo */
+                $threadMarkerRepo = $this->repository('Sylphian\Map:ThreadMarkerRepository');
+                $threadMarkerRepo->createThreadForMarker($marker);
+            }
 
             $suggestion->status = 'approved';
             $suggestion->save();

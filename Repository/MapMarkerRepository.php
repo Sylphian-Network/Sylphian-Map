@@ -142,6 +142,13 @@ class MapMarkerRepository extends Repository
     {
         try {
             $marker = $this->getMapMarkerOrFail($id);
+
+            if ($marker->thread_id) {
+                /** @var ThreadMarkerRepository $threadMarkerRepo */
+                $threadMarkerRepo = $this->repository('Sylphian\Map:ThreadMarker');
+                $threadMarkerRepo->markThreadAsDeleted($marker);
+            }
+
             $marker->delete();
             return true;
         } catch (Exception $e) {
@@ -206,6 +213,25 @@ class MapMarkerRepository extends Repository
     }
 
     /**
+     * Gets all map markers regardless of active status
+     *
+     * @param array|string|null $with Related data to fetch with the entities
+     *
+     * @return XF\Mvc\Entity\AbstractCollection
+     */
+    public function getAllMapMarkersWithoutLimit(array|string|null $with = null): XF\Mvc\Entity\AbstractCollection
+    {
+        $finder = $this->finder('Sylphian\Map:MapMarker')
+            ->order('create_date', 'DESC');
+
+        if ($with) {
+            $finder->with($with);
+        }
+
+        return $finder->fetch();
+    }
+
+    /**
      * Gets a map marker by ID or throws an exception if it doesn't exist
      *
      * This is a convenience wrapper around getMapMarkerOrFail() that provides consistent
@@ -265,7 +291,9 @@ class MapMarkerRepository extends Repository
                 'iconVar' => $marker->icon_var,
                 'iconColor' => $marker->icon_color,
                 'markerColor' => $marker->marker_color,
-                'type' => $marker->type
+                'type' => $marker->type,
+                'thread_id' => $marker->thread_id,
+                'thread_url' => XF::app()->router()->buildLink('threads', ['thread_id' => $marker->thread_id])
             ];
 
             $markers[] = $markerData;

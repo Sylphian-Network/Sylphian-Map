@@ -4,6 +4,7 @@ namespace Sylphian\Map\Pub\Controller;
 
 use Sylphian\Map\Repository\MapMarkerRepository as MapMarkerRepository;
 use Sylphian\Map\Repository\MapMarkerSuggestionRepository as MapMarkerSuggestionRepository;
+use Sylphian\Map\Repository\ThreadMarkerRepository;
 use XF;
 use XF\ControllerPlugin\DeletePlugin;
 use XF\Mvc\Controller;
@@ -28,6 +29,13 @@ class Map extends Controller
         return $repo;
     }
 
+    protected function getThreadMarkerRepo(): ThreadMarkerRepository
+    {
+        /** @var ThreadMarkerRepository $repo */
+        $repo = XF::repository('Sylphian\Map:ThreadMarkerRepository');
+        return $repo;
+    }
+
     public function actionIndex(): View
     {
         $markerRepo = $this->getMapMarkerRepo();
@@ -36,7 +44,7 @@ class Map extends Controller
         $canManageMarkers = $visitor->hasPermission('general', 'manageMapMarkers');
 
         $markersCollection = $canManageMarkers
-            ? $markerRepo->getAllMapMarkers()
+            ? $markerRepo->getAllMapMarkersWithoutLimit()
             : $markerRepo->getActiveMapMarkers();
 
         $processedData = $markerRepo->processMarkersForDisplay($markersCollection, $canManageMarkers);
@@ -70,10 +78,10 @@ class Map extends Controller
      * Displays the marker creation form or processes form submission.
      * Validation is handled in the repository layer.
      *
+     * @return Redirect|View|Error Redirects to the map page on success or displays the form
      * @throws PrintableException If marker creation fails
-     * @return Redirect|View Redirects to the map page on success or displays the form
      */
-    public function actionAdd(): Redirect|View
+    public function actionAdd(): Redirect|View|Error
     {
         if (!$this->isPost()) {
             $viewParams = [
@@ -95,13 +103,35 @@ class Map extends Controller
             'icon_var' => 'str',
             'icon_color' => 'str',
             'marker_color' => 'str',
-            'active' => 'bool'
+            'active' => 'bool',
+            'create_thread' => 'bool',
+            'thread_lock' => 'bool'
         ]);
 
         $markerRepo = $this->getMapMarkerRepo();
 
-        $input['user_id'] = XF::visitor()->user_id;
-        $markerRepo->createMapMarker($input);
+        $markerData = [
+            'title' => $input['title'],
+            'content' => $input['content'],
+            'lat' => $input['lat'],
+            'lng' => $input['lng'],
+            'type' => $input['type'],
+            'icon' => $input['icon'],
+            'icon_var' => $input['icon_var'],
+            'icon_color' => $input['icon_color'],
+            'marker_color' => $input['marker_color'],
+            'active' => $input['active'],
+            'user_id' => XF::visitor()->user_id,
+            'create_thread' => $input['create_thread'],
+            'thread_lock' => $input['thread_lock'],
+        ];
+
+        $marker = $markerRepo->createMapMarker($markerData);
+
+        if ($input['create_thread']) {
+            $threadMarkerRepo = $this->getThreadMarkerRepo();
+            $threadMarkerRepo->createThreadForMarker($marker);
+        }
 
         return $this->redirect($this->buildLink('map'));
     }
@@ -141,10 +171,17 @@ class Map extends Controller
             'icon_var' => 'str',
             'icon_color' => 'str',
             'marker_color' => 'str',
-            'active' => 'bool'
+            'active' => 'bool',
+            'create_thread' => 'bool',
+            'thread_lock' => 'bool'
         ]);
 
-        $markerRepo->updateMapMarker($marker, $input);
+        $updatedMarker = $markerRepo->updateMapMarker($marker, $input);
+
+        if ($updatedMarker) {
+            $threadMarkerRepo = $this->getThreadMarkerRepo();
+            $threadMarkerRepo->handleMarkerThreadUpdates($updatedMarker);
+        }
 
         return $this->redirect($this->buildLink('map'));
     }
@@ -162,9 +199,14 @@ class Map extends Controller
     public function actionDelete(): Redirect|View|Error
     {
         $markerRepo = $this->getMapMarkerRepo();
+        $threadMarkerRepo = $this->getThreadMarkerRepo();
 
         $markerId = $this->filter('marker_id', 'uint');
         $marker = $markerRepo->getMarkerOrFail($markerId);
+
+        if ($marker->thread_id) {
+            $threadMarkerRepo->markThreadAsDeleted($marker);
+        }
 
         /** @var DeletePlugin $plugin */
         $plugin = $this->plugin('XF:DeletePlugin');
@@ -214,7 +256,9 @@ class Map extends Controller
             'icon' => 'str',
             'icon_var' => 'str',
             'icon_color' => 'str',
-            'marker_color' => 'str'
+            'marker_color' => 'str',
+            'create_thread' => 'bool',
+            'thread_lock' => 'bool'
         ]);
 
         $suggestionRepo = $this->getMapMarkerSuggestionRepo();

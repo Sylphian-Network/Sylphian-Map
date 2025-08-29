@@ -1,0 +1,13 @@
+{
+    "edit_format": "callback",
+    "edit_format_params": "Sylphian\\Map\\Option\\ThreadCreationLocation::renderOption",
+    "data_type": "string",
+    "sub_options": [],
+    "validation_class": "Sylphian\\Map\\Option\\ThreadCreationLocation",
+    "validation_method": "verifyOption",
+    "advanced": false,
+    "default_value": "0",
+    "relations": {
+        "map": 110
+    }
+}
