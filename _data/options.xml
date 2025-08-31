@@ -1,29 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <options>
+  <option option_id="enableThreadCreation" edit_format="onoff" data_type="boolean" advanced="0">
+    <default_value>0</default_value>
+    <relation group_id="sylphian_map" display_order="2000"/>
+  </option>
   <option option_id="map_markers_per_page" edit_format="spinbox" data_type="integer" advanced="0">
     <default_value>20</default_value>
     <edit_format_params>min=1
 max=50</edit_format_params>
-    <relation group_id="map" display_order="60"/>
+    <relation group_id="sylphian_map" display_order="1000"/>
   </option>
   <option option_id="map_max_zoom" edit_format="spinbox" data_type="integer" advanced="0">
     <default_value>16</default_value>
-    <relation group_id="map" display_order="50"/>
+    <relation group_id="sylphian_map" display_order="50"/>
   </option>
   <option option_id="map_min_zoom" edit_format="spinbox" data_type="integer" advanced="0">
     <default_value>3</default_value>
-    <relation group_id="map" display_order="40"/>
+    <relation group_id="sylphian_map" display_order="40"/>
   </option>
   <option option_id="map_starting_lat" edit_format="textbox" data_type="string" validation_class="Sylphian\Map\Option\LatAndLng" validation_method="verifyOption" advanced="0">
     <default_value>55.5</default_value>
-    <relation group_id="map" display_order="10"/>
+    <relation group_id="sylphian_map" display_order="10"/>
   </option>
   <option option_id="map_starting_lng" edit_format="textbox" data_type="string" validation_class="Sylphian\Map\Option\LatAndLng" validation_method="verifyOption" advanced="0">
     <default_value>-3.5</default_value>
-    <relation group_id="map" display_order="20"/>
+    <relation group_id="sylphian_map" display_order="20"/>
   </option>
   <option option_id="map_starting_zoom" edit_format="spinbox" data_type="integer" advanced="0">
     <default_value>5</default_value>
-    <relation group_id="map" display_order="30"/>
+    <relation group_id="sylphian_map" display_order="30"/>
+  </option>
+  <option option_id="specific_account_for_thread" edit_format="username" data_type="integer" advanced="0">
+    <default_value>1</default_value>
+    <relation group_id="sylphian_map" display_order="2110"/>
+  </option>
+  <option option_id="threadCreationLocation" edit_format="callback" data_type="string" validation_class="Sylphian\Map\Option\ThreadCreationLocation" validation_method="verifyOption" advanced="0">
+    <default_value>0</default_value>
+    <edit_format_params>Sylphian\Map\Option\ThreadCreationLocation::renderOption</edit_format_params>
+    <relation group_id="sylphian_map" display_order="2010"/>
+  </option>
+  <option option_id="use_specific_account_for_threads" edit_format="onoff" data_type="boolean" advanced="0">
+    <default_value>0</default_value>
+    <relation group_id="sylphian_map" display_order="2100"/>
   </option>
 </options>
