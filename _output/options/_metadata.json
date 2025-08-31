@@ -1,26 +1,32 @@
 {
     "enableThreadCreation.json": {
-        "hash": "cb6dafffd3b35753907732bfd1b69053"
+        "hash": "8be84b6a0121712ab0595937dcc5d47b"
     },
     "map_markers_per_page.json": {
-        "hash": "c35becbe2651336ab5b2f04318f5b7b1"
+        "hash": "e61b93d32b1c6429095fad3cdafc0c59"
+    },
+    "map_max_zoom.json": {
+        "hash": "45f2d9f3fae08fcadf6b77a88cd502a5"
+    },
+    "map_min_zoom.json": {
+        "hash": "aebb84feb94501eaa68972220fc6d8a0"
     },
     "map_starting_lat.json": {
-        "hash": "028ea77fed2fab21e33f8794f4afba31"
+        "hash": "83c3368cdd2328a73525c698a8560524"
     },
     "map_starting_lng.json": {
-        "hash": "acc3febc1ffb8fe9b0436f90cb89e4ee"
+        "hash": "ff596c8696fb83be40fdf7bcc384976d"
     },
     "map_starting_zoom.json": {
-        "hash": "eaa61d174a8c1e7b893df3f416f6cef2"
+        "hash": "6e11ebc6f52f398ff9c4fe418f1438d4"
     },
     "specific_account_for_thread.json": {
-        "hash": "e4ad06b0949e2f47877bf1c6d1ebbf56"
+        "hash": "abc86d886782e3f22f120ef008141202"
     },
     "threadCreationLocation.json": {
-        "hash": "0e752b3ac51d96ee24a42da6fc741c45"
+        "hash": "69070c4c4910948d11e734b45de947a2"
     },
     "use_specific_account_for_threads.json": {
-        "hash": "8b8491f9b802c2a73f706d84c0a26acc"
+        "hash": "ce9504c3a0d494eb62f5daaae32ae1cc"
     }
 }

@@ -1,0 +1,2 @@
+Upload your sql or json file, exported from this addon previously and populate the map with markers.
+Markers are merged based on location and title. Existing markers will be updated; new ones will be added.

@@ -71,6 +71,12 @@
         "version_string": "1.0.2",
         "hash": "3112209b2dd9b55cf5dbc4865dd15afd"
     },
+    "cron_entry.cleanupOldMapSuggestions.txt": {
+        "global_cache": false,
+        "version_id": 1000610,
+        "version_string": "1.0.6",
+        "hash": "d4794b915492c0f623f4042d5736e979"
+    },
     "current_markers.txt": {
         "global_cache": false,
         "version_id": 1000020,
@@ -94,6 +100,24 @@
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "616552daf567c8d8966976d1b7dca792"
+    },
+    "export_data.txt": {
+        "global_cache": false,
+        "version_id": 1000610,
+        "version_string": "1.0.6",
+        "hash": "5e20646580da584d76435da00d6face4"
+    },
+    "export_format.txt": {
+        "global_cache": false,
+        "version_id": 1000610,
+        "version_string": "1.0.6",
+        "hash": "d3e942516bcf7cbb83292a41db2e3746"
+    },
+    "export_map_data.txt": {
+        "global_cache": false,
+        "version_id": 1000610,
+        "version_string": "1.0.6",
+        "hash": "109e0d540885290a5f1289a735b546c7"
     },
     "fetching_location.txt": {
         "global_cache": false,
@@ -124,6 +148,24 @@
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "45a9d9d61faa7c3377cf71cb78a5d71d"
+    },
+    "import_completed_successfully_detailed.txt": {
+        "global_cache": false,
+        "version_id": 1000610,
+        "version_string": "1.0.6",
+        "hash": "d3d0553a0ed61c76522a244f9e2ce795"
+    },
+    "import_file_description.txt": {
+        "global_cache": false,
+        "version_id": 1000610,
+        "version_string": "1.0.6",
+        "hash": "68ec37d4548ae35884029f10eb547497"
+    },
+    "import_map_data.txt": {
+        "global_cache": false,
+        "version_id": 1000610,
+        "version_string": "1.0.6",
+        "hash": "b4460d7bc39ba22603162c8f9424f969"
     },
     "inactive.txt": {
         "global_cache": false,
@@ -305,16 +347,16 @@
         "version_string": "1.0.5",
         "hash": "8ab36ebdfd86d778a5bd56ec85b7cb20"
     },
-    "option_group.map.txt": {
+    "option_group.sylphian_map.txt": {
         "global_cache": false,
-        "version_id": 1000020,
-        "version_string": "1.0.2",
+        "version_id": 1000610,
+        "version_string": "1.0.6",
         "hash": "6ac8038eb8690f26f93b02bc37d523ee"
     },
-    "option_group_description.map.txt": {
+    "option_group_description.sylphian_map.txt": {
         "global_cache": false,
-        "version_id": 1000020,
-        "version_string": "1.0.2",
+        "version_id": 1000610,
+        "version_string": "1.0.6",
         "hash": "5c40bc1ac3c360b09bf9abf7fed62fa6"
     },
     "permission.general_manageMapMarkers.txt": {

@@ -1,0 +1,1 @@
+Import complete: {total} items processed. {markers_created} markers created, {markers_updated} updated.
