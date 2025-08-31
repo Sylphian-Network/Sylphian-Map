@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <routes>
+  <route route_type="admin" route_prefix="sylphian_map" controller="Sylphian\Map:Map" context="sylphian_map"/>
   <route route_type="public" route_prefix="map" controller="Sylphian\Map:Map" context="map"/>
 </routes>

@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <phrases>
   <phrase title="active" version_id="1000020" version_string="1.0.2"><![CDATA[Active]]></phrase>
+  <phrase title="active_explanation" version_id="1000510" version_string="1.0.5"><![CDATA[When active, the marker will be visible on the map.]]></phrase>
   <phrase title="add_form_title" version_id="1000020" version_string="1.0.2"><![CDATA[Add Marker Form]]></phrase>
   <phrase title="add_new_marker" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Add new marker]]></phrase>
   <phrase title="appearance" version_id="1000020" version_string="1.0.2"><![CDATA[Appearance]]></phrase>
   <phrase title="apply_filters" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Apply filters]]></phrase>
   <phrase title="approve_marker_suggestion" version_id="1000020" version_string="1.0.2"><![CDATA[Approve Marker Suggestion]]></phrase>
   <phrase title="approve_suggestion" version_id="1000020" version_string="1.0.2"><![CDATA[Approve suggestion]]></phrase>
+  <phrase title="basic_information" version_id="1000510" version_string="1.0.5"><![CDATA[Basic information]]></phrase>
   <phrase title="confirm_delete_marker" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Are you sure you would like to delete this map marker?]]></phrase>
+  <phrase title="create_thread_for_marker" version_id="1000510" version_string="1.0.5"><![CDATA[Create a thread attached to this marker]]></phrase>
   <phrase title="creation_date" version_id="1000020" version_string="1.0.2"><![CDATA[Creation date]]></phrase>
+  <phrase title="cron_entry.cleanupOldMapSuggestions" version_id="1000610" version_string="1.0.6"><![CDATA[[Daily] Clean up old map suggestions]]></phrase>
   <phrase title="current_markers" version_id="1000020" version_string="1.0.2"><![CDATA[Current Markers]]></phrase>
   <phrase title="delete_marker" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Delete marker]]></phrase>
   <phrase title="edit_form_title" version_id="1000020" version_string="1.0.2"><![CDATA[Edit Marker Form]]></phrase>
   <phrase title="edit_marker" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Edit marker]]></phrase>
+  <phrase title="export_data" version_id="1000610" version_string="1.0.6"><![CDATA[Export data]]></phrase>
+  <phrase title="export_format" version_id="1000610" version_string="1.0.6"><![CDATA[Export format]]></phrase>
+  <phrase title="export_map_data" version_id="1000610" version_string="1.0.6"><![CDATA[Export map data]]></phrase>
   <phrase title="fetching_location" version_id="1000040" version_string="1.0.4"><![CDATA[Fetching your location]]></phrase>
   <phrase title="filter_by_type" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Filter by marker types]]></phrase>
   <phrase title="icon_color" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Icon color]]></phrase>
+  <phrase title="icon_color_explanation" version_id="1000510" version_string="1.0.5"><![CDATA[Colour name or hex code for the icon (e.g., red, blue, #ffffff)]]></phrase>
   <phrase title="icon_variant" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Icon variant]]></phrase>
+  <phrase title="import_completed_successfully_detailed" version_id="1000610" version_string="1.0.6"><![CDATA[Import complete: {total} items processed. {markers_created} markers created, {markers_updated} updated.]]></phrase>
+  <phrase title="import_file_description" version_id="1000610" version_string="1.0.6"><![CDATA[Upload your sql or json file, exported from this addon previously and populate the map with markers.
+Markers are merged based on location and title. Existing markers will be updated; new ones will be added.]]></phrase>
+  <phrase title="import_map_data" version_id="1000610" version_string="1.0.6"><![CDATA[Import map data]]></phrase>
   <phrase title="inactive" version_id="1000020" version_string="1.0.2"><![CDATA[Inactive]]></phrase>
   <phrase title="latitude" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Latitude]]></phrase>
+  <phrase title="lock_thread_replies" version_id="1000510" version_string="1.0.5"><![CDATA[Lock thread replies]]></phrase>
   <phrase title="longitude" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Longitude]]></phrase>
   <phrase title="manage_map_markers" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Manage map makers]]></phrase>
   <phrase title="manage_markers" version_id="1000020" version_string="1.0.2"><![CDATA[Manage Markers]]></phrase>
@@ -30,20 +43,28 @@
   <phrase title="nav.map_sub" version_id="1000020" version_string="1.0.2"><![CDATA[Map]]></phrase>
   <phrase title="nav.map_suggestion_management" version_id="1000020" version_string="1.0.2"><![CDATA[Suggestion Management]]></phrase>
   <phrase title="no_pending_marker_suggestions" version_id="1000020" version_string="1.0.2"><![CDATA[No pending marker suggestions exist at this time.]]></phrase>
+  <phrase title="option.enableThreadCreation" version_id="1000510" version_string="1.0.5"><![CDATA[Enable Thread Creation]]></phrase>
   <phrase title="option.map_markers_per_page" version_id="1000020" version_string="1.0.2"><![CDATA[Markers per page]]></phrase>
   <phrase title="option.map_max_zoom" version_id="1000020" version_string="1.0.2"><![CDATA[Max Zoom]]></phrase>
   <phrase title="option.map_min_zoom" version_id="1000020" version_string="1.0.2"><![CDATA[Minimum Zoom]]></phrase>
   <phrase title="option.map_starting_lat" version_id="1000020" version_string="1.0.2"><![CDATA[Starting Latitude]]></phrase>
   <phrase title="option.map_starting_lng" version_id="1000020" version_string="1.0.2"><![CDATA[Starting Longitude]]></phrase>
   <phrase title="option.map_starting_zoom" version_id="1000020" version_string="1.0.2"><![CDATA[Starting Zoom]]></phrase>
+  <phrase title="option.specific_account_for_thread" version_id="1000510" version_string="1.0.5"><![CDATA[Specific account for threads]]></phrase>
+  <phrase title="option.threadCreationLocation" version_id="1000510" version_string="1.0.5"><![CDATA[Thread Creation Location]]></phrase>
+  <phrase title="option.use_specific_account_for_threads" version_id="1000510" version_string="1.0.5"><![CDATA[Use specific account for threads]]></phrase>
+  <phrase title="option_explain.enableThreadCreation" version_id="1000510" version_string="1.0.5"><![CDATA[When markers are created, do you want the option to create threads to exist?]]></phrase>
   <phrase title="option_explain.map_markers_per_page" version_id="1000020" version_string="1.0.2"><![CDATA[How many markers do you want to see at a time on the marker and suggestion management pages?]]></phrase>
   <phrase title="option_explain.map_max_zoom" version_id="1000020" version_string="1.0.2"><![CDATA[]]></phrase>
   <phrase title="option_explain.map_min_zoom" version_id="1000020" version_string="1.0.2"><![CDATA[How close in do you want users to be able to zoom in? The lower the number, the further away the map will render. The higher the number the closer you'll be zoomed in.]]></phrase>
   <phrase title="option_explain.map_starting_lat" version_id="1000020" version_string="1.0.2"><![CDATA[]]></phrase>
   <phrase title="option_explain.map_starting_lng" version_id="1000020" version_string="1.0.2"><![CDATA[]]></phrase>
   <phrase title="option_explain.map_starting_zoom" version_id="1000020" version_string="1.0.2"><![CDATA[How close would you like the map to be? The lower the number, the further away the map will render. The higher the number the closer you'll be zoomed in.]]></phrase>
-  <phrase title="option_group.map" version_id="1000020" version_string="1.0.2"><![CDATA[Map options]]></phrase>
-  <phrase title="option_group_description.map" version_id="1000020" version_string="1.0.2"><![CDATA[Customise some basic logic for Syphian/Map]]></phrase>
+  <phrase title="option_explain.specific_account_for_thread" version_id="1000510" version_string="1.0.5"><![CDATA[This account is what all new marker threads will be created under.]]></phrase>
+  <phrase title="option_explain.threadCreationLocation" version_id="1000510" version_string="1.0.5"><![CDATA[Where would you like threads to be created when markers are created?]]></phrase>
+  <phrase title="option_explain.use_specific_account_for_threads" version_id="1000510" version_string="1.0.5"><![CDATA[When a thread is created, if this is checked it will use the account specified to post threads attached to map markers, else it will use the user who suggested / created the marker.]]></phrase>
+  <phrase title="option_group.sylphian_map" version_id="1000610" version_string="1.0.6"><![CDATA[Map options]]></phrase>
+  <phrase title="option_group_description.sylphian_map" version_id="1000610" version_string="1.0.6"><![CDATA[Customise some basic logic for Syphian/Map]]></phrase>
   <phrase title="permission.general_manageMapMarkers" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Manage Map Markers]]></phrase>
   <phrase title="permission.general_manageSuggestedMapMarkers" version_id="1000020" version_string="1.0.2"><![CDATA[Manage Suggested Map Markers]]></phrase>
   <phrase title="permission.general_suggestMarkers" version_id="1000020" version_string="1.0.2"><![CDATA[Suggest Map Markers]]></phrase>
@@ -61,6 +82,10 @@
   <phrase title="suggestion_date" version_id="1000020" version_string="1.0.2"><![CDATA[Suggestion date]]></phrase>
   <phrase title="sylphian_map_suggestion_process_approve_title" version_id="1000020" version_string="1.0.2"><![CDATA[Approve this marker?]]></phrase>
   <phrase title="sylphian_map_suggestion_process_reject_title" version_id="1000020" version_string="1.0.2"><![CDATA[Reject this marker?]]></phrase>
+  <phrase title="thread_lock_explanation" version_id="1000510" version_string="1.0.5"><![CDATA[Locking a thread will stop people from replying to this thread.]]></phrase>
+  <phrase title="thread_options" version_id="1000510" version_string="1.0.5"><![CDATA[Thread options]]></phrase>
+  <phrase title="type_explanation" version_id="1000510" version_string="1.0.5"><![CDATA[Category or classification for this marker (e.g., landmark, shop, monument)]]></phrase>
   <phrase title="update_date" version_id="1000020" version_string="1.0.2"><![CDATA[Update date]]></phrase>
   <phrase title="use_my_location" version_id="1000040" version_string="1.0.4"><![CDATA[Use my location]]></phrase>
+  <phrase title="view_discussion" version_id="1000510" version_string="1.0.5"><![CDATA[{icon::comments} View discussion]]></phrase>
 </phrases>
