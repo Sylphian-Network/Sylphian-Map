@@ -230,4 +230,38 @@ class MapMarkerSuggestionRepository extends Repository
 			return false;
 		}
 	}
+
+    /**
+     * Cleans up old approved and rejected marker suggestions
+     *
+     * This method removes suggestions that:
+     * - Have a status of either 'approved' or 'rejected'
+     * - Are older than the specified number of days (default: 30)
+     *
+     * @param int $olderThanDays Number of days to consider a suggestion "old"
+     *
+     * @return int Number of suggestions deleted
+     */
+    public function cleanupOldSuggestions(int $olderThanDays = 30): int
+    {
+        $cutoffTime = XF::$time - ($olderThanDays * 86400);
+
+        $suggestions = $this->finder('Sylphian\Map:MapMarkerSuggestion')
+            ->where('status', ['approved', 'rejected'])
+            ->where('create_date', '<', $cutoffTime)
+            ->fetch();
+
+        $deleteCount = 0;
+
+        foreach ($suggestions as $suggestion) {
+            $suggestion->delete();
+            $deleteCount++;
+        }
+
+        if ($deleteCount > 0) {
+            XF::logError("Map marker suggestion cleanup: deleted {$deleteCount} old approved/rejected suggestions.");
+        }
+
+        return $deleteCount;
+    }
 }

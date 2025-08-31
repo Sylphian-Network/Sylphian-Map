@@ -1,0 +1,17 @@
+{
+    "cron_class": "Sylphian\\Map\\Cron\\Cleanup",
+    "cron_method": "cleanupOldSuggestions",
+    "run_rules": {
+        "day_type": "dow",
+        "dow": [
+            -1
+        ],
+        "hours": [
+            1
+        ],
+        "minutes": [
+            0
+        ]
+    },
+    "active": true
+}
