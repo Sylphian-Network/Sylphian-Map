@@ -1,0 +1,11 @@
+{
+    "route_type": "admin",
+    "route_prefix": "sylphian_map",
+    "sub_name": "",
+    "format": "",
+    "build_class": "",
+    "build_method": "",
+    "controller": "Sylphian\\Map:Map",
+    "context": "sylphian_map",
+    "action_prefix": ""
+}

@@ -1,0 +1,9 @@
+{
+    "event_id": "templater_macro_pre_render",
+    "execute_order": 10,
+    "callback_class": "Sylphian\\Map\\Listener\\MacroRender",
+    "callback_method": "preRender",
+    "active": true,
+    "hint": "admin:option_macros:option_form_block",
+    "description": ""
+}

@@ -1,0 +1,18 @@
+<xf:title>{{ phrase('import_map_data') }}</xf:title>
+
+<xf:form action="{{ link('sylphian_map/import') }}" class="block" upload="true" ajax="false">
+    <div class="block-container">
+        <div class="block-body">
+            <xf:uploadrow name="import_file" 
+                          label="{{ phrase('upload_file') }}" 
+                          accept=".json,.sql"
+                          required="required" />
+                
+            <xf:inforow>
+                {{ phrase('import_file_description') }}
+            </xf:inforow>
+        </div>
+        
+        <xf:submitrow icon="import" submit="{{ phrase('import') }}" />
+    </div>
+</xf:form>

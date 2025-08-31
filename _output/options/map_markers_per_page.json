@@ -8,6 +8,6 @@
     "advanced": false,
     "default_value": "20",
     "relations": {
-        "map": 60
+        "sylphian_map": 1000
     }
 }

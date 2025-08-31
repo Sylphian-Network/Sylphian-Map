@@ -1,0 +1,60 @@
+<xf:macro name="option_form_block" arg-group="" arg-options="!" arg-containerBeforeHtml="">
+	<xf:set var="$hundred" value="0" />
+
+	<xf:if is="$options is not empty">
+		<xf:form action="{{ link('options/update') }}" ajax="true" class="block">
+			{{ $containerBeforeHtml|raw }}
+			<div class="block-container">	
+				<h2 class="block-tabHeader tabs" data-xf-init="tabs" role="tab">
+					<a class="tabs-tab is-active" role="tablist" tabindex="0" aria-controls="mapControlOptions">Map control options</a>
+					<a class="tabs-tab" role="tablist" tabindex="0" aria-controls="mapThreadOptions">Thread options</a>
+				</h2>
+				
+				<ul class="tabPanes">
+					<li class="is-active" role="tabpanel" id="mapControlOptions">
+						<div class="block-body">
+							<xf:foreach loop="$options" value="$option">
+								<xf:if is="$option.Relations.sylphian_map.display_order < 2000">
+									<xf:if is="$group">
+										<xf:set var="$curHundred" value="{{ floor($option.Relations.{$group.group_id}.display_order / 100) }}" />
+										<xf:if is="{{ $curHundred > $hundred }}">
+											<xf:set var="$hundred" value="{$curHundred}" />
+											<hr class="formRowSep" />
+										</xf:if>
+									</xf:if>
+
+									<xf:macro template="option_macros" name="option_row" arg-group="{$group}" arg-option="{$option}" />
+								</xf:if>
+							</xf:foreach>
+							
+							<xf:formrow label="">
+								<xf:button href="{{ link('sylphian_map/export') }}" icon="export" overlay="true">{{ phrase('export_data') }}</xf:button>
+								<xf:button href="{{ link('sylphian_map/import') }}" icon="import" overlay="true">{{ phrase('import_data') }}</xf:button>
+							</xf:formrow>
+						</div>
+					</li>
+					
+					<li role="tabpanel" id="mapThreadOptions">
+						<div class="block-body">
+							<xf:foreach loop="$options" value="$option">
+								<xf:if is="$option.Relations.sylphian_map.display_order >= 2000">
+									<xf:if is="$group">
+										<xf:set var="$curHundred" value="{{ floor($option.Relations.{$group.group_id}.display_order / 100) }}" />
+										<xf:if is="{{ $curHundred > $hundred }}">
+											<xf:set var="$hundred" value="{$curHundred}" />
+											<hr class="formRowSep" />
+										</xf:if>
+									</xf:if>
+
+									<xf:macro template="option_macros" name="option_row" arg-group="{$group}" arg-option="{$option}" />
+								</xf:if>
+							</xf:foreach>
+						</div>
+					</li>
+				</ul>
+				
+				<xf:submitrow sticky="true" icon="save" />
+			</div>
+		</xf:form>
+	</xf:if>
+</xf:macro>
