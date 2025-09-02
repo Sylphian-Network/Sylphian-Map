@@ -2,7 +2,6 @@
 
 namespace Sylphian\Map\Pub\Controller;
 
-use Sylphian\Library\Entity\AddonLog;
 use Sylphian\Library\Repository\LogRepository;
 use Sylphian\Map\Repository\MapMarkerRepository  ;
 use Sylphian\Map\Repository\MapMarkerSuggestionRepository  ;
@@ -109,6 +108,8 @@ class Map extends Controller
 			'active' => 'bool',
 			'create_thread' => 'bool',
 			'thread_lock' => 'bool',
+			'start_date' => 'datetime',
+			'end_date' => 'datetime',
 		]);
 
 		$markerRepo = $this->getMapMarkerRepo();
@@ -127,6 +128,8 @@ class Map extends Controller
 			'user_id' => \XF::visitor()->user_id,
 			'create_thread' => $input['create_thread'],
 			'thread_lock' => $input['thread_lock'],
+			'start_date' => $input['start_date'],
+			'end_date' => $input['end_date'],
 		];
 
 		$marker = $markerRepo->createMapMarker($markerData);
@@ -179,6 +182,8 @@ class Map extends Controller
 			'active' => 'bool',
 			'create_thread' => 'bool',
 			'thread_lock' => 'bool',
+			'start_date' => 'datetime',
+			'end_date' => 'datetime',
 		]);
 
 		$updatedMarker = $markerRepo->updateMapMarker($marker, $input);
@@ -218,9 +223,9 @@ class Map extends Controller
 		/** @var DeletePlugin $plugin */
 		$plugin = $this->plugin('XF:DeletePlugin');
 
-        /** @var LogRepository $logRepo */
-        $logRepo = $this->repository('Sylphian\Library:LogRepository');
-        $logRepo->logInfo('Map marker deleted: ' . $marker->title, $marker->toArray());
+		/** @var LogRepository $logRepo */
+		$logRepo = $this->repository('Sylphian\Library:LogRepository');
+		$logRepo->logInfo('Map marker deleted: ' . $marker->title, $marker->toArray());
 
 		return $plugin->actionDelete(
 			$marker,
@@ -271,6 +276,8 @@ class Map extends Controller
 			'marker_color' => 'str',
 			'create_thread' => 'bool',
 			'thread_lock' => 'bool',
+			'start_date' => 'datetime',
+			'end_date' => 'datetime',
 		]);
 
 		$suggestionRepo = $this->getMapMarkerSuggestionRepo();
@@ -285,9 +292,9 @@ class Map extends Controller
 	 * Approves a marker suggestion, creating a permanent marker
 	 *
 	 * @throws PrintableException If suggestion retrieval fails
-	 * @return Redirect|View|AddonLog
+	 * @return Redirect|View|Error
 	 */
-	public function actionApproveSuggestion(): Redirect|View|AddonLog
+	public function actionApproveSuggestion(): Redirect|View|Error
 	{
 		$suggestionRepo = $this->getMapMarkerSuggestionRepo();
 		$suggestionId = $this->filter('suggestion_id', 'uint');
@@ -305,9 +312,11 @@ class Map extends Controller
 
 		if (!$suggestionRepo->approveSuggestion($suggestionId))
 		{
-            /** @var LogRepository $logRepo */
-            $logRepo = $this->repository('Sylphian\Library:Log');
-            return $logRepo->logError(\XF::phrase('error_occurred_while_approving_suggestion'), $suggestionId);
+			/** @var LogRepository $logRepo */
+			$logRepo = $this->repository('Sylphian\Library:Log');
+			$logRepo->logError(\XF::phrase('error_occurred_while_approving_suggestion'), ['suggestion_id' => $suggestionId]);
+
+			return $this->error(\XF::phrase('error_occurred_while_approving_suggestion'));
 		}
 
 		return $this->redirect($this->buildLink('map'));
@@ -317,9 +326,9 @@ class Map extends Controller
 	 * Rejects a marker suggestion
 	 *
 	 * @throws PrintableException If suggestion retrieval fails
-	 * @return Redirect|View|AddonLog
+	 * @return Redirect|View|Error
 	 */
-	public function actionRejectSuggestion(): Redirect|View|AddonLog
+	public function actionRejectSuggestion(): Redirect|View|Error
 	{
 		$suggestionRepo = $this->getMapMarkerSuggestionRepo();
 		$suggestionId = $this->filter('suggestion_id', 'uint');
@@ -337,9 +346,11 @@ class Map extends Controller
 
 		if (!$suggestionRepo->rejectSuggestion($suggestionId))
 		{
-            /** @var LogRepository $logRepo */
-            $logRepo = $this->repository('Sylphian\Library:Log');
-			return $logRepo->logError(\XF::phrase('error_occurred_while_rejecting_suggestion'), $suggestionId);
+			/** @var LogRepository $logRepo */
+			$logRepo = $this->repository('Sylphian\Library:Log');
+			$logRepo->logError(\XF::phrase('error_occurred_while_rejecting_suggestion'), ['suggestion_id' => $suggestionId]);
+
+			return $this->error(\XF::phrase('error_occurred_while_rejecting_suggestion'));
 		}
 
 		return $this->redirect($this->buildLink('map'));

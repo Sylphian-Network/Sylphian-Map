@@ -9,7 +9,8 @@
             <a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerLocation">{{ phrase('location') }}</a>
             <a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerAppearance">{{ phrase('appearance') }}</a>
 			<a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerThread">{{ phrase('thread_options') }}</a>
-        </h2>
+       		<a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerTiming">{{ phrase('event_timing') }}</a>
+		</h2>
 
         <ul class="tabPanes">
             <!-- Basic Information Tab -->
@@ -141,6 +142,27 @@
                     </xf:if>
                 </div>
             </li>
+			
+			<!-- Event Timing Tab -->
+			<li role="tabpanel" id="markerTiming">
+				<div class="block-body">
+					<xf:formrow label="{{ phrase('start_date_time') }}" explain="{{ phrase('leave_empty_for_permanent_markers') }}">
+						<div class="inputGroup">
+							<xf:datetimeinput name="start_date" value="{{ $entity.start_date }}" />
+						</div>
+					</xf:formrow>
+
+					<xf:formrow label="{{ phrase('end_date_time') }}">
+						<div class="inputGroup">
+							<xf:datetimeinput name="end_date" value="{{ $entity.end_date }}" />
+						</div>
+					</xf:formrow>
+
+					<xf:inforow>
+						{{ phrase('time_based_markers_explanation') }}
+					</xf:inforow>
+				</div>
+			</li>
         </ul>
 
         <xf:submitrow sticky="true" icon="save"

@@ -31,6 +31,7 @@
             icon: 'home',
             markerColor: 'blue',
             iconColor: 'white',
+            animationState: null,
         },
 
         initialize: function (options) {
@@ -57,8 +58,9 @@
             var options = this.options;
             var iconClass = this._getIconClass(options);
             var iconColorStyle = options.iconColor ? ' style="color: ' + options.iconColor + ';"' : '';
+            var animationClass = options.animationState ? ' map-icon-animation-' + options.animationState : '';
 
-            return '<i class="fa--xf ' + options.iconVar + ' ' + iconClass + '"' + iconColorStyle + '>' +
+            return '<i class="fa--xf ' + options.iconVar + ' ' + iconClass + animationClass + '"' + iconColorStyle + '>' +
                 svgContent +
                 '</i>';
         },

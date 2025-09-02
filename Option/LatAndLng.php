@@ -12,9 +12,9 @@ class LatAndLng extends AbstractOption
 	{
 		if (!is_numeric($value))
 		{
-            /** @var LogRepository $logRepo */
-            $logRepo = \XF::repository('Sylphian\Library:Log');
-            $logRepo->logError(\XF::phrase('map_option_error'), $option->getOptionValue());
+			/** @var LogRepository $logRepo */
+			$logRepo = \XF::repository('Sylphian\Library:Log');
+			$logRepo->logError(\XF::phrase('map_option_error'), ['value' => $option->getOptionValue()]);
 			return false;
 		}
 

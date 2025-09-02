@@ -38,17 +38,17 @@ class ThreadCreationLocation extends AbstractOption
 	{
 		if ($value && !is_numeric($value))
 		{
-            /** @var LogRepository $logRepo */
-            $logRepo = \XF::repository('Sylphian\Library:Log');
-            $logRepo->logError(\XF::phrase('please_select_valid_forum'), $option->getOptionValue());
+			/** @var LogRepository $logRepo */
+			$logRepo = \XF::repository('Sylphian\Library:Log');
+			$logRepo->logError(\XF::phrase('please_select_valid_forum'), ['value' => $option->getOptionValue()]);
 			return false;
 		}
 
 		if ($value && !\XF::em()->find('XF:Forum', $value))
 		{
-            /** @var LogRepository $logRepo */
-            $logRepo = \XF::repository('Sylphian\Library:Log');
-            $logRepo->logError(\XF::phrase('please_select_valid_forum'), $option->getOptionValue());
+			/** @var LogRepository $logRepo */
+			$logRepo = \XF::repository('Sylphian\Library:Log');
+			$logRepo->logError(\XF::phrase('please_select_valid_forum'), ['value' => $option->getOptionValue()]);
 			return false;
 		}
 

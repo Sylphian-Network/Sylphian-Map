@@ -50,8 +50,8 @@ class Map extends AbstractController
 			return $this->view('Sylphian\Map:Import', 'sylphian_map_import');
 		}
 
-        /** @var LogRepository $logRepo */
-        $logRepo = \XF::repository('Sylphian\Library:Log');
+		/** @var LogRepository $logRepo */
+		$logRepo = \XF::repository('Sylphian\Library:Log');
 
 		$upload = $this->request->getFile('import_file');
 		if (!$upload)

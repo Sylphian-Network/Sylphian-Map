@@ -2,7 +2,6 @@
 
 namespace Sylphian\Map\Repository;
 
-use Exception;
 use Sylphian\Library\Repository\LogRepository;
 use Sylphian\Map\Entity\MapMarker;
 use XF\Mvc\Entity\AbstractCollection;
@@ -118,19 +117,19 @@ class MapMarkerRepository extends Repository
 		$marker->bulkSet($data);
 		$marker->save();
 
-        /** @var LogRepository $logRepo */
-        $logRepo = $this->repository('Sylphian\Library:Log');
-        $logRepo->logInfo(
-            'Map marker created: ' . $marker->title,
-            [
-                'marker_id' => $marker->marker_id,
-                'lat' => $marker->lat,
-                'lng' => $marker->lng,
-                'type' => $marker->type ?? 'default',
-                'user_id' => $marker->user_id,
-                'thread_id' => $marker->thread_id
-            ]
-        );
+		/** @var LogRepository $logRepo */
+		$logRepo = $this->repository('Sylphian\Library:Log');
+		$logRepo->logInfo(
+			'Map marker created: ' . $marker->title,
+			[
+				'marker_id' => $marker->marker_id,
+				'lat' => $marker->lat,
+				'lng' => $marker->lng,
+				'type' => $marker->type ?? 'default',
+				'user_id' => $marker->user_id,
+				'thread_id' => $marker->thread_id,
+			]
+		);
 
 		return $marker;
 	}
@@ -181,37 +180,38 @@ class MapMarkerRepository extends Repository
 				$marker = $this->getMapMarkerOrFail((int) $markerOrId);
 			}
 
-            $oldValues = [
-                'title' => $marker->title,
-                'lat' => $marker->lat,
-                'lng' => $marker->lng,
-                'content' => $marker->content,
-                'icon' => $marker->icon,
-                'type' => $marker->type,
-            ];
+			$oldValues = [
+				'title' => $marker->title,
+				'lat' => $marker->lat,
+				'lng' => $marker->lng,
+				'content' => $marker->content,
+				'icon' => $marker->icon,
+				'type' => $marker->type,
+			];
 
 			$data = $this->validateMarkerData($data);
 
 			$marker->bulkSet($data);
 			$marker->save();
 
-            /** @var LogRepository $logRepo */
-            $logRepo = $this->repository('Sylphian\Library:Log');
-            $logRepo->logInfo(
-                'Map marker updated: ' . $marker->title,
-                [
-                    'marker_id' => $marker->marker_id,
-                    'old_values' => $oldValues,
-                    'new_values' => [
-                        'title' => $marker->title,
-                        'lat' => $marker->lat,
-                        'lng' => $marker->lng,
-                        'content' => $marker->content,
-                        'icon' => $marker->icon,
-                        'type' => $marker->type,
-                    ],
-                    'user_id' => \XF::visitor()->user_id
-                ]);
+			/** @var LogRepository $logRepo */
+			$logRepo = $this->repository('Sylphian\Library:Log');
+			$logRepo->logInfo(
+				'Map marker updated: ' . $marker->title,
+				[
+					'marker_id' => $marker->marker_id,
+					'old_values' => $oldValues,
+					'new_values' => [
+						'title' => $marker->title,
+						'lat' => $marker->lat,
+						'lng' => $marker->lng,
+						'content' => $marker->content,
+						'icon' => $marker->icon,
+						'type' => $marker->type,
+					],
+					'user_id' => \XF::visitor()->user_id,
+				]
+			);
 
 			return $marker;
 		}
@@ -335,6 +335,8 @@ class MapMarkerRepository extends Repository
 				'type' => $marker->type,
 				'thread_id' => $marker->thread_id,
 				'thread_url' => \XF::app()->router()->buildLink('threads', ['thread_id' => $marker->thread_id]),
+				'start_date' => $marker->start_date,
+				'end_date' => $marker->end_date,
 			];
 
 			$markers[] = $markerData;

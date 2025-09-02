@@ -125,18 +125,18 @@ class MapMarkerSuggestionRepository extends Repository
 		$suggestion->bulkSet($data);
 		$suggestion->save();
 
-        /** @var LogRepository $logRepo */
-        $logRepo = $this->repository('Sylphian\Library:Log');
-        $logRepo->logInfo(
-            'Map marker suggestion created: ' . $suggestion->title,
-            [
-                'suggestion_id' => $suggestion->suggestion_id,
-                'lat' => $suggestion->lat,
-                'lng' => $suggestion->lng,
-                'type' => $suggestion->type ?? 'default',
-                'user_id' => $suggestion->user_id,
-            ]
-        );
+		/** @var LogRepository $logRepo */
+		$logRepo = $this->repository('Sylphian\Library:Log');
+		$logRepo->logInfo(
+			'Map marker suggestion created: ' . $suggestion->title,
+			[
+				'suggestion_id' => $suggestion->suggestion_id,
+				'lat' => $suggestion->lat,
+				'lng' => $suggestion->lng,
+				'type' => $suggestion->type ?? 'default',
+				'user_id' => $suggestion->user_id,
+			]
+		);
 
 		return $suggestion;
 	}
@@ -199,6 +199,8 @@ class MapMarkerSuggestionRepository extends Repository
 				'active' => true,
 				'create_thread' => $suggestion->create_thread,
 				'thread_lock' => $suggestion->thread_lock,
+				'start_date' => $suggestion->start_date,
+				'end_date' => $suggestion->end_date,
 			];
 
 			$marker = $markerRepo->createMapMarker($markerData);
@@ -213,20 +215,20 @@ class MapMarkerSuggestionRepository extends Repository
 			$suggestion->status = 'approved';
 			$suggestion->save();
 
-            /** @var LogRepository $logRepo */
-            $logRepo = $this->repository('Sylphian\Library:Log');
-            $logRepo->logInfo(
-                'Map marker suggestion approved: ' . $suggestion->title,
-                [
-                    'suggestion_id' => $suggestion->suggestion_id,
-                    'marker_id' => $marker->marker_id,
-                    'lat' => $suggestion->lat,
-                    'lng' => $suggestion->lng,
-                    'type' => $suggestion->type ?? 'default',
-                    'user_id' => $suggestion->user_id,
-                    'approved_by' => \XF::visitor()->user_id
-                ]
-            );
+			/** @var LogRepository $logRepo */
+			$logRepo = $this->repository('Sylphian\Library:Log');
+			$logRepo->logInfo(
+				'Map marker suggestion approved: ' . $suggestion->title,
+				[
+					'suggestion_id' => $suggestion->suggestion_id,
+					'marker_id' => $marker->marker_id,
+					'lat' => $suggestion->lat,
+					'lng' => $suggestion->lng,
+					'type' => $suggestion->type ?? 'default',
+					'user_id' => $suggestion->user_id,
+					'approved_by' => \XF::visitor()->user_id,
+				]
+			);
 
 			return true;
 		}
@@ -252,19 +254,19 @@ class MapMarkerSuggestionRepository extends Repository
 			$suggestion->status = 'rejected';
 			$suggestion->save();
 
-            /** @var LogRepository $logRepo */
-            $logRepo = $this->repository('Sylphian\Library:Log');
-            $logRepo->logInfo(
-                'Map marker suggestion rejected: ' . $suggestion->title,
-                [
-                    'suggestion_id' => $suggestion->suggestion_id,
-                    'lat' => $suggestion->lat,
-                    'lng' => $suggestion->lng,
-                    'type' => $suggestion->type ?? 'default',
-                    'user_id' => $suggestion->user_id,
-                    'rejected_by' => \XF::visitor()->user_id
-                ]
-            );
+			/** @var LogRepository $logRepo */
+			$logRepo = $this->repository('Sylphian\Library:Log');
+			$logRepo->logInfo(
+				'Map marker suggestion rejected: ' . $suggestion->title,
+				[
+					'suggestion_id' => $suggestion->suggestion_id,
+					'lat' => $suggestion->lat,
+					'lng' => $suggestion->lng,
+					'type' => $suggestion->type ?? 'default',
+					'user_id' => $suggestion->user_id,
+					'rejected_by' => \XF::visitor()->user_id,
+				]
+			);
 
 			return true;
 		}
@@ -296,16 +298,16 @@ class MapMarkerSuggestionRepository extends Repository
 			->fetch();
 
 		$deleteCount = 0;
-        $deletedSuggestions = [];
+		$deletedSuggestions = [];
 
 		foreach ($suggestions AS $suggestion)
 		{
-            $deletedSuggestions[] = [
-                'suggestion_id' => $suggestion->suggestion_id,
-                'title' => $suggestion->title,
-                'status' => $suggestion->status,
-                'create_date' => $suggestion->create_date
-            ];
+			$deletedSuggestions[] = [
+				'suggestion_id' => $suggestion->suggestion_id,
+				'title' => $suggestion->title,
+				'status' => $suggestion->status,
+				'create_date' => $suggestion->create_date,
+			];
 
 			$suggestion->delete();
 			$deleteCount++;
@@ -313,17 +315,17 @@ class MapMarkerSuggestionRepository extends Repository
 
 		if ($deleteCount > 0)
 		{
-            /** @var LogRepository $logRepo */
-            $logRepo = $this->repository('Sylphian\Library:LogRepository');
-            $logRepo->logInfo(
-                "Map marker suggestion cleanup: deleted {$deleteCount} old approved/rejected suggestions.",
-                [
-                    'count' => $deleteCount,
-                    'cutoff_days' => $olderThanDays,
-                    'cutoff_time' => $cutoffTime,
-                    'deleted_suggestions' => $deletedSuggestions
-                ]
-            );
+			/** @var LogRepository $logRepo */
+			$logRepo = $this->repository('Sylphian\Library:LogRepository');
+			$logRepo->logInfo(
+				"Map marker suggestion cleanup: deleted {$deleteCount} old approved/rejected suggestions.",
+				[
+					'count' => $deleteCount,
+					'cutoff_days' => $olderThanDays,
+					'cutoff_time' => $cutoffTime,
+					'deleted_suggestions' => $deletedSuggestions,
+				]
+			);
 		}
 
 		return $deleteCount;
