@@ -2,6 +2,8 @@
 
 namespace Sylphian\Map\Admin\Controller;
 
+use Sylphian\Library\Entity\AddonLog;
+use Sylphian\Library\Repository\LogRepository;
 use Sylphian\Map\Repository\ImportMarkerRepository;
 use Sylphian\Map\Repository\MapMarkerRepository;
 use Sylphian\Map\Repository\MapMarkerSuggestionRepository;
@@ -41,17 +43,20 @@ class Map extends AbstractController
 		return $this->view('Sylphian\Map:Export', 'sylphian_map_export', $viewParams);
 	}
 
-	public function actionImport(): View|Error|Redirect|XF\Mvc\Reply\Message
+	public function actionImport(): View|AddonLog|Redirect|XF\Mvc\Reply\Message
 	{
 		if (!$this->request->isPost())
 		{
 			return $this->view('Sylphian\Map:Import', 'sylphian_map_import');
 		}
 
+        /** @var LogRepository $logRepo */
+        $logRepo = \XF::repository('Sylphian\Library:Log');
+
 		$upload = $this->request->getFile('import_file');
 		if (!$upload)
 		{
-			return $this->error(\XF::phrase('please_upload_valid_file'));
+			return $logRepo->logError(\XF::phrase('please_upload_valid_file'));
 		}
 
 		$fileName = $upload->getFileName();
@@ -59,7 +64,7 @@ class Map extends AbstractController
 
 		if (!in_array($extension, ['json', 'sql']))
 		{
-			return $this->error(\XF::phrase('please_upload_valid_file_with_extensions', [
+			return $logRepo->logError(\XF::phrase('please_upload_valid_file_with_extensions', [
 				'extensions' => 'json, sql',
 			]));
 		}
@@ -69,7 +74,7 @@ class Map extends AbstractController
 
 		if (!$tempFile || !file_exists($tempFile))
 		{
-			return $this->error(\XF::phrase('uploaded_file_failed_not_found'));
+			return $logRepo->logError(\XF::phrase('uploaded_file_failed_not_found'));
 		}
 
 		try
@@ -103,7 +108,7 @@ class Map extends AbstractController
 		}
 		catch (\Exception $e)
 		{
-			return $this->error('Import failed error:', $e->getMessage());
+			return $logRepo->logError('Import failed error:', (array) $e);
 		}
 	}
 }

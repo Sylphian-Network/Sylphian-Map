@@ -2,13 +2,18 @@
     "legacy_addon_id": "",
     "title": "Sylphian - Map",
     "description": "Let your community manage markers on a map.",
-    "version_id": 1000670,
-    "version_string": "1.0.6",
+    "version_id": 1000710,
+    "version_string": "1.0.7 Alpha",
     "dev": "QuackieMackie",
     "dev_url": "https://github.com/QuackieMackie",
     "faq_url": "",
     "support_url": "",
     "extra_urls": [],
-    "require": [],
+    "require": {
+        "Sylphian/Library": [
+            1000110,
+            "Sylphian - Library [1.0.1 Alpha] by QuackieMackie"
+        ]
+    },
     "icon": "fa-map-marked"
 }

@@ -2,6 +2,7 @@
 
 namespace Sylphian\Map\Option;
 
+use Sylphian\Library\Repository\LogRepository;
 use XF\Entity\Option;
 use XF\Option\AbstractOption;
 use XF\Repository\NodeRepository;
@@ -37,13 +38,17 @@ class ThreadCreationLocation extends AbstractOption
 	{
 		if ($value && !is_numeric($value))
 		{
-			$option->error(\XF::phrase('please_select_valid_forum'), $option->option_id);
+            /** @var LogRepository $logRepo */
+            $logRepo = \XF::repository('Sylphian\Library:Log');
+            $logRepo->logError(\XF::phrase('please_select_valid_forum'), $option->getOptionValue());
 			return false;
 		}
 
 		if ($value && !\XF::em()->find('XF:Forum', $value))
 		{
-			$option->error(\XF::phrase('please_select_valid_forum'), $option->option_id);
+            /** @var LogRepository $logRepo */
+            $logRepo = \XF::repository('Sylphian\Library:Log');
+            $logRepo->logError(\XF::phrase('please_select_valid_forum'), $option->getOptionValue());
 			return false;
 		}
 

@@ -3,6 +3,7 @@
 namespace Sylphian\Map\Repository;
 
 use Exception;
+use Sylphian\Library\Repository\LogRepository;
 use Sylphian\Map\Entity\MapMarker;
 use XF\Mvc\Entity\AbstractCollection;
 use XF\Mvc\Entity\Repository;
@@ -117,6 +118,20 @@ class MapMarkerRepository extends Repository
 		$marker->bulkSet($data);
 		$marker->save();
 
+        /** @var LogRepository $logRepo */
+        $logRepo = $this->repository('Sylphian\Library:Log');
+        $logRepo->logInfo(
+            'Map marker created: ' . $marker->title,
+            [
+                'marker_id' => $marker->marker_id,
+                'lat' => $marker->lat,
+                'lng' => $marker->lng,
+                'type' => $marker->type ?? 'default',
+                'user_id' => $marker->user_id,
+                'thread_id' => $marker->thread_id
+            ]
+        );
+
 		return $marker;
 	}
 
@@ -143,36 +158,6 @@ class MapMarkerRepository extends Repository
 	}
 
 	/**
-	 * Deletes a map marker
-	 *
-	 * @param int $id The marker ID
-	 *
-	 * @return bool
-	 */
-	public function deleteMapMarker(int $id): bool
-	{
-		try
-		{
-			$marker = $this->getMapMarkerOrFail($id);
-
-			if ($marker->thread_id)
-			{
-				/** @var ThreadMarkerRepository $threadMarkerRepo */
-				$threadMarkerRepo = $this->repository('Sylphian\Map:ThreadMarker');
-				$threadMarkerRepo->markThreadAsDeleted($marker);
-			}
-
-			$marker->delete();
-			return true;
-		}
-		catch (\Exception $e)
-		{
-			\XF::logException($e, false, 'Error deleting map marker: ');
-			return false;
-		}
-	}
-
-	/**
 	 * Updates a map marker
 	 *
 	 * This method validates the input data and updates an existing marker.
@@ -196,10 +181,38 @@ class MapMarkerRepository extends Repository
 				$marker = $this->getMapMarkerOrFail((int) $markerOrId);
 			}
 
+            $oldValues = [
+                'title' => $marker->title,
+                'lat' => $marker->lat,
+                'lng' => $marker->lng,
+                'content' => $marker->content,
+                'icon' => $marker->icon,
+                'type' => $marker->type,
+            ];
+
 			$data = $this->validateMarkerData($data);
 
 			$marker->bulkSet($data);
 			$marker->save();
+
+            /** @var LogRepository $logRepo */
+            $logRepo = $this->repository('Sylphian\Library:Log');
+            $logRepo->logInfo(
+                'Map marker updated: ' . $marker->title,
+                [
+                    'marker_id' => $marker->marker_id,
+                    'old_values' => $oldValues,
+                    'new_values' => [
+                        'title' => $marker->title,
+                        'lat' => $marker->lat,
+                        'lng' => $marker->lng,
+                        'content' => $marker->content,
+                        'icon' => $marker->icon,
+                        'type' => $marker->type,
+                    ],
+                    'user_id' => \XF::visitor()->user_id
+                ]);
+
 			return $marker;
 		}
 		catch (\Exception $e)

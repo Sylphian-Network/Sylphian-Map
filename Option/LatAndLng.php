@@ -2,6 +2,7 @@
 
 namespace Sylphian\Map\Option;
 
+use Sylphian\Library\Repository\LogRepository;
 use XF\Entity\Option;
 use XF\Option\AbstractOption;
 
@@ -11,7 +12,9 @@ class LatAndLng extends AbstractOption
 	{
 		if (!is_numeric($value))
 		{
-			$option->error(\XF::phrase('map_option_error'), $option->option_id);
+            /** @var LogRepository $logRepo */
+            $logRepo = \XF::repository('Sylphian\Library:Log');
+            $logRepo->logError(\XF::phrase('map_option_error'), $option->getOptionValue());
 			return false;
 		}
 

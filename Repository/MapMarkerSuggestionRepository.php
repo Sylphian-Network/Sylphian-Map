@@ -3,6 +3,7 @@
 namespace Sylphian\Map\Repository;
 
 use Exception;
+use Sylphian\Library\Repository\LogRepository;
 use Sylphian\Map\Entity\MapMarkerSuggestion;
 use XF;
 use XF\Mvc\Entity\Repository;
@@ -124,6 +125,19 @@ class MapMarkerSuggestionRepository extends Repository
 		$suggestion->bulkSet($data);
 		$suggestion->save();
 
+        /** @var LogRepository $logRepo */
+        $logRepo = $this->repository('Sylphian\Library:Log');
+        $logRepo->logInfo(
+            'Map marker suggestion created: ' . $suggestion->title,
+            [
+                'suggestion_id' => $suggestion->suggestion_id,
+                'lat' => $suggestion->lat,
+                'lng' => $suggestion->lng,
+                'type' => $suggestion->type ?? 'default',
+                'user_id' => $suggestion->user_id,
+            ]
+        );
+
 		return $suggestion;
 	}
 
@@ -199,6 +213,21 @@ class MapMarkerSuggestionRepository extends Repository
 			$suggestion->status = 'approved';
 			$suggestion->save();
 
+            /** @var LogRepository $logRepo */
+            $logRepo = $this->repository('Sylphian\Library:Log');
+            $logRepo->logInfo(
+                'Map marker suggestion approved: ' . $suggestion->title,
+                [
+                    'suggestion_id' => $suggestion->suggestion_id,
+                    'marker_id' => $marker->marker_id,
+                    'lat' => $suggestion->lat,
+                    'lng' => $suggestion->lng,
+                    'type' => $suggestion->type ?? 'default',
+                    'user_id' => $suggestion->user_id,
+                    'approved_by' => \XF::visitor()->user_id
+                ]
+            );
+
 			return true;
 		}
 		catch (\Exception $e)
@@ -222,6 +251,21 @@ class MapMarkerSuggestionRepository extends Repository
 			$suggestion = $this->getSuggestionOrFail($id);
 			$suggestion->status = 'rejected';
 			$suggestion->save();
+
+            /** @var LogRepository $logRepo */
+            $logRepo = $this->repository('Sylphian\Library:Log');
+            $logRepo->logInfo(
+                'Map marker suggestion rejected: ' . $suggestion->title,
+                [
+                    'suggestion_id' => $suggestion->suggestion_id,
+                    'lat' => $suggestion->lat,
+                    'lng' => $suggestion->lng,
+                    'type' => $suggestion->type ?? 'default',
+                    'user_id' => $suggestion->user_id,
+                    'rejected_by' => \XF::visitor()->user_id
+                ]
+            );
+
 			return true;
 		}
 		catch (\Exception $e)
@@ -252,16 +296,34 @@ class MapMarkerSuggestionRepository extends Repository
 			->fetch();
 
 		$deleteCount = 0;
+        $deletedSuggestions = [];
 
 		foreach ($suggestions AS $suggestion)
 		{
+            $deletedSuggestions[] = [
+                'suggestion_id' => $suggestion->suggestion_id,
+                'title' => $suggestion->title,
+                'status' => $suggestion->status,
+                'create_date' => $suggestion->create_date
+            ];
+
 			$suggestion->delete();
 			$deleteCount++;
 		}
 
 		if ($deleteCount > 0)
 		{
-			\XF::logError("Map marker suggestion cleanup: deleted {$deleteCount} old approved/rejected suggestions.");
+            /** @var LogRepository $logRepo */
+            $logRepo = $this->repository('Sylphian\Library:LogRepository');
+            $logRepo->logInfo(
+                "Map marker suggestion cleanup: deleted {$deleteCount} old approved/rejected suggestions.",
+                [
+                    'count' => $deleteCount,
+                    'cutoff_days' => $olderThanDays,
+                    'cutoff_time' => $cutoffTime,
+                    'deleted_suggestions' => $deletedSuggestions
+                ]
+            );
 		}
 
 		return $deleteCount;
