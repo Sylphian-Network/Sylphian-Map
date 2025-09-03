@@ -2,7 +2,7 @@
 
 namespace Sylphian\Map\Option;
 
-use Sylphian\Library\Repository\LogRepository;
+use Sylphian\Library\Logger\AddonLogger;
 use XF\Entity\Option;
 use XF\Option\AbstractOption;
 use XF\Repository\NodeRepository;
@@ -36,21 +36,19 @@ class ThreadCreationLocation extends AbstractOption
 
 	public static function verifyOption(&$value, Option $option): bool
 	{
-		if ($value && !is_numeric($value))
-		{
-			/** @var LogRepository $logRepo */
-			$logRepo = \XF::repository('Sylphian\Library:Log');
-			$logRepo->logError(\XF::phrase('please_select_valid_forum'), ['value' => $option->getOptionValue()]);
-			return false;
-		}
+        if ($value && !is_numeric($value))
+        {
+            $logger = new AddonLogger(\XF::em());
+            $logger->error(\XF::phrase('please_select_valid_forum'), ['value' => $option->getOptionValue()]);
+            return false;
+        }
 
-		if ($value && !\XF::em()->find('XF:Forum', $value))
-		{
-			/** @var LogRepository $logRepo */
-			$logRepo = \XF::repository('Sylphian\Library:Log');
-			$logRepo->logError(\XF::phrase('please_select_valid_forum'), ['value' => $option->getOptionValue()]);
-			return false;
-		}
+        if ($value && !\XF::em()->find('XF:Forum', $value))
+        {
+            $logger = new AddonLogger(\XF::em());
+            $logger->error(\XF::phrase('please_select_valid_forum'), ['value' => $option->getOptionValue()]);
+            return false;
+        }
 
 		return true;
 	}

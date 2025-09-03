@@ -2,9 +2,9 @@
 
 namespace Sylphian\Map\Pub\Controller;
 
-use Sylphian\Library\Repository\LogRepository;
-use Sylphian\Map\Repository\MapMarkerRepository  ;
-use Sylphian\Map\Repository\MapMarkerSuggestionRepository  ;
+use Sylphian\Library\Logger\LoggableTrait;
+use Sylphian\Map\Repository\MapMarkerRepository;
+use Sylphian\Map\Repository\MapMarkerSuggestionRepository;
 use Sylphian\Map\Repository\ThreadMarkerRepository;
 use XF\ControllerPlugin\DeletePlugin;
 use XF\Mvc\Controller;
@@ -15,6 +15,8 @@ use XF\PrintableException;
 
 class Map extends Controller
 {
+    use LoggableTrait;
+
 	protected function getMapMarkerRepo(): MapMarkerRepository
 	{
 		/** @var MapMarkerRepository $repo */
@@ -223,9 +225,8 @@ class Map extends Controller
 		/** @var DeletePlugin $plugin */
 		$plugin = $this->plugin('XF:DeletePlugin');
 
-		/** @var LogRepository $logRepo */
-		$logRepo = $this->repository('Sylphian\Library:LogRepository');
-		$logRepo->logInfo('Map marker deleted: ' . $marker->title, $marker->toArray());
+        $logger = $this->getLogger();
+        $logger->info('Map marker deleted: ' . $marker->title, $marker->toArray());
 
 		return $plugin->actionDelete(
 			$marker,
@@ -312,9 +313,8 @@ class Map extends Controller
 
 		if (!$suggestionRepo->approveSuggestion($suggestionId))
 		{
-			/** @var LogRepository $logRepo */
-			$logRepo = $this->repository('Sylphian\Library:Log');
-			$logRepo->logError(\XF::phrase('error_occurred_while_approving_suggestion'), ['suggestion_id' => $suggestionId]);
+			$logger = $this->getLogger();
+			$logger->error('Error occurred while approving marker suggestion', ['suggestion_id' => $suggestionId]);
 
 			return $this->error(\XF::phrase('error_occurred_while_approving_suggestion'));
 		}
@@ -346,9 +346,8 @@ class Map extends Controller
 
 		if (!$suggestionRepo->rejectSuggestion($suggestionId))
 		{
-			/** @var LogRepository $logRepo */
-			$logRepo = $this->repository('Sylphian\Library:Log');
-			$logRepo->logError(\XF::phrase('error_occurred_while_rejecting_suggestion'), ['suggestion_id' => $suggestionId]);
+            $logger = $this->getLogger();
+            $logger->error('Error occurred while rejecting marker suggestion', ['suggestion_id' => $suggestionId]);
 
 			return $this->error(\XF::phrase('error_occurred_while_rejecting_suggestion'));
 		}

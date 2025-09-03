@@ -2,7 +2,7 @@
 
 namespace Sylphian\Map\Repository;
 
-use Sylphian\Library\Repository\LogRepository;
+use Sylphian\Library\Logger\LoggableTrait;
 use Sylphian\Map\Entity\MapMarker;
 use XF\Mvc\Entity\AbstractCollection;
 use XF\Mvc\Entity\Repository;
@@ -16,6 +16,8 @@ use XF\PrintableException;
  */
 class MapMarkerRepository extends Repository
 {
+    use LoggableTrait;
+
 	/**
 	 * Gets all active map markers
 	 *
@@ -117,9 +119,8 @@ class MapMarkerRepository extends Repository
 		$marker->bulkSet($data);
 		$marker->save();
 
-		/** @var LogRepository $logRepo */
-		$logRepo = $this->repository('Sylphian\Library:Log');
-		$logRepo->logInfo(
+        $logger = $this->getLogger();
+        $logger->info(
 			'Map marker created: ' . $marker->title,
 			[
 				'marker_id' => $marker->marker_id,
@@ -194,9 +195,8 @@ class MapMarkerRepository extends Repository
 			$marker->bulkSet($data);
 			$marker->save();
 
-			/** @var LogRepository $logRepo */
-			$logRepo = $this->repository('Sylphian\Library:Log');
-			$logRepo->logInfo(
+            $logger = $this->getLogger();
+            $logger->info(
 				'Map marker updated: ' . $marker->title,
 				[
 					'marker_id' => $marker->marker_id,

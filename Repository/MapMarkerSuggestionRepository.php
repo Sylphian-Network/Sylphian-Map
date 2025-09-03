@@ -2,8 +2,7 @@
 
 namespace Sylphian\Map\Repository;
 
-use Exception;
-use Sylphian\Library\Repository\LogRepository;
+use Sylphian\Library\Logger\LoggableTrait;
 use Sylphian\Map\Entity\MapMarkerSuggestion;
 use XF;
 use XF\Mvc\Entity\Repository;
@@ -19,6 +18,8 @@ use XF\PrintableException;
  */
 class MapMarkerSuggestionRepository extends Repository
 {
+    use LoggableTrait;
+
 	/**
 	 * Gets pending map marker suggestions with pagination support
 	 *
@@ -125,9 +126,8 @@ class MapMarkerSuggestionRepository extends Repository
 		$suggestion->bulkSet($data);
 		$suggestion->save();
 
-		/** @var LogRepository $logRepo */
-		$logRepo = $this->repository('Sylphian\Library:Log');
-		$logRepo->logInfo(
+        $logger = $this->getLogger();
+        $logger->info(
 			'Map marker suggestion created: ' . $suggestion->title,
 			[
 				'suggestion_id' => $suggestion->suggestion_id,
@@ -215,9 +215,8 @@ class MapMarkerSuggestionRepository extends Repository
 			$suggestion->status = 'approved';
 			$suggestion->save();
 
-			/** @var LogRepository $logRepo */
-			$logRepo = $this->repository('Sylphian\Library:Log');
-			$logRepo->logInfo(
+			$logger = $this->getLogger();
+			$logger->info(
 				'Map marker suggestion approved: ' . $suggestion->title,
 				[
 					'suggestion_id' => $suggestion->suggestion_id,
@@ -254,9 +253,8 @@ class MapMarkerSuggestionRepository extends Repository
 			$suggestion->status = 'rejected';
 			$suggestion->save();
 
-			/** @var LogRepository $logRepo */
-			$logRepo = $this->repository('Sylphian\Library:Log');
-			$logRepo->logInfo(
+			$logger = $this->getLogger();
+			$logger->info(
 				'Map marker suggestion rejected: ' . $suggestion->title,
 				[
 					'suggestion_id' => $suggestion->suggestion_id,
@@ -315,9 +313,8 @@ class MapMarkerSuggestionRepository extends Repository
 
 		if ($deleteCount > 0)
 		{
-			/** @var LogRepository $logRepo */
-			$logRepo = $this->repository('Sylphian\Library:LogRepository');
-			$logRepo->logInfo(
+			$logger = $this->getLogger();
+			$logger->info(
 				"Map marker suggestion cleanup: deleted {$deleteCount} old approved/rejected suggestions.",
 				[
 					'count' => $deleteCount,
