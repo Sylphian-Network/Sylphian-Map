@@ -392,16 +392,11 @@ class MapMarkerRepository extends Repository
 	 */
 	public function getEventMarkersForWidget(int $limit = 10): array
 	{
-		$now = \XF::$time;
-
 		$finder = $this->finder('Sylphian\Map:MapMarker')
 			->where('active', true)
-			->where('start_date', '<=', $now)
-			->whereOr(
-				['end_date', '>=', $now],
-				['end_date', '=', null]
-			)
-			->order('start_date', 'DESC')
+			->where('start_date', '!=', null)
+            ->where('end_date', '!=', null)
+			->order('start_date', 'ASC')
 			->limit($limit);
 
 		$markers = $finder->fetch();
