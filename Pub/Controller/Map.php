@@ -2,8 +2,9 @@
 
 namespace Sylphian\Map\Pub\Controller;
 
-use Sylphian\Map\Repository\MapMarkerRepository  ;
-use Sylphian\Map\Repository\MapMarkerSuggestionRepository  ;
+use Sylphian\Library\Logger\Logger;
+use Sylphian\Map\Repository\MapMarkerRepository;
+use Sylphian\Map\Repository\MapMarkerSuggestionRepository;
 use Sylphian\Map\Repository\ThreadMarkerRepository;
 use XF\ControllerPlugin\DeletePlugin;
 use XF\Mvc\Controller;
@@ -107,6 +108,8 @@ class Map extends Controller
 			'active' => 'bool',
 			'create_thread' => 'bool',
 			'thread_lock' => 'bool',
+			'start_date' => 'datetime',
+			'end_date' => 'datetime',
 		]);
 
 		$markerRepo = $this->getMapMarkerRepo();
@@ -125,6 +128,8 @@ class Map extends Controller
 			'user_id' => \XF::visitor()->user_id,
 			'create_thread' => $input['create_thread'],
 			'thread_lock' => $input['thread_lock'],
+			'start_date' => $input['start_date'],
+			'end_date' => $input['end_date'],
 		];
 
 		$marker = $markerRepo->createMapMarker($markerData);
@@ -177,6 +182,8 @@ class Map extends Controller
 			'active' => 'bool',
 			'create_thread' => 'bool',
 			'thread_lock' => 'bool',
+			'start_date' => 'datetime',
+			'end_date' => 'datetime',
 		]);
 
 		$updatedMarker = $markerRepo->updateMapMarker($marker, $input);
@@ -215,6 +222,8 @@ class Map extends Controller
 
 		/** @var DeletePlugin $plugin */
 		$plugin = $this->plugin('XF:DeletePlugin');
+
+		Logger::info('Map marker deleted: ' . $marker->title, $marker->toArray());
 
 		return $plugin->actionDelete(
 			$marker,
@@ -265,6 +274,8 @@ class Map extends Controller
 			'marker_color' => 'str',
 			'create_thread' => 'bool',
 			'thread_lock' => 'bool',
+			'start_date' => 'datetime',
+			'end_date' => 'datetime',
 		]);
 
 		$suggestionRepo = $this->getMapMarkerSuggestionRepo();
@@ -292,14 +303,14 @@ class Map extends Controller
 			$viewParams = [
 				'suggestion' => $suggestion,
 				'actionType' => 'approve',
-				'processTitle' => 'sylphian_map_suggestion_process_approve_title',
+				'processTitle' => 'suggestion_process_approve_title',
 			];
 			return $this->view('Sylphian\Map:Suggestion\Process', 'sylphian_map_suggestion_process', $viewParams);
 		}
 
 		if (!$suggestionRepo->approveSuggestion($suggestionId))
 		{
-			return $this->error(\XF::phrase('error_occurred_while_approving_suggestion'));
+			return Logger::loggedError('Error occurred while approving marker suggestion', ['suggestion_id' => $suggestionId]);
 		}
 
 		return $this->redirect($this->buildLink('map'));
@@ -322,14 +333,14 @@ class Map extends Controller
 			$viewParams = [
 				'suggestion' => $suggestion,
 				'actionType' => 'reject',
-				'processTitle' => 'sylphian_map_suggestion_process_reject_title',
+				'processTitle' => 'suggestion_process_reject_title',
 			];
 			return $this->view('Sylphian\Map:Suggestion\Process', 'sylphian_map_suggestion_process', $viewParams);
 		}
 
 		if (!$suggestionRepo->rejectSuggestion($suggestionId))
 		{
-			return $this->error(\XF::phrase('error_occurred_while_rejecting_suggestion'));
+			return Logger::loggedError('Error occurred while rejecting marker suggestion', ['suggestion_id' => $suggestionId]);
 		}
 
 		return $this->redirect($this->buildLink('map'));

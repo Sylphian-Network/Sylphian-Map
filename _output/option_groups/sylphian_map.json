@@ -1,6 +1,6 @@
 {
     "icon": "fa-map",
-    "display_order": 1,
+    "display_order": 5050,
     "advanced": false,
     "debug_only": false
 }

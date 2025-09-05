@@ -2,7 +2,7 @@
 
 namespace Sylphian\Map\Repository;
 
-use Exception;
+use Sylphian\Library\Logger\Logger;
 use Sylphian\Map\Entity\MapMarker;
 use XF\Mvc\Entity\AbstractCollection;
 use XF\Mvc\Entity\Repository;
@@ -117,6 +117,18 @@ class MapMarkerRepository extends Repository
 		$marker->bulkSet($data);
 		$marker->save();
 
+		Logger::info(
+			'Map marker created: ' . $marker->title,
+			[
+				'marker_id' => $marker->marker_id,
+				'lat' => $marker->lat,
+				'lng' => $marker->lng,
+				'type' => $marker->type ?? 'default',
+				'user_id' => $marker->user_id,
+				'thread_id' => $marker->thread_id,
+			]
+		);
+
 		return $marker;
 	}
 
@@ -143,36 +155,6 @@ class MapMarkerRepository extends Repository
 	}
 
 	/**
-	 * Deletes a map marker
-	 *
-	 * @param int $id The marker ID
-	 *
-	 * @return bool
-	 */
-	public function deleteMapMarker(int $id): bool
-	{
-		try
-		{
-			$marker = $this->getMapMarkerOrFail($id);
-
-			if ($marker->thread_id)
-			{
-				/** @var ThreadMarkerRepository $threadMarkerRepo */
-				$threadMarkerRepo = $this->repository('Sylphian\Map:ThreadMarker');
-				$threadMarkerRepo->markThreadAsDeleted($marker);
-			}
-
-			$marker->delete();
-			return true;
-		}
-		catch (\Exception $e)
-		{
-			\XF::logException($e, false, 'Error deleting map marker: ');
-			return false;
-		}
-	}
-
-	/**
 	 * Updates a map marker
 	 *
 	 * This method validates the input data and updates an existing marker.
@@ -196,10 +178,37 @@ class MapMarkerRepository extends Repository
 				$marker = $this->getMapMarkerOrFail((int) $markerOrId);
 			}
 
+			$oldValues = [
+				'title' => $marker->title,
+				'lat' => $marker->lat,
+				'lng' => $marker->lng,
+				'content' => $marker->content,
+				'icon' => $marker->icon,
+				'type' => $marker->type,
+			];
+
 			$data = $this->validateMarkerData($data);
 
 			$marker->bulkSet($data);
 			$marker->save();
+
+			Logger::info(
+				'Map marker updated: ' . $marker->title,
+				[
+					'marker_id' => $marker->marker_id,
+					'old_values' => $oldValues,
+					'new_values' => [
+						'title' => $marker->title,
+						'lat' => $marker->lat,
+						'lng' => $marker->lng,
+						'content' => $marker->content,
+						'icon' => $marker->icon,
+						'type' => $marker->type,
+					],
+					'user_id' => \XF::visitor()->user_id,
+				]
+			);
+
 			return $marker;
 		}
 		catch (\Exception $e)
@@ -322,6 +331,8 @@ class MapMarkerRepository extends Repository
 				'type' => $marker->type,
 				'thread_id' => $marker->thread_id,
 				'thread_url' => \XF::app()->router()->buildLink('threads', ['thread_id' => $marker->thread_id]),
+				'start_date' => $marker->start_date,
+				'end_date' => $marker->end_date,
 			];
 
 			$markers[] = $markerData;
@@ -365,5 +376,102 @@ class MapMarkerRepository extends Repository
 			'markerTypes' => array_values($markerTypes),
 			'allMarkers' => $allMarkers,
 		];
+	}
+
+	/**
+	 * Get the most recent ongoing event markers
+	 *
+	 * This method fetches only markers that are:
+	 * - Currently active
+	 * - Have started (start_date <= now)
+	 * - Haven't ended yet (end_date >= now or end_date is null)
+	 *
+	 * @param int $limit Maximum number of events to fetch (default: 10)
+	 *
+	 * @return array Array of map markers with relevant data
+	 */
+	public function getEventMarkersForWidget(int $limit = 10): array
+	{
+		$finder = $this->finder('Sylphian\Map:MapMarker')
+			->where('active', true)
+			->where('start_date', '!=', null)
+			->where('end_date', '!=', null)
+			->where('end_date', '>=', \XF::$time)
+			->order('start_date', 'ASC')
+			->limit($limit);
+
+		$markers = $finder->fetch();
+		$formattedMarkers = [];
+
+		foreach ($markers AS $marker)
+		{
+			$markerData = [
+				'title' => $marker['title'],
+				'thread_id' => $marker['thread_id'],
+				'thread_url' => $marker['thread_id'] ? \XF::app()->router()->buildLink('threads', ['thread_id' => $marker['thread_id']]) : '',
+				'start_date' => $marker['start_date'],
+				'end_date' => $marker['end_date'],
+				'icon' => $marker['icon'],
+				'icon_var' => $marker['icon_var'],
+				'icon_color' => $marker['icon_color'],
+			];
+
+			$iconVarMap = [
+				'solid' => 'fas',
+				'regular' => 'far',
+				'light' => 'fal',
+				'brands' => 'fab',
+				'duotone' => 'fad',
+			];
+
+			$markerData['icon_var'] = $iconVarMap[$markerData['icon_var']] ?? $markerData['icon_var'];
+
+			$formattedMarkers[] = $markerData;
+		}
+
+		return $formattedMarkers;
+	}
+
+	/**
+	 * Cleanup map markers for events that have already ended
+	 *
+	 * This method finds all event markers with end_date in the past and
+	 * either deactivates or deletes them based on configuration.
+	 *
+	 * @return int Number of processed markers
+	 */
+	public static function cleanupPastEvents(): int
+	{
+		$now = \XF::$time;
+
+		$finder = \XF::finder('Sylphian\Map:MapMarker')
+			->where('end_date', '<', $now)
+			->where('end_date', '!=', null);
+
+		$expiredMarkers = $finder->fetch();
+		$count = $expiredMarkers->count();
+
+		if ($count > 0)
+		{
+            $markersData = [];
+
+            foreach ($expiredMarkers AS $marker)
+            {
+                $markersData[] = [
+                    'marker_id' => $marker->marker_id,
+                    'title' => $marker->title,
+                    'type' => $marker->type,
+                    'end_date' => $marker->end_date,
+                    'thread_id' => $marker->thread_id
+                ];
+
+                $marker->active = false;
+                $marker->save();
+            }
+
+            Logger::notice('Cleaned up ' . $count . ' expired event markers.', ['markers' => $markersData]);
+		}
+
+		return $count;
 	}
 }

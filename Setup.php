@@ -38,6 +38,8 @@ class Setup extends AbstractSetup
 				$table->addColumn('create_date', 'int')->setDefault(\XF::$time);
 				$table->addColumn('update_date', 'int')->setDefault(\XF::$time);
 				$table->addColumn('active', 'tinyint', 1)->setDefault(1);
+				$table->addColumn('start_date', 'int')->nullable()->setDefault(null);
+				$table->addColumn('end_date', 'int')->nullable()->setDefault(null);
 
 				$table->addPrimaryKey('marker_id');
 				$table->addKey(['lat', 'lng']);
@@ -77,6 +79,8 @@ class Setup extends AbstractSetup
 				$table->addColumn('status', 'varchar', 20)->setDefault('pending');
 				$table->addColumn('create_thread', 'tinyint', 1)->setDefault(0);
 				$table->addColumn('thread_lock', 'tinyint', 1)->setDefault(0);
+				$table->addColumn('start_date', 'int')->nullable()->setDefault(null);
+				$table->addColumn('end_date', 'int')->nullable()->setDefault(null);
 
 				$table->addPrimaryKey('suggestion_id');
 				$table->addKey(['lat', 'lng']);
@@ -190,6 +194,56 @@ class Setup extends AbstractSetup
 		catch (\Exception $e)
 		{
 			\XF::logException($e, false, 'Error updating database tables for Map addon: ' . $e->getMessage());
+
+			if (str_contains($e->getMessage(), 'Duplicate column name'))
+			{
+				return true;
+			}
+
+			return false;
+		}
+	}
+
+	public function upgrade1000710Step1(): bool
+	{
+		try
+		{
+			$this->schemaManager()->alterTable('xf_map_markers', function (Alter $table)
+			{
+				$table->addColumn('start_date', 'int')->nullable()->setDefault(null);
+				$table->addColumn('end_date', 'int')->nullable()->setDefault(null);
+			});
+
+			return true;
+		}
+		catch (\Exception $e)
+		{
+			\XF::logException($e, false, 'Error adding time-based columns to map markers table: ');
+
+			if (str_contains($e->getMessage(), 'Duplicate column name'))
+			{
+				return true;
+			}
+
+			return false;
+		}
+	}
+
+	public function upgrade1000710Step2(): bool
+	{
+		try
+		{
+			$this->schemaManager()->alterTable('xf_map_marker_suggestions', function (Alter $table)
+			{
+				$table->addColumn('start_date', 'int')->nullable()->setDefault(null);
+				$table->addColumn('end_date', 'int')->nullable()->setDefault(null);
+			});
+
+			return true;
+		}
+		catch (\Exception $e)
+		{
+			\XF::logException($e, false, 'Error adding time-based columns to map markers table: ');
 
 			if (str_contains($e->getMessage(), 'Duplicate column name'))
 			{

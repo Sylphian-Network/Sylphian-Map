@@ -1,0 +1,40 @@
+<div class="block">
+    <div class="block-container">
+        <h3 class="block-header u-alignCenter">{{ phrase('sylphian_map_events_widget_title') }}</h3>
+        <div class="block-body">
+            <xf:if is="$events is empty">
+                <div class="block-row u-alignCenter">
+                    {{ phrase('sylphian_map_no_events') }}
+                </div>
+            <xf:else />
+				<xf:foreach loop="$events" value="$event">
+					<xf:macro name="event_marker" arg-event="{{ $event }}" />
+				</xf:foreach>
+            </xf:if>
+        </div>
+    </div>
+</div>
+
+<xf:macro name="event_marker" arg-event="$event">
+    <div class="block-row sylphian-map-event">
+        <div class="sylphian-map-event-content">
+            <div class="sylphian-map-event-title">
+				<xf:fa icon="{{ $event.icon_var }} fa-{{ $event.icon }}" />
+				
+				<strong>
+					<xf:if is="$event.thread_id">
+						<a href="{$event.thread_url}" class="sylphian-map-event-link">{$event.title}</a>					
+					<xf:else />
+						{$event.title}
+					</xf:if>
+				</strong>
+            </div>
+
+			<div class="sylphian-map-event-timeframe">
+				Start: {{ date($event.start_date, 'g:i A, M j Y') }}
+				<br>
+				End: {{ date($event.end_date, 'g:i A, M j Y') }}
+			</div>
+        </div>
+    </div>
+</xf:macro>

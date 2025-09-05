@@ -1,6 +1,6 @@
 {
     "cron_class": "Sylphian\\Map\\Cron\\Cleanup",
-    "cron_method": "cleanupOldSuggestions",
+    "cron_method": "cleanupMapData",
     "run_rules": {
         "day_type": "dow",
         "dow": [

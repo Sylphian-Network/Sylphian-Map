@@ -1,15 +1,16 @@
-<xf:title>{{ phrase_dynamic($formType) }}</xf:title>
+<xf:title>{{ phrase_dynamic('sylphian_map_' . $formType) }}</xf:title>
 
 <xf:js src="sylphian/map/form-geolocation-fetcher.js" min="1" addon="Sylphian/Map" />
 
 <xf:form action="{{ $formAction }}" class="block" ajax="true">
     <div class="block-container">
         <h2 class="block-tabHeader tabs" data-xf-init="tabs" role="tablist">
-            <a class="tabs-tab is-active" role="tab" tabindex="0" aria-controls="markerBasicInfo">{{ phrase('basic_information') }}</a>
+            <a class="tabs-tab is-active" role="tab" tabindex="0" aria-controls="markerBasicInfo">{{ phrase('sylphian_map_basic_information') }}</a>
             <a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerLocation">{{ phrase('location') }}</a>
-            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerAppearance">{{ phrase('appearance') }}</a>
-			<a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerThread">{{ phrase('thread_options') }}</a>
-        </h2>
+            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerAppearance">{{ phrase('sylphian_map_appearance') }}</a>
+			<a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerThread">{{ phrase('sylphian_map_thread_options') }}</a>
+       		<a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerTiming">{{ phrase('sylphian_map_event_timing') }}</a>
+		</h2>
 
         <ul class="tabPanes">
             <!-- Basic Information Tab -->
@@ -28,12 +29,12 @@
                                    label="{{ phrase('type') }}"
                                    required="required"
                                    maxlength="50"
-								   explain="{{ phrase('type_explanation') }}"/>
+								   explain="{{ phrase('sylphian_map_type_explanation') }}"/>
 					
 					<xf:if is="$formType != 'suggest' && $canManageActive">
-                        <xf:checkboxrow explain="{{ phrase('active_explanation') }}">
+                        <xf:checkboxrow explain="{{ phrase('sylphian_map_active_explanation') }}">
                             <xf:option name="active" selected="{{ $entity.active !== false }}"
-                                       label="{{ phrase('active') }}" />
+                                       label="{{ phrase('sylphian_map_active') }}" />
                         </xf:checkboxrow>
                     </xf:if>
                 </div>
@@ -43,22 +44,22 @@
             <li role="tabpanel" id="markerLocation">
                 <div class="block-body">
                     <xf:numberboxrow name="lat" value="{{ $entity.lat }}"
-                                     label="{{ phrase('latitude') }}"
+                                     label="{{ phrase('sylphian_map_latitude') }}"
                                      required="required"
                                      step="any" />
 
                     <xf:numberboxrow name="lng" value="{{ $entity.lng }}"
-                                     label="{{ phrase('longitude') }}"
+                                     label="{{ phrase('sylphian_map_longitude') }}"
                                      required="required"
                                      step="any" />
 
                     <xf:formrow label="">
                         <xf:button class="button--primary" id="use-my-location" data-xf-init="sylphian-location-button">
                             <xf:fa icon="fa-map-marker-alt" />
-                            {{ phrase('use_my_location') }}
+                            {{ phrase('sylphian_map_use_my_location') }}
                         </xf:button>
                         <span id="location-status" style="margin-left: 10px; display: none;">
-                            <xf:fa icon="fa-spinner fa-spin" /> {{ phrase('fetching_location') }}
+                            <xf:fa icon="fa-spinner fa-spin" /> {{ phrase('sylphian_map_fetching_location') }}
                         </span>
                     </xf:formrow>
                 </div>
@@ -71,44 +72,44 @@
                                    label="{{ phrase('icon') }}"
                                    maxlength="50"
                                    placeholder="home"
-                                   explain="{{ phrase('specify_fontawesome_icon_name') }}" />
+                                   explain="{{ phrase('sylphian_map_specify_fontawesome_icon_name') }}" />
 
                     <xf:selectrow name="icon_var" value="{{ $entity.icon_var ?: 'solid' }}"
-                                  label="{{ phrase('icon_variant') }}">
+                                  label="{{ phrase('sylphian_map_icon_variant') }}">
                         <xf:option value="light">{{ phrase('light') }}</xf:option>
-                        <xf:option value="regular">{{ phrase('regular') }}</xf:option>
-                        <xf:option value="solid">{{ phrase('solid') }}</xf:option>
-                        <xf:option value="duotone">{{ phrase('duotone') }}</xf:option>
-                        <xf:option value="brands">{{ phrase('brands') }}</xf:option>
+                        <xf:option value="regular">{{ phrase('sylphian_map_regular') }}</xf:option>
+                        <xf:option value="solid">{{ phrase('sylphian_map_solid') }}</xf:option>
+                        <xf:option value="duotone">{{ phrase('sylphian_map_duotone') }}</xf:option>
+                        <xf:option value="brands">{{ phrase('sylphian_map_brands') }}</xf:option>
                     </xf:selectrow>
 
                     <xf:textboxrow name="icon_color" value="{{ $entity.icon_color ?: 'black' }}"
-                                   label="{{ phrase('icon_color') }}"
+                                   label="{{ phrase('sylphian_map_icon_color') }}"
                                    placeholder="black"
                                    maxlength="30"
-								   explain="{{ phrase('icon_color_explanation') }}" />
+								   explain="{{ phrase('sylphian_map_icon_color_explanation') }}" />
 
                     <xf:selectrow name="marker_color" value="{{ $entity.marker_color ?: 'blue' }}"
-                                  label="{{ phrase('marker_color') }}">
-                        <xf:option value="red">{{ phrase('red') }}</xf:option>
-                        <xf:option value="darkred">{{ phrase('darkred') }}</xf:option>
-                        <xf:option value="lightred">{{ phrase('lightred') }}</xf:option>
-                        <xf:option value="orange">{{ phrase('orange') }}</xf:option>
-                        <xf:option value="beige">{{ phrase('beige') }}</xf:option>
-                        <xf:option value="green">{{ phrase('green') }}</xf:option>
-                        <xf:option value="darkgreen">{{ phrase('darkgreen') }}</xf:option>
-                        <xf:option value="lightgreen">{{ phrase('lightgreen') }}</xf:option>
-                        <xf:option value="blue">{{ phrase('blue') }}</xf:option>
-                        <xf:option value="darkblue">{{ phrase('darkblue') }}</xf:option>
-                        <xf:option value="lightblue">{{ phrase('lightblue') }}</xf:option>
-                        <xf:option value="purple">{{ phrase('purple') }}</xf:option>
-                        <xf:option value="darkpurple">{{ phrase('darkpurple') }}</xf:option>
-                        <xf:option value="pink">{{ phrase('pink') }}</xf:option>
-                        <xf:option value="cadetblue">{{ phrase('cadetblue') }}</xf:option>
-                        <xf:option value="white">{{ phrase('white') }}</xf:option>
-                        <xf:option value="gray">{{ phrase('gray') }}</xf:option>
-                        <xf:option value="lightgray">{{ phrase('lightgray') }}</xf:option>
-                        <xf:option value="black">{{ phrase('black') }}</xf:option>
+                                  label="{{ phrase('sylphian_map_marker_color') }}">
+                        <xf:option value="red">Red</xf:option>
+                        <xf:option value="darkred">Dark red</xf:option>
+                        <xf:option value="lightred">Light red</xf:option>
+                        <xf:option value="orange">Orange</xf:option>
+                        <xf:option value="beige">Beige</xf:option>
+                        <xf:option value="green">Green</xf:option>
+                        <xf:option value="darkgreen">Dark green</xf:option>
+                        <xf:option value="lightgreen">Light green</xf:option>
+                        <xf:option value="blue">Blue</xf:option>
+                        <xf:option value="darkblue">Dark blue</xf:option>
+                        <xf:option value="lightblue">Light blue</xf:option>
+                        <xf:option value="purple">Purple</xf:option>
+                        <xf:option value="darkpurple">Dark purple</xf:option>
+                        <xf:option value="pink">Pink</xf:option>
+                        <xf:option value="cadetblue">Cadet blue</xf:option>
+                        <xf:option value="white">White</xf:option>
+                        <xf:option value="gray">Gray</xf:option>
+                        <xf:option value="lightgray">Light gray</xf:option>
+                        <xf:option value="black">Black</xf:option>
                     </xf:selectrow>
                 </div>
             </li>
@@ -120,30 +121,51 @@
                         <xf:if is="($formType === 'add' || $formType === 'suggest') && $entity.create_thread">
                             <xf:checkboxrow>
                                 <xf:option name="create_thread" value="1"
-                                           label="{{ phrase('create_thread_for_marker') }}"
+                                           label="{{ phrase('sylphian_map_create_thread_for_marker') }}"
                                            checked="{{ $entity.create_thread ? true : false }}"
                                            readonly="true"/>
                             </xf:checkboxrow>
                             <xf:else />
                             <xf:checkboxrow>
                                 <xf:option name="create_thread" value="1"
-                                           label="{{ phrase('create_thread_for_marker') }}"
+                                           label="{{ phrase('sylphian_map_create_thread_for_marker') }}"
                                            checked="{{ $entity.create_thread ? true : false }}" />
                             </xf:checkboxrow>
                         </xf:if>
 
                         <xf:checkboxrow>
                             <xf:option name="thread_lock" value="1"
-                                       label="{{ phrase('lock_thread_replies') }}"
+                                       label="{{ phrase('sylphian_map_lock_thread_replies') }}"
                                        checked="{{ $entity.thread_lock ? true : false }}"
-									   explain="{{ phrase('thread_lock_explanation') }}" />
+									   explain="{{ phrase('sylphian_map_thread_lock_explanation') }}" />
                         </xf:checkboxrow>
                     </xf:if>
                 </div>
             </li>
+			
+			<!-- Event Timing Tab -->
+			<li role="tabpanel" id="markerTiming">
+				<div class="block-body">
+					<xf:formrow label="{{ phrase('sylphian_map_start_date_time') }}">
+						<div class="inputGroup">
+							<xf:datetimeinput name="start_date" value="{{ $entity.start_date }}" />
+						</div>
+					</xf:formrow>
+
+					<xf:formrow label="{{ phrase('sylphian_map_end_date_time') }}">
+						<div class="inputGroup">
+							<xf:datetimeinput name="end_date" value="{{ $entity.end_date }}" />
+						</div>
+					</xf:formrow>
+
+					<xf:inforow>
+						{{ phrase('sylphian_map_time_based_markers_explanation') }}
+					</xf:inforow>
+				</div>
+			</li>
         </ul>
 
         <xf:submitrow sticky="true" icon="save"
-                      label="{{ $formType == 'suggest' ? phrase('suggest_marker') : '' }}" />
+                      label="{{ $formType == 'suggest' ? phrase('sylphian_map_suggest_marker') : '' }}" />
     </div>
 </xf:form>

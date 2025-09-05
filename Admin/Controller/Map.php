@@ -2,6 +2,7 @@
 
 namespace Sylphian\Map\Admin\Controller;
 
+use Sylphian\Library\Logger\Logger;
 use Sylphian\Map\Repository\ImportMarkerRepository;
 use Sylphian\Map\Repository\MapMarkerRepository;
 use Sylphian\Map\Repository\MapMarkerSuggestionRepository;
@@ -51,7 +52,7 @@ class Map extends AbstractController
 		$upload = $this->request->getFile('import_file');
 		if (!$upload)
 		{
-			return $this->error(\XF::phrase('please_upload_valid_file'));
+			return Logger::loggedError("Please upload a valid file");
 		}
 
 		$fileName = $upload->getFileName();
@@ -59,9 +60,7 @@ class Map extends AbstractController
 
 		if (!in_array($extension, ['json', 'sql']))
 		{
-			return $this->error(\XF::phrase('please_upload_valid_file_with_extensions', [
-				'extensions' => 'json, sql',
-			]));
+			return Logger::loggedError("Please upload a valid file with extensions: json, sql");
 		}
 
 		$fileWrapper = $upload->getFileWrapper();
@@ -69,7 +68,7 @@ class Map extends AbstractController
 
 		if (!$tempFile || !file_exists($tempFile))
 		{
-			return $this->error(\XF::phrase('uploaded_file_failed_not_found'));
+			return Logger::loggedError("The uploaded file does not exist.");
 		}
 
 		try
@@ -91,7 +90,7 @@ class Map extends AbstractController
 
 			$result = $importRepo->importData($importData);
 
-			return $this->message(\XF::phrase('import_completed_successfully_detailed', [
+			return $this->message(\XF::phrase('sylphian_map_import_completed_successfully_detailed', [
 				'total' => $result['count'],
 				'markers_created' => $result['markerStats']['created'],
 				'markers_updated' => $result['markerStats']['updated'],
@@ -103,7 +102,7 @@ class Map extends AbstractController
 		}
 		catch (\Exception $e)
 		{
-			return $this->error('Import failed error:', $e->getMessage());
+			return Logger::loggedError("Import failed error", (array) $e);
 		}
 	}
 }

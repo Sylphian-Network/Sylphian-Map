@@ -1,10 +1,10 @@
-<xf:title>{{ phrase_dynamic($processTitle) }}</xf:title>
+<xf:title>{{ phrase_dynamic('sylphian_map_' . $processTitle) }}</xf:title>
 
 <xf:form action="{{ link($actionType == 'approve' ? 'map/approve-suggestion' : 'map/reject-suggestion', null, {'suggestion_id': $suggestion.suggestion_id}) }}" class="block" ajax="true">
     <div class="block-container">
         <h2 class="block-tabHeader tabs" data-xf-init="tabs" role="tablist">
             <a class="tabs-tab is-active" role="tab" tabindex="0" aria-controls="detailsTab">{{ phrase('details') }}</a>
-            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="appearanceTab">{{ phrase('appearance') }}</a>
+            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="appearanceTab">{{ phrase('sylphian_map_appearance') }}</a>
             <a class="tabs-tab" role="tab" tabindex="0" aria-controls="locationTab">{{ phrase('location') }}</a>
         </h2>
 
@@ -24,7 +24,7 @@
                         {{ $suggestion.type ?: phrase('none') }}
                     </xf:formrow>
                     
-                    <xf:formrow label="{{ phrase('suggested_by') }}">
+                    <xf:formrow label="{{ phrase('sylphian_map_suggested_by') }}">
                         <xf:if is="$suggestion.User">
                             <xf:username user="$suggestion.User" />
                         <xf:else />
@@ -32,20 +32,20 @@
                         </xf:if>
                     </xf:formrow>
                     
-                    <xf:formrow label="{{ phrase('suggested_on') }}">
+                    <xf:formrow label="{{ phrase('sylphian_map_suggested_on') }}">
                         {{ date($suggestion.create_date, 'M j, Y g:i A') }}
                     </xf:formrow>
 					
 					<xf:checkboxrow>
 						<xf:option name="create_thread" value="1"
-								  label="{{ phrase('create_thread_for_marker') }}"
+								  label="{{ phrase('sylphian_map_create_thread_for_marker') }}"
 								  checked="{{$suggestion.create_thread}}"
 								  readonly="true" />
 					</xf:checkboxrow>
 					
 					<xf:checkboxrow>
 						<xf:option name="thread_lock" value="1"
-								  label="{{ phrase('lock_thread_replies') }}"
+								  label="{{ phrase('sylphian_map_lock_thread_replies') }}"
 								  checked="{{$suggestion.thread_lock}}"
 								  readonly="true" />
 					</xf:checkboxrow>
@@ -53,7 +53,7 @@
                     <xf:if is="$actionType == 'reject'">
                         <xf:formrow rowtype="explainRow">
                             <div class="blockMessage blockMessage--warning">
-                                {{ phrase('reject_marker_warning') }}
+                                {{ phrase('sylphian_map_reject_marker_warning') }}
                             </div>
                         </xf:formrow>
                     </xf:if>
@@ -72,18 +72,18 @@
                         </div>
                     </xf:formrow>
                     
-                    <xf:formrow label="{{ phrase('icon_variant') }}">
+                    <xf:formrow label="{{ phrase('sylphian_map_icon_variant') }}">
                         {{ $suggestion.icon_var ?: 'solid' }}
                     </xf:formrow>
                     
-                    <xf:formrow label="{{ phrase('icon_color') }}">
+                    <xf:formrow label="{{ phrase('sylphian_map_icon_color') }}">
                         <div style="display: flex; align-items: center;">
                             <div style="width: 20px; height: 20px; background-color: {{ $suggestion.icon_color }}; border-radius: 3px; margin-right: 10px;"></div>
                             {{ $suggestion.icon_color }}
                         </div>
                     </xf:formrow>
                     
-                    <xf:formrow label="{{ phrase('marker_color') }}">
+                    <xf:formrow label="{{ phrase('sylphian_map_marker_color') }}">
                         <div style="display: flex; align-items: center;">
                             <div style="width: 20px; height: 20px; background-color: {{ $suggestion.marker_color }}; border-radius: 3px; margin-right: 10px;"></div>
                             {{ $suggestion.marker_color }}
@@ -95,11 +95,11 @@
             <!-- Location Tab -->
             <li role="tabpanel" id="locationTab">
                 <div class="block-body">
-                    <xf:formrow label="{{ phrase('latitude') }}">
+                    <xf:formrow label="{{ phrase('sylphian_map_latitude') }}">
                         {{ $suggestion.lat }}
                     </xf:formrow>
                     
-                    <xf:formrow label="{{ phrase('longitude') }}">
+                    <xf:formrow label="{{ phrase('sylphian_map_longitude') }}">
                         {{ $suggestion.lng }}
                     </xf:formrow>
                     
