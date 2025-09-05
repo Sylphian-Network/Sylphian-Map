@@ -2,7 +2,6 @@
 
 namespace Sylphian\Map\Widget;
 
-use Sylphian\Library\Logger\Logger;
 use Sylphian\Map\Repository\MapMarkerRepository;
 use XF\Widget\AbstractWidget;
 use XF\Widget\WidgetRenderer;
@@ -18,8 +17,6 @@ class EventsWidget extends AbstractWidget
 		$viewParams = [
 			'events' => $events,
 		];
-
-        Logger::debug('Events widget', $viewParams);
 
 		return $this->renderer('sylphian_map_widget_events', $viewParams);
 	}

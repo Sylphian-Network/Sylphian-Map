@@ -308,7 +308,7 @@ class MapMarkerSuggestionRepository extends Repository
 
 		if ($deleteCount > 0)
 		{
-			Logger::info(
+			Logger::notice(
 				"Map marker suggestion cleanup: deleted {$deleteCount} old approved/rejected suggestions.",
 				[
 					'count' => $deleteCount,

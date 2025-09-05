@@ -395,7 +395,8 @@ class MapMarkerRepository extends Repository
 		$finder = $this->finder('Sylphian\Map:MapMarker')
 			->where('active', true)
 			->where('start_date', '!=', null)
-            ->where('end_date', '!=', null)
+			->where('end_date', '!=', null)
+			->where('end_date', '>=', \XF::$time)
 			->order('start_date', 'ASC')
 			->limit($limit);
 
@@ -429,5 +430,48 @@ class MapMarkerRepository extends Repository
 		}
 
 		return $formattedMarkers;
+	}
+
+	/**
+	 * Cleanup map markers for events that have already ended
+	 *
+	 * This method finds all event markers with end_date in the past and
+	 * either deactivates or deletes them based on configuration.
+	 *
+	 * @return int Number of processed markers
+	 */
+	public static function cleanupPastEvents(): int
+	{
+		$now = \XF::$time;
+
+		$finder = \XF::finder('Sylphian\Map:MapMarker')
+			->where('end_date', '<', $now)
+			->where('end_date', '!=', null);
+
+		$expiredMarkers = $finder->fetch();
+		$count = $expiredMarkers->count();
+
+		if ($count > 0)
+		{
+            $markersData = [];
+
+            foreach ($expiredMarkers AS $marker)
+            {
+                $markersData[] = [
+                    'marker_id' => $marker->marker_id,
+                    'title' => $marker->title,
+                    'type' => $marker->type,
+                    'end_date' => $marker->end_date,
+                    'thread_id' => $marker->thread_id
+                ];
+
+                $marker->active = false;
+                $marker->save();
+            }
+
+            Logger::notice('Cleaned up ' . $count . ' expired event markers.', ['markers' => $markersData]);
+		}
+
+		return $count;
 	}
 }

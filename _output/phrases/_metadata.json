@@ -1,9 +1,9 @@
 {
-    "cron_entry.cleanupOldMapSuggestions.txt": {
+    "cron_entry.cleanupMapData.txt": {
         "global_cache": false,
-        "version_id": 1000610,
-        "version_string": "1.0.6",
-        "hash": "d4794b915492c0f623f4042d5736e979"
+        "version_id": 1000710,
+        "version_string": "1.0.7 Alpha",
+        "hash": "4343a8da55b9a7b9d365956feac1f800"
     },
     "nav.map.txt": {
         "global_cache": false,
@@ -501,7 +501,7 @@
         "global_cache": false,
         "version_id": 1000710,
         "version_string": "1.0.7 Alpha",
-        "hash": "9a52e21878dbab5f04f94d681e3ea2cf"
+        "hash": "f56b829dc003a6a0d1964288d7a8a17d"
     },
     "sylphian_map_type_explanation.txt": {
         "global_cache": false,
