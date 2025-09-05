@@ -1,8 +1,7 @@
-<xf:title>{{ phrase('manage_markers') }}</xf:title>
+<xf:title>{{ phrase('sylphian_map_manage_markers') }}</xf:title>
 
 <div class="block">
     <div class="block-container">
-        <h2 class="block-header">{{ phrase('current_markers') }}</h2>
         <div class="block-body">
             <xf:datalist>
                 <xf:datarow rowtype="header">
@@ -11,8 +10,8 @@
                     <xf:cell>{{ phrase('icon') }}</xf:cell>
                     <xf:cell>{{ phrase('position') }}</xf:cell>
                     <xf:cell>{{ phrase('created_by') }}</xf:cell>
-                    <xf:cell>{{ phrase('update_date') }}</xf:cell>
-                    <xf:cell>{{ phrase('creation_date') }}</xf:cell>
+                    <xf:cell>{{ phrase('sylphian_map_update_date') }}</xf:cell>
+                    <xf:cell>{{ phrase('sylphian_map_creation_date') }}</xf:cell>
                     <xf:cell>{{ phrase('status') }}</xf:cell>
                     <xf:cell></xf:cell>
                     <xf:cell></xf:cell>
@@ -46,22 +45,22 @@
                         <xf:cell>
                             <xf:if is="$marker.active">
                                 <span class="label label--success">
-                                    <xf:fa icon="fa-check" /> {{ phrase('active') }}
+                                    <xf:fa icon="fa-check" /> {{ phrase('sylphian_map_active') }}
                                 </span>
                             <xf:else />
                                 <span class="label label--warning">
-                                    <xf:fa icon="fa-ban" /> {{ phrase('inactive') }}
+                                    <xf:fa icon="fa-ban" /> {{ phrase('sylphian_map_inactive') }}
                                 </span>
                             </xf:if>
                         </xf:cell>
                         <xf:action href="{{ link('map/edit', null, {'marker_id': $marker.marker_id}) }}" 
                                  overlay="true"
-                                 title="{{ phrase('edit_marker') }}">
+                                 title="{{ phrase('sylphian_map_edit_marker') }}">
                             <xf:fa icon="fa-edit" />
                         </xf:action>
                         <xf:action href="{{ link('map/delete', null, {'marker_id': $marker.marker_id}) }}"
                                   overlay="true"
-                                  title="{{ phrase('delete_marker') }}">
+                                  title="{{ phrase('sylphian_map_delete_marker') }}">
                             <xf:fa icon="fa-trash" />
                         </xf:action>
                     </xf:datarow>
@@ -73,7 +72,7 @@
                     <xf:button href="{{ link('map/add') }}" 
                                class="button--primary" 
                                data-xf-click="overlay">
-                        <xf:fa icon="fa-plus" /> {{ phrase('add_new_marker') }}
+                        <xf:fa icon="fa-plus" /> {{ phrase('sylphian_map_add_new_marker') }}
                     </xf:button>
                 </span>
             </div>

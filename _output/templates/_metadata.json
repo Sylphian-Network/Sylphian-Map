@@ -1,18 +1,18 @@
 {
     "admin/sylphian_map_export.html": {
-        "version_id": 1000610,
-        "version_string": "1.0.6",
-        "hash": "d9383c5177a1fbfbccf71eaac313c96f"
+        "version_id": 1000710,
+        "version_string": "1.0.7 Alpha",
+        "hash": "f06ad10d90979f7ec63c25ac5723927a"
     },
     "admin/sylphian_map_import.html": {
-        "version_id": 1000610,
-        "version_string": "1.0.6",
-        "hash": "1ad79a02472bfc3de7322a6029636f2e"
+        "version_id": 1000710,
+        "version_string": "1.0.7 Alpha",
+        "hash": "292ee5c42e1fc625f6fe95e074aaa5d1"
     },
     "admin/sylphian_map_option_macros.html": {
-        "version_id": 1000610,
-        "version_string": "1.0.6",
-        "hash": "50f2d7c35e13e6854f9f1948c279bd49"
+        "version_id": 1000710,
+        "version_string": "1.0.7 Alpha",
+        "hash": "116537ee8baa93b94c6ae577c87a07c4"
     },
     "admin/widget_def_options_sylphian_map_events.html": {
         "version_id": 1000710,
@@ -32,7 +32,7 @@
     "public/sylphian_map.html": {
         "version_id": 1000710,
         "version_string": "1.0.7 Alpha",
-        "hash": "87abd76353a1181151818e1dbcbe6474"
+        "hash": "5fc6423ff1f2675b7d4dbf49936c1d67"
     },
     "public/sylphian_map.less": {
         "version_id": 1000710,
@@ -40,24 +40,24 @@
         "hash": "640785010bbae85c1bff7989c849b560"
     },
     "public/sylphian_map_management.html": {
-        "version_id": 1000020,
-        "version_string": "1.0.2",
-        "hash": "4b41061d1e782d258b5d35f79e0869ff"
+        "version_id": 1000710,
+        "version_string": "1.0.7 Alpha",
+        "hash": "7561617197a4257a5791b99fe2bfc723"
     },
     "public/sylphian_map_marker_form.html": {
         "version_id": 1000710,
         "version_string": "1.0.7 Alpha",
-        "hash": "eda9c0a936a0ad3e68fa12dde04ebb68"
+        "hash": "43c419337fce385e095ee75157f2003f"
     },
     "public/sylphian_map_suggestion_process.html": {
-        "version_id": 1000510,
-        "version_string": "1.0.5",
-        "hash": "56ea76dd38d2e3d2921439ddf477cd62"
+        "version_id": 1000710,
+        "version_string": "1.0.7 Alpha",
+        "hash": "1e0a5fc7960520b2e8827d8333529f6e"
     },
     "public/sylphian_map_suggestions.html": {
-        "version_id": 1000020,
-        "version_string": "1.0.2",
-        "hash": "7637ce01390b27f2100c41530253c3b9"
+        "version_id": 1000710,
+        "version_string": "1.0.7 Alpha",
+        "hash": "f654b0b09e795caf94ee35a4848623ca"
     },
     "public/sylphian_map_widget_events.html": {
         "version_id": 1000710,

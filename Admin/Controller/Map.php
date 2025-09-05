@@ -90,7 +90,7 @@ class Map extends AbstractController
 
 			$result = $importRepo->importData($importData);
 
-			return $this->message(\XF::phrase('import_completed_successfully_detailed', [
+			return $this->message(\XF::phrase('sylphian_map_import_completed_successfully_detailed', [
 				'total' => $result['count'],
 				'markers_created' => $result['markerStats']['created'],
 				'markers_updated' => $result['markerStats']['updated'],

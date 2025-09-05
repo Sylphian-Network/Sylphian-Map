@@ -12,17 +12,17 @@
 		<xf:button href="{{ link('map/suggest') }}" 
 					class="button--primary" 
 					overlay="true">
-			<xf:fa icon="fa-lightbulb" /> {{ phrase('suggest_marker') }}
+			<xf:fa icon="fa-lightbulb" /> {{ phrase('sylphian_map_suggest_marker') }}
 		</xf:button>
 		
 		<xf:if is="$canManageMarkers">
 			<xf:button href="{{ link('map/management') }}" class="button">
-				<xf:fa icon="fa-cog" /> {{ phrase('manage_markers') }}
+				<xf:fa icon="fa-cog" /> {{ phrase('sylphian_map_manage_markers') }}
 			</xf:button>
 			
 			<xf:if is="$xf.visitor.hasPermission('general', 'manageSuggestedMapMarkers')">
 				<xf:button href="{{ link('map/suggestion') }}" class="button">
-					{{ phrase('manage_suggestion_markers') }}
+					{{ phrase('sylphian_map_manage_suggestion_markers') }}
 					<xf:if is="$pendingSuggestions">
 						<span class="badge badge--highlighted">{{ $pendingSuggestions }}</span>
 					</xf:if>
@@ -45,7 +45,7 @@
 
 <div class="block">
     <div class="block-container">
-        <h2 class="block-header">{{ phrase('filter_by_type') }}</h2>
+        <h2 class="block-header">{{ phrase('sylphian_map_filter_by_type') }}</h2>
         <div class="block-body">
             <div class="block-row">
                 <div class="formRow">
@@ -68,8 +68,8 @@
             <div class="block-row formSubmitRow formSubmitRow--sticky formSubmitRow--simple">
                 <div class="formSubmitRow-main">
                     <div class="formSubmitRow-controls">
-                        <xf:button class="button--primary" id="applyMapFilters">{{ phrase('apply_filters') }}</xf:button>
-                        <xf:button class="button--link" id="resetMapFilters">{{ phrase('reset_filters') }}</xf:button>
+                        <xf:button class="button--primary" id="applyMapFilters">{{ phrase('sylphian_map_apply_filters') }}</xf:button>
+                        <xf:button class="button--link" id="resetMapFilters">{{ phrase('sylphian_map_reset_filters') }}</xf:button>
                     </div>
                 </div>
             </div>
@@ -170,7 +170,7 @@
             popupContent += `
 				<br><br>
 				<a href="${markerData.thread_url}" class="button button--primary">
-					{{ phrase('view_discussion') }}
+					{{ phrase('sylphian_map_view_discussion') }}
 				</a>
 			`;
         }

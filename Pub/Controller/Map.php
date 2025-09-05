@@ -303,7 +303,7 @@ class Map extends Controller
 			$viewParams = [
 				'suggestion' => $suggestion,
 				'actionType' => 'approve',
-				'processTitle' => 'sylphian_map_suggestion_process_approve_title',
+				'processTitle' => 'suggestion_process_approve_title',
 			];
 			return $this->view('Sylphian\Map:Suggestion\Process', 'sylphian_map_suggestion_process', $viewParams);
 		}
@@ -333,7 +333,7 @@ class Map extends Controller
 			$viewParams = [
 				'suggestion' => $suggestion,
 				'actionType' => 'reject',
-				'processTitle' => 'sylphian_map_suggestion_process_reject_title',
+				'processTitle' => 'suggestion_process_reject_title',
 			];
 			return $this->view('Sylphian\Map:Suggestion\Process', 'sylphian_map_suggestion_process', $viewParams);
 		}
