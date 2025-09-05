@@ -2,7 +2,7 @@
 
 namespace Sylphian\Map\Pub\Controller;
 
-use Sylphian\Library\Logger\LoggableTrait;
+use Sylphian\Library\Logger\Logger;
 use Sylphian\Map\Repository\MapMarkerRepository;
 use Sylphian\Map\Repository\MapMarkerSuggestionRepository;
 use Sylphian\Map\Repository\ThreadMarkerRepository;
@@ -15,8 +15,6 @@ use XF\PrintableException;
 
 class Map extends Controller
 {
-    use LoggableTrait;
-
 	protected function getMapMarkerRepo(): MapMarkerRepository
 	{
 		/** @var MapMarkerRepository $repo */
@@ -225,8 +223,7 @@ class Map extends Controller
 		/** @var DeletePlugin $plugin */
 		$plugin = $this->plugin('XF:DeletePlugin');
 
-        $logger = $this->getLogger();
-        $logger->info('Map marker deleted: ' . $marker->title, $marker->toArray());
+		Logger::info('Map marker deleted: ' . $marker->title, $marker->toArray());
 
 		return $plugin->actionDelete(
 			$marker,
@@ -313,10 +310,7 @@ class Map extends Controller
 
 		if (!$suggestionRepo->approveSuggestion($suggestionId))
 		{
-			$logger = $this->getLogger();
-			$logger->error('Error occurred while approving marker suggestion', ['suggestion_id' => $suggestionId]);
-
-			return $this->error(\XF::phrase('error_occurred_while_approving_suggestion'));
+			return Logger::loggedError('Error occurred while approving marker suggestion', ['suggestion_id' => $suggestionId]);
 		}
 
 		return $this->redirect($this->buildLink('map'));
@@ -346,10 +340,7 @@ class Map extends Controller
 
 		if (!$suggestionRepo->rejectSuggestion($suggestionId))
 		{
-            $logger = $this->getLogger();
-            $logger->error('Error occurred while rejecting marker suggestion', ['suggestion_id' => $suggestionId]);
-
-			return $this->error(\XF::phrase('error_occurred_while_rejecting_suggestion'));
+			return Logger::loggedError('Error occurred while rejecting marker suggestion', ['suggestion_id' => $suggestionId]);
 		}
 
 		return $this->redirect($this->buildLink('map'));

@@ -14,6 +14,11 @@
         "version_string": "1.0.6",
         "hash": "50f2d7c35e13e6854f9f1948c279bd49"
     },
+    "admin/widget_def_options_sylphian_map_events.html": {
+        "version_id": 1000710,
+        "version_string": "1.0.7 Alpha",
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
     "public/leaflet.less": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
@@ -27,7 +32,7 @@
     "public/sylphian_map.html": {
         "version_id": 1000710,
         "version_string": "1.0.7 Alpha",
-        "hash": "9a5933802074bb3c903c77ded849ca7d"
+        "hash": "87abd76353a1181151818e1dbcbe6474"
     },
     "public/sylphian_map.less": {
         "version_id": 1000710,
@@ -53,5 +58,10 @@
         "version_id": 1000020,
         "version_string": "1.0.2",
         "hash": "7637ce01390b27f2100c41530253c3b9"
+    },
+    "public/sylphian_map_widget_events.html": {
+        "version_id": 1000710,
+        "version_string": "1.0.7 Alpha",
+        "hash": "7a61d4bb6cd0196f99b70c8afd6e585f"
     }
 }

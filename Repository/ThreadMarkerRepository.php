@@ -2,6 +2,7 @@
 
 namespace Sylphian\Map\Repository;
 
+use Sylphian\Library\Logger\Logger;
 use Sylphian\Map\Entity\MapMarker;
 use Sylphian\Map\MarkerStatus;
 use XF\Entity\Thread;
@@ -86,7 +87,7 @@ class ThreadMarkerRepository extends Repository
 		$forum = \XF::em()->find('XF:Forum', $threadCreationLocation);
 		if (!$forum)
 		{
-			\XF::logError('Thread creation failed: Forum not found with ID ' . $threadCreationLocation);
+			Logger::error("Thread creation failed: Forum not found with ID {$threadCreationLocation}");
 			return false;
 		}
 
@@ -106,7 +107,7 @@ class ThreadMarkerRepository extends Repository
 
 			if (!($threadUser instanceof User))
 			{
-				\XF::logError('Thread creation failed: Could not find a valid user for thread creation');
+				Logger::error('Thread creation failed: Could not find a valid user for thread creation');
 				return false;
 			}
 		}
@@ -144,7 +145,7 @@ class ThreadMarkerRepository extends Repository
 			}
 			else
 			{
-				\XF::logError('Thread creation validation failed: ' . implode(', ', $errors));
+				Logger::error('Thread creation validation failed: ' . implode(', ', $errors));
 				return false;
 			}
 		});

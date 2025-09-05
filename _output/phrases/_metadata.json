@@ -449,6 +449,18 @@
         "version_string": "1.0.2",
         "hash": "913088dfb1fd19e6564c8082a90cdf38"
     },
+    "sylphian_map_events_widget_title.txt": {
+        "global_cache": false,
+        "version_id": 1000710,
+        "version_string": "1.0.7 Alpha",
+        "hash": "54338ceb8fe04f2a707af3cee35d1311"
+    },
+    "sylphian_map_no_events.txt": {
+        "global_cache": false,
+        "version_id": 1000710,
+        "version_string": "1.0.7 Alpha",
+        "hash": "989b58e29ae3f75ad7cf83352e518746"
+    },
     "sylphian_map_suggestion_process_approve_title.txt": {
         "global_cache": false,
         "version_id": 1000020,
@@ -496,5 +508,29 @@
         "version_id": 1000510,
         "version_string": "1.0.5",
         "hash": "7f91dba0ea3b2851d3af92811b2ce58b"
+    },
+    "widget_def.sylphian_map_events.txt": {
+        "global_cache": false,
+        "version_id": 1000710,
+        "version_string": "1.0.7 Alpha",
+        "hash": "00da0bf7b63e2b71acaa82ec7b1e61cf"
+    },
+    "widget_def_desc.sylphian_map_events.txt": {
+        "global_cache": false,
+        "version_id": 1000710,
+        "version_string": "1.0.7 Alpha",
+        "hash": "772f14844fa816777c987e5cfd155805"
+    },
+    "widget_pos.sylphian_map_sidebar.txt": {
+        "global_cache": false,
+        "version_id": 1000710,
+        "version_string": "1.0.7 Alpha",
+        "hash": "ce24b8b084a393d34cfbf242e633a13e"
+    },
+    "widget_pos_desc.sylphian_map_sidebar.txt": {
+        "global_cache": false,
+        "version_id": 1000710,
+        "version_string": "1.0.7 Alpha",
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
     }
 }

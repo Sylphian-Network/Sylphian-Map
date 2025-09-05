@@ -2,7 +2,7 @@
 
 namespace Sylphian\Map\Repository;
 
-use Sylphian\Library\Logger\LoggableTrait;
+use Sylphian\Library\Logger\Logger;
 use Sylphian\Map\Entity\MapMarkerSuggestion;
 use XF;
 use XF\Mvc\Entity\Repository;
@@ -18,8 +18,6 @@ use XF\PrintableException;
  */
 class MapMarkerSuggestionRepository extends Repository
 {
-    use LoggableTrait;
-
 	/**
 	 * Gets pending map marker suggestions with pagination support
 	 *
@@ -126,8 +124,7 @@ class MapMarkerSuggestionRepository extends Repository
 		$suggestion->bulkSet($data);
 		$suggestion->save();
 
-        $logger = $this->getLogger();
-        $logger->info(
+		Logger::info(
 			'Map marker suggestion created: ' . $suggestion->title,
 			[
 				'suggestion_id' => $suggestion->suggestion_id,
@@ -215,8 +212,7 @@ class MapMarkerSuggestionRepository extends Repository
 			$suggestion->status = 'approved';
 			$suggestion->save();
 
-			$logger = $this->getLogger();
-			$logger->info(
+			Logger::info(
 				'Map marker suggestion approved: ' . $suggestion->title,
 				[
 					'suggestion_id' => $suggestion->suggestion_id,
@@ -253,8 +249,7 @@ class MapMarkerSuggestionRepository extends Repository
 			$suggestion->status = 'rejected';
 			$suggestion->save();
 
-			$logger = $this->getLogger();
-			$logger->info(
+			Logger::info(
 				'Map marker suggestion rejected: ' . $suggestion->title,
 				[
 					'suggestion_id' => $suggestion->suggestion_id,
@@ -313,8 +308,7 @@ class MapMarkerSuggestionRepository extends Repository
 
 		if ($deleteCount > 0)
 		{
-			$logger = $this->getLogger();
-			$logger->info(
+			Logger::info(
 				"Map marker suggestion cleanup: deleted {$deleteCount} old approved/rejected suggestions.",
 				[
 					'count' => $deleteCount,

@@ -2,7 +2,7 @@
 
 namespace Sylphian\Map\Repository;
 
-use Sylphian\Library\Logger\LoggableTrait;
+use Sylphian\Library\Logger\Logger;
 use Sylphian\Map\Entity\MapMarker;
 use XF\Mvc\Entity\AbstractCollection;
 use XF\Mvc\Entity\Repository;
@@ -16,8 +16,6 @@ use XF\PrintableException;
  */
 class MapMarkerRepository extends Repository
 {
-    use LoggableTrait;
-
 	/**
 	 * Gets all active map markers
 	 *
@@ -119,8 +117,7 @@ class MapMarkerRepository extends Repository
 		$marker->bulkSet($data);
 		$marker->save();
 
-        $logger = $this->getLogger();
-        $logger->info(
+		Logger::info(
 			'Map marker created: ' . $marker->title,
 			[
 				'marker_id' => $marker->marker_id,
@@ -195,8 +192,7 @@ class MapMarkerRepository extends Repository
 			$marker->bulkSet($data);
 			$marker->save();
 
-            $logger = $this->getLogger();
-            $logger->info(
+			Logger::info(
 				'Map marker updated: ' . $marker->title,
 				[
 					'marker_id' => $marker->marker_id,
@@ -380,5 +376,63 @@ class MapMarkerRepository extends Repository
 			'markerTypes' => array_values($markerTypes),
 			'allMarkers' => $allMarkers,
 		];
+	}
+
+	/**
+	 * Get the most recent ongoing event markers
+	 *
+	 * This method fetches only markers that are:
+	 * - Currently active
+	 * - Have started (start_date <= now)
+	 * - Haven't ended yet (end_date >= now or end_date is null)
+	 *
+	 * @param int $limit Maximum number of events to fetch (default: 10)
+	 *
+	 * @return array Array of map markers with relevant data
+	 */
+	public function getEventMarkersForWidget(int $limit = 10): array
+	{
+		$now = \XF::$time;
+
+		$finder = $this->finder('Sylphian\Map:MapMarker')
+			->where('active', true)
+			->where('start_date', '<=', $now)
+			->whereOr(
+				['end_date', '>=', $now],
+				['end_date', '=', null]
+			)
+			->order('start_date', 'DESC')
+			->limit($limit);
+
+		$markers = $finder->fetch();
+		$formattedMarkers = [];
+
+		foreach ($markers AS $marker)
+		{
+			$markerData = [
+				'title' => $marker['title'],
+				'thread_id' => $marker['thread_id'],
+				'thread_url' => $marker['thread_id'] ? \XF::app()->router()->buildLink('threads', ['thread_id' => $marker['thread_id']]) : '',
+				'start_date' => $marker['start_date'],
+				'end_date' => $marker['end_date'],
+				'icon' => $marker['icon'],
+				'icon_var' => $marker['icon_var'],
+				'icon_color' => $marker['icon_color'],
+			];
+
+			$iconVarMap = [
+				'solid' => 'fas',
+				'regular' => 'far',
+				'light' => 'fal',
+				'brands' => 'fab',
+				'duotone' => 'fad',
+			];
+
+			$markerData['icon_var'] = $iconVarMap[$markerData['icon_var']] ?? $markerData['icon_var'];
+
+			$formattedMarkers[] = $markerData;
+		}
+
+		return $formattedMarkers;
 	}
 }
