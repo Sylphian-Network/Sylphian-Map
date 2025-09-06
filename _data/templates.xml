@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates>
-  <template type="admin" title="sylphian_map_export" version_id="1000610" version_string="1.0.6"><![CDATA[<xf:title>{{ phrase('export_map_data') }}</xf:title>
+  <template type="admin" title="sylphian_map_export" version_id="1000710" version_string="1.0.7 Alpha"><![CDATA[<xf:title>{{ phrase('sylphian_map_export_map_data') }}</xf:title>
 
 <xf:form action="{{ link('sylphian_map/export') }}" class="block">
     <div class="block-container">
         <div class="block-body">
-            <xf:radiorow name="format" value="json" label="{{ phrase('export_format') }}">
+            <xf:radiorow name="format" value="json" label="{{ phrase('sylphian_map_export_format') }}">
                 <xf:option value="json">JSON</xf:option>
                 <xf:option value="sql">SQL</xf:option>
             </xf:radiorow>
@@ -13,25 +13,25 @@
         <xf:submitrow icon="export" submit="{{ phrase('export') }}" />
     </div>
 </xf:form>]]></template>
-  <template type="admin" title="sylphian_map_import" version_id="1000610" version_string="1.0.6"><![CDATA[<xf:title>{{ phrase('import_map_data') }}</xf:title>
+  <template type="admin" title="sylphian_map_import" version_id="1000710" version_string="1.0.7 Alpha"><![CDATA[<xf:title>{{ phrase('sylphian_map_import_map_data') }}</xf:title>
 
 <xf:form action="{{ link('sylphian_map/import') }}" class="block" upload="true" ajax="false">
     <div class="block-container">
         <div class="block-body">
             <xf:uploadrow name="import_file" 
-                          label="{{ phrase('upload_file') }}" 
+                          label="{{ phrase('sylphian_map_upload_file') }}" 
                           accept=".json,.sql"
                           required="required" />
                 
             <xf:inforow>
-                {{ phrase('import_file_description') }}
+                {{ phrase('sylphian_map_import_file_description') }}
             </xf:inforow>
         </div>
         
-        <xf:submitrow icon="import" submit="{{ phrase('import') }}" />
+        <xf:submitrow icon="import" submit="{{ phrase('sylphian_map_import') }}" />
     </div>
 </xf:form>]]></template>
-  <template type="admin" title="sylphian_map_option_macros" version_id="1000610" version_string="1.0.6"><![CDATA[<xf:macro name="option_form_block" arg-group="" arg-options="!" arg-containerBeforeHtml="">
+  <template type="admin" title="sylphian_map_option_macros" version_id="1000710" version_string="1.0.7 Alpha"><![CDATA[<xf:macro name="option_form_block" arg-group="" arg-options="!" arg-containerBeforeHtml="">
 	<xf:set var="$hundred" value="0" />
 
 	<xf:if is="$options is not empty">
@@ -61,7 +61,7 @@
 							</xf:foreach>
 							
 							<xf:formrow label="">
-								<xf:button href="{{ link('sylphian_map/export') }}" icon="export" overlay="true">{{ phrase('export_data') }}</xf:button>
+								<xf:button href="{{ link('sylphian_map/export') }}" icon="export" overlay="true">{{ phrase('sylphian_map_export_data') }}</xf:button>
 								<xf:button href="{{ link('sylphian_map/import') }}" icon="import" overlay="true">{{ phrase('import_data') }}</xf:button>
 							</xf:formrow>
 						</div>
@@ -91,6 +91,7 @@
 		</xf:form>
 	</xf:if>
 </xf:macro>]]></template>
+  <template type="admin" title="widget_def_options_sylphian_map_events" version_id="1000710" version_string="1.0.7 Alpha"><![CDATA[]]></template>
   <template type="public" title="leaflet.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[/* required styles */
 
 .leaflet-pane,
@@ -894,7 +895,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
     .awesome-marker-icon-black {
       background-position: -682px 0;
     }]]></template>
-  <template type="public" title="sylphian_map" version_id="1000510" version_string="1.0.5"><![CDATA[<xf:title>{{ phrase('nav.map') }}</xf:title>
+  <template type="public" title="sylphian_map" version_id="1000710" version_string="1.0.7 Alpha"><![CDATA[<xf:title>{{ phrase('nav.map') }}</xf:title>
 
 <xf:css src="public:leaflet.less" />
 <xf:js src="sylphian/map/leaflet/leaflet.js" min="1" addon="Sylphian/Map" />
@@ -908,17 +909,17 @@ svg.leaflet-image-layer.leaflet-interactive path {
 		<xf:button href="{{ link('map/suggest') }}" 
 					class="button--primary" 
 					overlay="true">
-			<xf:fa icon="fa-lightbulb" /> {{ phrase('suggest_marker') }}
+			<xf:fa icon="fa-lightbulb" /> {{ phrase('sylphian_map_suggest_marker') }}
 		</xf:button>
 		
 		<xf:if is="$canManageMarkers">
 			<xf:button href="{{ link('map/management') }}" class="button">
-				<xf:fa icon="fa-cog" /> {{ phrase('manage_markers') }}
+				<xf:fa icon="fa-cog" /> {{ phrase('sylphian_map_manage_markers') }}
 			</xf:button>
 			
 			<xf:if is="$xf.visitor.hasPermission('general', 'manageSuggestedMapMarkers')">
 				<xf:button href="{{ link('map/suggestion') }}" class="button">
-					{{ phrase('manage_suggestion_markers') }}
+					{{ phrase('sylphian_map_manage_suggestion_markers') }}
 					<xf:if is="$pendingSuggestions">
 						<span class="badge badge--highlighted">{{ $pendingSuggestions }}</span>
 					</xf:if>
@@ -933,12 +934,15 @@ svg.leaflet-image-layer.leaflet-interactive path {
         <div class="block-body">
             <div id="mapContainer" style="height: 500px;"></div>
         </div>
+		<div class="body-sidebar">
+			<xf:widgetpos id="sylphian_map_sidebar" position="sidebar" />
+		</div>
     </div>
 </div>
 
 <div class="block">
     <div class="block-container">
-        <h2 class="block-header">{{ phrase('filter_by_type') }}</h2>
+        <h2 class="block-header">{{ phrase('sylphian_map_filter_by_type') }}</h2>
         <div class="block-body">
             <div class="block-row">
                 <div class="formRow">
@@ -961,8 +965,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
             <div class="block-row formSubmitRow formSubmitRow--sticky formSubmitRow--simple">
                 <div class="formSubmitRow-main">
                     <div class="formSubmitRow-controls">
-                        <xf:button class="button--primary" id="applyMapFilters">{{ phrase('apply_filters') }}</xf:button>
-                        <xf:button class="button--link" id="resetMapFilters">{{ phrase('reset_filters') }}</xf:button>
+                        <xf:button class="button--primary" id="applyMapFilters">{{ phrase('sylphian_map_apply_filters') }}</xf:button>
+                        <xf:button class="button--link" id="resetMapFilters">{{ phrase('sylphian_map_reset_filters') }}</xf:button>
                     </div>
                 </div>
             </div>
@@ -979,70 +983,110 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
     const markersData = {{ $markers|json }};
     const markerTypes = {{ $markerTypes|json }};
-    
+
     const map = L.map('mapContainer').setView(
         [{{ $mapCenter.lat }}, {{ $mapCenter.lng }}],
-        {{ $startingZoom }}
-    );
+    {{ $startingZoom }}
+);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		minZoom: {{ $minZoom }},
-		maxZoom: {{ $maxZoom }},
-		attribution: 'Map data from <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-	}).addTo(map);
-    
+        minZoom: {{ $minZoom }},
+    maxZoom: {{ $maxZoom }},
+    attribution: 'Map data from <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
     const markerGroup = L.layerGroup().addTo(map);
     const markersByType = {};
-    
+
     markerTypes.forEach(type => {
         markersByType[type.name] = [];
     });
-    
+
     markersData.forEach(markerData => {
-		const marker = L.marker(
-			[markerData.lat, markerData.lng],
-			{
-				icon: L.AwesomeMarkers.icon({
-					icon: markerData.icon,
-					iconVar: markerData.iconVar,
-					iconColor: markerData.iconColor,
-					markerColor: markerData.markerColor
-				})
-			}
-		);
+        let animationState = null;
 
-		let popupContent = `
-			<strong>${markerData.title}</strong><br>
-			${markerData.content}<br>
-			<small style="color: #666;">
-				<xf:fa icon="fa-map-marker-alt" /> ${markerData.lat}, ${markerData.lng}
-			</small>
-		`;
+        if (markerData.start_date && markerData.end_date) {
+            const now = Math.floor(Date.now() / 1000);
+            const eventStart = markerData.start_date;
+            const eventEnd = markerData.end_date;
 
-		if (markerData.thread_id) {
-			popupContent += `
+            if (now >= eventStart && now <= eventEnd) {
+                animationState = 'active';
+            } else if (now < eventStart) {
+                const timeUntilStart = eventStart - now;
+                const sevenDaysInSeconds = 7 * 24 * 60 * 60;
+
+                if (timeUntilStart <= sevenDaysInSeconds) {
+                    animationState = 'upcoming';
+                }
+            }
+        }
+
+        const marker = L.marker(
+            [markerData.lat, markerData.lng],
+            {
+                icon: L.AwesomeMarkers.icon({
+                    icon: markerData.icon,
+                    iconVar: markerData.iconVar,
+                    iconColor: markerData.iconColor,
+                    markerColor: markerData.markerColor,
+                    animationState: animationState
+                })
+            }
+        );
+
+        let popupContent = `
+				<strong>${markerData.title}</strong><br>
+				${markerData.content}<br>
+				<small style="color: #666;">
+					<xf:fa icon="fa-map-marker-alt" /> ${markerData.lat}, ${markerData.lng}
+				</small>
+			`;
+
+        if (markerData.start_date || markerData.end_date) {
+            popupContent += `<br><small style="color: #666;">`;
+
+            if (markerData.start_date) {
+                const startDate = new Date(markerData.start_date * 1000);
+                popupContent += `<xf:fa icon="fa-calendar-alt" /> Start: ${startDate.toLocaleString()}`;
+            }
+
+            if (markerData.start_date && markerData.end_date) {
+                popupContent += `<br>`;
+            }
+
+            if (markerData.end_date) {
+                const endDate = new Date(markerData.end_date * 1000);
+                popupContent += `<xf:fa icon="fa-calendar-check" /> End: ${endDate.toLocaleString()}`;
+            }
+
+            popupContent += `</small>`;
+        }
+
+        if (markerData.thread_id) {
+            popupContent += `
 				<br><br>
 				<a href="${markerData.thread_url}" class="button button--primary">
-					{{ phrase('view_discussion') }}
+					{{ phrase('sylphian_map_view_discussion') }}
 				</a>
 			`;
-		}
+        }
 
-		marker.bindPopup(popupContent);
+        marker.bindPopup(popupContent);
 
-		if (!markersByType[markerData.type]) {
-			markersByType[markerData.type] = [];
-		}
-		markersByType[markerData.type].push(marker);
-	});
-    
+        if (!markersByType[markerData.type]) {
+            markersByType[markerData.type] = [];
+        }
+        markersByType[markerData.type].push(marker);
+    });
+
     function updateMarkers() {
         markerGroup.clearLayers();
-        
+
         const selectedTypes = Array.from(
             document.querySelectorAll('.js-typeFilter:checked')
         ).map(cb => cb.dataset.type);
-        
+
         selectedTypes.forEach(type => {
             if (markersByType[type]) {
                 markersByType[type].forEach(marker => {
@@ -1051,22 +1095,22 @@ svg.leaflet-image-layer.leaflet-interactive path {
             }
         });
     }
-    
+
     document.getElementById('applyMapFilters').addEventListener('click', function() {
         updateMarkers();
     });
-    
+
     document.getElementById('resetMapFilters').addEventListener('click', function() {
         document.querySelectorAll('.js-typeFilter').forEach(cb => {
             cb.checked = true;
         });
         updateMarkers();
     });
-    
+
     updateMarkers();
 })();
 </xf:js>]]></template>
-  <template type="public" title="sylphian_map.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[#mapContainer {
+  <template type="public" title="sylphian_map.less" version_id="1000710" version_string="1.0.7 Alpha"><![CDATA[#mapContainer {
     height: 500px;
     width: 100%;
     box-sizing: border-box;
@@ -1122,12 +1166,39 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .map-icon-filter-item .icon-preview svg {
     width: 2em;
     height: 2em;
+}
+
+@keyframes map-icon-heartbeat {
+    0%, 100% { transform: scale(1); }
+    10% { transform: scale(1.2); }
+    20% { transform: scale(1); }
+    30% { transform: scale(1.3); }
+    40%, 100% { transform: scale(1); }
+}
+
+@keyframes map-icon-bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-5px); }
+    60% { transform: translateY(-3px); }
+}
+
+.map-icon-animation-upcoming {
+    animation: map-icon-heartbeat 3s infinite ease-in-out;
+    transform-origin: center;
+    display: inline-block;
+    will-change: transform;
+}
+
+.map-icon-animation-active {
+    animation: map-icon-bounce 2s infinite ease-in-out;
+    transform-origin: bottom center;
+    display: inline-block;
+    will-change: transform;
 }]]></template>
-  <template type="public" title="sylphian_map_management" version_id="1000020" version_string="1.0.2"><![CDATA[<xf:title>{{ phrase('manage_markers') }}</xf:title>
+  <template type="public" title="sylphian_map_management" version_id="1000710" version_string="1.0.7 Alpha"><![CDATA[<xf:title>{{ phrase('sylphian_map_manage_markers') }}</xf:title>
 
 <div class="block">
     <div class="block-container">
-        <h2 class="block-header">{{ phrase('current_markers') }}</h2>
         <div class="block-body">
             <xf:datalist>
                 <xf:datarow rowtype="header">
@@ -1136,8 +1207,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
                     <xf:cell>{{ phrase('icon') }}</xf:cell>
                     <xf:cell>{{ phrase('position') }}</xf:cell>
                     <xf:cell>{{ phrase('created_by') }}</xf:cell>
-                    <xf:cell>{{ phrase('update_date') }}</xf:cell>
-                    <xf:cell>{{ phrase('creation_date') }}</xf:cell>
+                    <xf:cell>{{ phrase('sylphian_map_update_date') }}</xf:cell>
+                    <xf:cell>{{ phrase('sylphian_map_creation_date') }}</xf:cell>
                     <xf:cell>{{ phrase('status') }}</xf:cell>
                     <xf:cell></xf:cell>
                     <xf:cell></xf:cell>
@@ -1171,22 +1242,22 @@ svg.leaflet-image-layer.leaflet-interactive path {
                         <xf:cell>
                             <xf:if is="$marker.active">
                                 <span class="label label--success">
-                                    <xf:fa icon="fa-check" /> {{ phrase('active') }}
+                                    <xf:fa icon="fa-check" /> {{ phrase('sylphian_map_active') }}
                                 </span>
                             <xf:else />
                                 <span class="label label--warning">
-                                    <xf:fa icon="fa-ban" /> {{ phrase('inactive') }}
+                                    <xf:fa icon="fa-ban" /> {{ phrase('sylphian_map_inactive') }}
                                 </span>
                             </xf:if>
                         </xf:cell>
                         <xf:action href="{{ link('map/edit', null, {'marker_id': $marker.marker_id}) }}" 
                                  overlay="true"
-                                 title="{{ phrase('edit_marker') }}">
+                                 title="{{ phrase('sylphian_map_edit_marker') }}">
                             <xf:fa icon="fa-edit" />
                         </xf:action>
                         <xf:action href="{{ link('map/delete', null, {'marker_id': $marker.marker_id}) }}"
                                   overlay="true"
-                                  title="{{ phrase('delete_marker') }}">
+                                  title="{{ phrase('sylphian_map_delete_marker') }}">
                             <xf:fa icon="fa-trash" />
                         </xf:action>
                     </xf:datarow>
@@ -1198,7 +1269,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
                     <xf:button href="{{ link('map/add') }}" 
                                class="button--primary" 
                                data-xf-click="overlay">
-                        <xf:fa icon="fa-plus" /> {{ phrase('add_new_marker') }}
+                        <xf:fa icon="fa-plus" /> {{ phrase('sylphian_map_add_new_marker') }}
                     </xf:button>
                 </span>
             </div>
@@ -1211,18 +1282,19 @@ svg.leaflet-image-layer.leaflet-interactive path {
 				link="map/management" 
 				params="{$pageNavParams}"/>
 </div>]]></template>
-  <template type="public" title="sylphian_map_marker_form" version_id="1000510" version_string="1.0.5"><![CDATA[<xf:title>{{ phrase_dynamic($formType) }}</xf:title>
+  <template type="public" title="sylphian_map_marker_form" version_id="1000710" version_string="1.0.7 Alpha"><![CDATA[<xf:title>{{ phrase_dynamic('sylphian_map_' . $formType) }}</xf:title>
 
 <xf:js src="sylphian/map/form-geolocation-fetcher.js" min="1" addon="Sylphian/Map" />
 
 <xf:form action="{{ $formAction }}" class="block" ajax="true">
     <div class="block-container">
         <h2 class="block-tabHeader tabs" data-xf-init="tabs" role="tablist">
-            <a class="tabs-tab is-active" role="tab" tabindex="0" aria-controls="markerBasicInfo">{{ phrase('basic_information') }}</a>
+            <a class="tabs-tab is-active" role="tab" tabindex="0" aria-controls="markerBasicInfo">{{ phrase('sylphian_map_basic_information') }}</a>
             <a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerLocation">{{ phrase('location') }}</a>
-            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerAppearance">{{ phrase('appearance') }}</a>
-			<a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerThread">{{ phrase('thread_options') }}</a>
-        </h2>
+            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerAppearance">{{ phrase('sylphian_map_appearance') }}</a>
+			<a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerThread">{{ phrase('sylphian_map_thread_options') }}</a>
+       		<a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerTiming">{{ phrase('sylphian_map_event_timing') }}</a>
+		</h2>
 
         <ul class="tabPanes">
             <!-- Basic Information Tab -->
@@ -1241,12 +1313,12 @@ svg.leaflet-image-layer.leaflet-interactive path {
                                    label="{{ phrase('type') }}"
                                    required="required"
                                    maxlength="50"
-								   explain="{{ phrase('type_explanation') }}"/>
+								   explain="{{ phrase('sylphian_map_type_explanation') }}"/>
 					
 					<xf:if is="$formType != 'suggest' && $canManageActive">
-                        <xf:checkboxrow explain="{{ phrase('active_explanation') }}">
+                        <xf:checkboxrow explain="{{ phrase('sylphian_map_active_explanation') }}">
                             <xf:option name="active" selected="{{ $entity.active !== false }}"
-                                       label="{{ phrase('active') }}" />
+                                       label="{{ phrase('sylphian_map_active') }}" />
                         </xf:checkboxrow>
                     </xf:if>
                 </div>
@@ -1256,22 +1328,22 @@ svg.leaflet-image-layer.leaflet-interactive path {
             <li role="tabpanel" id="markerLocation">
                 <div class="block-body">
                     <xf:numberboxrow name="lat" value="{{ $entity.lat }}"
-                                     label="{{ phrase('latitude') }}"
+                                     label="{{ phrase('sylphian_map_latitude') }}"
                                      required="required"
                                      step="any" />
 
                     <xf:numberboxrow name="lng" value="{{ $entity.lng }}"
-                                     label="{{ phrase('longitude') }}"
+                                     label="{{ phrase('sylphian_map_longitude') }}"
                                      required="required"
                                      step="any" />
 
                     <xf:formrow label="">
                         <xf:button class="button--primary" id="use-my-location" data-xf-init="sylphian-location-button">
                             <xf:fa icon="fa-map-marker-alt" />
-                            {{ phrase('use_my_location') }}
+                            {{ phrase('sylphian_map_use_my_location') }}
                         </xf:button>
                         <span id="location-status" style="margin-left: 10px; display: none;">
-                            <xf:fa icon="fa-spinner fa-spin" /> {{ phrase('fetching_location') }}
+                            <xf:fa icon="fa-spinner fa-spin" /> {{ phrase('sylphian_map_fetching_location') }}
                         </span>
                     </xf:formrow>
                 </div>
@@ -1284,44 +1356,44 @@ svg.leaflet-image-layer.leaflet-interactive path {
                                    label="{{ phrase('icon') }}"
                                    maxlength="50"
                                    placeholder="home"
-                                   explain="{{ phrase('specify_fontawesome_icon_name') }}" />
+                                   explain="{{ phrase('sylphian_map_specify_fontawesome_icon_name') }}" />
 
                     <xf:selectrow name="icon_var" value="{{ $entity.icon_var ?: 'solid' }}"
-                                  label="{{ phrase('icon_variant') }}">
+                                  label="{{ phrase('sylphian_map_icon_variant') }}">
                         <xf:option value="light">{{ phrase('light') }}</xf:option>
-                        <xf:option value="regular">{{ phrase('regular') }}</xf:option>
-                        <xf:option value="solid">{{ phrase('solid') }}</xf:option>
-                        <xf:option value="duotone">{{ phrase('duotone') }}</xf:option>
-                        <xf:option value="brands">{{ phrase('brands') }}</xf:option>
+                        <xf:option value="regular">{{ phrase('sylphian_map_regular') }}</xf:option>
+                        <xf:option value="solid">{{ phrase('sylphian_map_solid') }}</xf:option>
+                        <xf:option value="duotone">{{ phrase('sylphian_map_duotone') }}</xf:option>
+                        <xf:option value="brands">{{ phrase('sylphian_map_brands') }}</xf:option>
                     </xf:selectrow>
 
                     <xf:textboxrow name="icon_color" value="{{ $entity.icon_color ?: 'black' }}"
-                                   label="{{ phrase('icon_color') }}"
+                                   label="{{ phrase('sylphian_map_icon_color') }}"
                                    placeholder="black"
                                    maxlength="30"
-								   explain="{{ phrase('icon_color_explanation') }}" />
+								   explain="{{ phrase('sylphian_map_icon_color_explanation') }}" />
 
                     <xf:selectrow name="marker_color" value="{{ $entity.marker_color ?: 'blue' }}"
-                                  label="{{ phrase('marker_color') }}">
-                        <xf:option value="red">{{ phrase('red') }}</xf:option>
-                        <xf:option value="darkred">{{ phrase('darkred') }}</xf:option>
-                        <xf:option value="lightred">{{ phrase('lightred') }}</xf:option>
-                        <xf:option value="orange">{{ phrase('orange') }}</xf:option>
-                        <xf:option value="beige">{{ phrase('beige') }}</xf:option>
-                        <xf:option value="green">{{ phrase('green') }}</xf:option>
-                        <xf:option value="darkgreen">{{ phrase('darkgreen') }}</xf:option>
-                        <xf:option value="lightgreen">{{ phrase('lightgreen') }}</xf:option>
-                        <xf:option value="blue">{{ phrase('blue') }}</xf:option>
-                        <xf:option value="darkblue">{{ phrase('darkblue') }}</xf:option>
-                        <xf:option value="lightblue">{{ phrase('lightblue') }}</xf:option>
-                        <xf:option value="purple">{{ phrase('purple') }}</xf:option>
-                        <xf:option value="darkpurple">{{ phrase('darkpurple') }}</xf:option>
-                        <xf:option value="pink">{{ phrase('pink') }}</xf:option>
-                        <xf:option value="cadetblue">{{ phrase('cadetblue') }}</xf:option>
-                        <xf:option value="white">{{ phrase('white') }}</xf:option>
-                        <xf:option value="gray">{{ phrase('gray') }}</xf:option>
-                        <xf:option value="lightgray">{{ phrase('lightgray') }}</xf:option>
-                        <xf:option value="black">{{ phrase('black') }}</xf:option>
+                                  label="{{ phrase('sylphian_map_marker_color') }}">
+                        <xf:option value="red">Red</xf:option>
+                        <xf:option value="darkred">Dark red</xf:option>
+                        <xf:option value="lightred">Light red</xf:option>
+                        <xf:option value="orange">Orange</xf:option>
+                        <xf:option value="beige">Beige</xf:option>
+                        <xf:option value="green">Green</xf:option>
+                        <xf:option value="darkgreen">Dark green</xf:option>
+                        <xf:option value="lightgreen">Light green</xf:option>
+                        <xf:option value="blue">Blue</xf:option>
+                        <xf:option value="darkblue">Dark blue</xf:option>
+                        <xf:option value="lightblue">Light blue</xf:option>
+                        <xf:option value="purple">Purple</xf:option>
+                        <xf:option value="darkpurple">Dark purple</xf:option>
+                        <xf:option value="pink">Pink</xf:option>
+                        <xf:option value="cadetblue">Cadet blue</xf:option>
+                        <xf:option value="white">White</xf:option>
+                        <xf:option value="gray">Gray</xf:option>
+                        <xf:option value="lightgray">Light gray</xf:option>
+                        <xf:option value="black">Black</xf:option>
                     </xf:selectrow>
                 </div>
             </li>
@@ -1333,40 +1405,61 @@ svg.leaflet-image-layer.leaflet-interactive path {
                         <xf:if is="($formType === 'add' || $formType === 'suggest') && $entity.create_thread">
                             <xf:checkboxrow>
                                 <xf:option name="create_thread" value="1"
-                                           label="{{ phrase('create_thread_for_marker') }}"
+                                           label="{{ phrase('sylphian_map_create_thread_for_marker') }}"
                                            checked="{{ $entity.create_thread ? true : false }}"
                                            readonly="true"/>
                             </xf:checkboxrow>
                             <xf:else />
                             <xf:checkboxrow>
                                 <xf:option name="create_thread" value="1"
-                                           label="{{ phrase('create_thread_for_marker') }}"
+                                           label="{{ phrase('sylphian_map_create_thread_for_marker') }}"
                                            checked="{{ $entity.create_thread ? true : false }}" />
                             </xf:checkboxrow>
                         </xf:if>
 
                         <xf:checkboxrow>
                             <xf:option name="thread_lock" value="1"
-                                       label="{{ phrase('lock_thread_replies') }}"
+                                       label="{{ phrase('sylphian_map_lock_thread_replies') }}"
                                        checked="{{ $entity.thread_lock ? true : false }}"
-									   explain="{{ phrase('thread_lock_explanation') }}" />
+									   explain="{{ phrase('sylphian_map_thread_lock_explanation') }}" />
                         </xf:checkboxrow>
                     </xf:if>
                 </div>
             </li>
+			
+			<!-- Event Timing Tab -->
+			<li role="tabpanel" id="markerTiming">
+				<div class="block-body">
+					<xf:formrow label="{{ phrase('sylphian_map_start_date_time') }}">
+						<div class="inputGroup">
+							<xf:datetimeinput name="start_date" value="{{ $entity.start_date }}" />
+						</div>
+					</xf:formrow>
+
+					<xf:formrow label="{{ phrase('sylphian_map_end_date_time') }}">
+						<div class="inputGroup">
+							<xf:datetimeinput name="end_date" value="{{ $entity.end_date }}" />
+						</div>
+					</xf:formrow>
+
+					<xf:inforow>
+						{{ phrase('sylphian_map_time_based_markers_explanation') }}
+					</xf:inforow>
+				</div>
+			</li>
         </ul>
 
         <xf:submitrow sticky="true" icon="save"
-                      label="{{ $formType == 'suggest' ? phrase('suggest_marker') : '' }}" />
+                      label="{{ $formType == 'suggest' ? phrase('sylphian_map_suggest_marker') : '' }}" />
     </div>
 </xf:form>]]></template>
-  <template type="public" title="sylphian_map_suggestion_process" version_id="1000510" version_string="1.0.5"><![CDATA[<xf:title>{{ phrase_dynamic($processTitle) }}</xf:title>
+  <template type="public" title="sylphian_map_suggestion_process" version_id="1000710" version_string="1.0.7 Alpha"><![CDATA[<xf:title>{{ phrase_dynamic('sylphian_map_' . $processTitle) }}</xf:title>
 
 <xf:form action="{{ link($actionType == 'approve' ? 'map/approve-suggestion' : 'map/reject-suggestion', null, {'suggestion_id': $suggestion.suggestion_id}) }}" class="block" ajax="true">
     <div class="block-container">
         <h2 class="block-tabHeader tabs" data-xf-init="tabs" role="tablist">
             <a class="tabs-tab is-active" role="tab" tabindex="0" aria-controls="detailsTab">{{ phrase('details') }}</a>
-            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="appearanceTab">{{ phrase('appearance') }}</a>
+            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="appearanceTab">{{ phrase('sylphian_map_appearance') }}</a>
             <a class="tabs-tab" role="tab" tabindex="0" aria-controls="locationTab">{{ phrase('location') }}</a>
         </h2>
 
@@ -1386,7 +1479,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
                         {{ $suggestion.type ?: phrase('none') }}
                     </xf:formrow>
                     
-                    <xf:formrow label="{{ phrase('suggested_by') }}">
+                    <xf:formrow label="{{ phrase('sylphian_map_suggested_by') }}">
                         <xf:if is="$suggestion.User">
                             <xf:username user="$suggestion.User" />
                         <xf:else />
@@ -1394,20 +1487,20 @@ svg.leaflet-image-layer.leaflet-interactive path {
                         </xf:if>
                     </xf:formrow>
                     
-                    <xf:formrow label="{{ phrase('suggested_on') }}">
+                    <xf:formrow label="{{ phrase('sylphian_map_suggested_on') }}">
                         {{ date($suggestion.create_date, 'M j, Y g:i A') }}
                     </xf:formrow>
 					
 					<xf:checkboxrow>
 						<xf:option name="create_thread" value="1"
-								  label="{{ phrase('create_thread_for_marker') }}"
+								  label="{{ phrase('sylphian_map_create_thread_for_marker') }}"
 								  checked="{{$suggestion.create_thread}}"
 								  readonly="true" />
 					</xf:checkboxrow>
 					
 					<xf:checkboxrow>
 						<xf:option name="thread_lock" value="1"
-								  label="{{ phrase('lock_thread_replies') }}"
+								  label="{{ phrase('sylphian_map_lock_thread_replies') }}"
 								  checked="{{$suggestion.thread_lock}}"
 								  readonly="true" />
 					</xf:checkboxrow>
@@ -1415,7 +1508,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
                     <xf:if is="$actionType == 'reject'">
                         <xf:formrow rowtype="explainRow">
                             <div class="blockMessage blockMessage--warning">
-                                {{ phrase('reject_marker_warning') }}
+                                {{ phrase('sylphian_map_reject_marker_warning') }}
                             </div>
                         </xf:formrow>
                     </xf:if>
@@ -1434,18 +1527,18 @@ svg.leaflet-image-layer.leaflet-interactive path {
                         </div>
                     </xf:formrow>
                     
-                    <xf:formrow label="{{ phrase('icon_variant') }}">
+                    <xf:formrow label="{{ phrase('sylphian_map_icon_variant') }}">
                         {{ $suggestion.icon_var ?: 'solid' }}
                     </xf:formrow>
                     
-                    <xf:formrow label="{{ phrase('icon_color') }}">
+                    <xf:formrow label="{{ phrase('sylphian_map_icon_color') }}">
                         <div style="display: flex; align-items: center;">
                             <div style="width: 20px; height: 20px; background-color: {{ $suggestion.icon_color }}; border-radius: 3px; margin-right: 10px;"></div>
                             {{ $suggestion.icon_color }}
                         </div>
                     </xf:formrow>
                     
-                    <xf:formrow label="{{ phrase('marker_color') }}">
+                    <xf:formrow label="{{ phrase('sylphian_map_marker_color') }}">
                         <div style="display: flex; align-items: center;">
                             <div style="width: 20px; height: 20px; background-color: {{ $suggestion.marker_color }}; border-radius: 3px; margin-right: 10px;"></div>
                             {{ $suggestion.marker_color }}
@@ -1457,11 +1550,11 @@ svg.leaflet-image-layer.leaflet-interactive path {
             <!-- Location Tab -->
             <li role="tabpanel" id="locationTab">
                 <div class="block-body">
-                    <xf:formrow label="{{ phrase('latitude') }}">
+                    <xf:formrow label="{{ phrase('sylphian_map_latitude') }}">
                         {{ $suggestion.lat }}
                     </xf:formrow>
                     
-                    <xf:formrow label="{{ phrase('longitude') }}">
+                    <xf:formrow label="{{ phrase('sylphian_map_longitude') }}">
                         {{ $suggestion.lng }}
                     </xf:formrow>
                     
@@ -1485,11 +1578,10 @@ svg.leaflet-image-layer.leaflet-interactive path {
 <xf:js src="sylphian/map/leaflet/leaflet.awesome-markers.js" min="1" addon="Sylphian/Map" />
 
 <xf:js src="sylphian/map/suggestion-process.js" min="1" addon="Sylphian/Map" />]]></template>
-  <template type="public" title="sylphian_map_suggestions" version_id="1000020" version_string="1.0.2"><![CDATA[<xf:title>{{ phrase('marker_suggestions') }}</xf:title>
+  <template type="public" title="sylphian_map_suggestions" version_id="1000710" version_string="1.0.7 Alpha"><![CDATA[<xf:title>{{ phrase('sylphian_map_marker_suggestions') }}</xf:title>
 
 <div class="block">
     <div class="block-container">
-        <h2 class="block-header">{{ phrase('marker_suggestions') }}</h2>
         <div class="block-body">
             <xf:if is="$pendingSuggestions">
                 <xf:datalist>
@@ -1498,8 +1590,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
                         <xf:cell>{{ phrase('type') }}</xf:cell>
                         <xf:cell>{{ phrase('icon') }}</xf:cell>
                         <xf:cell>{{ phrase('position') }}</xf:cell>
-                        <xf:cell>{{ phrase('suggested_by') }}</xf:cell>
-                        <xf:cell>{{ phrase('suggestion_date') }}</xf:cell>
+                        <xf:cell>{{ phrase('sylphian_map_suggested_by') }}</xf:cell>
+                        <xf:cell>{{ phrase('sylphian_map_suggestion_date') }}</xf:cell>
                         <xf:cell></xf:cell>
                         <xf:cell></xf:cell>
                     </xf:datarow>
@@ -1528,12 +1620,12 @@ svg.leaflet-image-layer.leaflet-interactive path {
                             </xf:cell>
                             <xf:action href="{{ link('map/approve-suggestion', null, {'suggestion_id': $suggestion.suggestion_id}) }}" 
                                      overlay="true"
-                                     title="{{ phrase('approve_suggestion') }}">
+                                     title="{{ phrase('sylphian_map_approve_suggestion') }}">
                                 <xf:fa icon="fa-check" class="u-accentColor" />
                             </xf:action>
                             <xf:action href="{{ link('map/reject-suggestion', null, {'suggestion_id': $suggestion.suggestion_id}) }}"
                                       overlay="true"
-                                      title="{{ phrase('reject_suggestion') }}">
+                                      title="{{ phrase('sylphian_map_reject_suggestion') }}">
                                 <xf:fa icon="fa-times" class="u-negativeColor" />
                             </xf:action>
                         </xf:datarow>
@@ -1541,7 +1633,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
                 </xf:datalist>
             <xf:else />
                 <div class="block-row">
-                    {{ phrase('no_pending_marker_suggestions') }}
+                    {{ phrase('sylphian_map_no_pending_marker_suggestions') }}
                 </div>
             </xf:if>
         </div>
@@ -1553,4 +1645,44 @@ svg.leaflet-image-layer.leaflet-interactive path {
 				link="map/suggestion" 
 				params="{$pageNavParams}"/>
 </div>]]></template>
+  <template type="public" title="sylphian_map_widget_events" version_id="1000710" version_string="1.0.7 Alpha"><![CDATA[<div class="block">
+    <div class="block-container">
+        <h3 class="block-header u-alignCenter">{{ phrase('sylphian_map_events_widget_title') }}</h3>
+        <div class="block-body">
+            <xf:if is="$events is empty">
+                <div class="block-row u-alignCenter">
+                    {{ phrase('sylphian_map_no_events') }}
+                </div>
+            <xf:else />
+				<xf:foreach loop="$events" value="$event">
+					<xf:macro name="event_marker" arg-event="{{ $event }}" />
+				</xf:foreach>
+            </xf:if>
+        </div>
+    </div>
+</div>
+
+<xf:macro name="event_marker" arg-event="$event">
+    <div class="block-row sylphian-map-event">
+        <div class="sylphian-map-event-content">
+            <div class="sylphian-map-event-title">
+				<xf:fa icon="{{ $event.icon_var }} fa-{{ $event.icon }}" />
+				
+				<strong>
+					<xf:if is="$event.thread_id">
+						<a href="{$event.thread_url}" class="sylphian-map-event-link">{$event.title}</a>					
+					<xf:else />
+						{$event.title}
+					</xf:if>
+				</strong>
+            </div>
+
+			<div class="sylphian-map-event-timeframe">
+				Start: {{ date($event.start_date, 'g:i A, M j Y') }}
+				<br>
+				End: {{ date($event.end_date, 'g:i A, M j Y') }}
+			</div>
+        </div>
+    </div>
+</xf:macro>]]></template>
 </templates>

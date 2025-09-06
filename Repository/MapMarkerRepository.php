@@ -322,13 +322,13 @@ class MapMarkerRepository extends Repository
 			$markerData = [
 				'lat' => $marker->lat,
 				'lng' => $marker->lng,
-				'title' => $marker->title,
-				'content' => $marker->content,
-				'icon' => $marker->icon,
+				'title' => htmlspecialchars($marker->title, ENT_QUOTES, 'UTF-8'),
+				'content' => htmlspecialchars($marker->content, ENT_QUOTES, 'UTF-8'),
+				'icon' => htmlspecialchars($marker->icon, ENT_QUOTES, 'UTF-8'),
 				'iconVar' => $marker->icon_var,
-				'iconColor' => $marker->icon_color,
+				'iconColor' => htmlspecialchars($marker->icon_color, ENT_QUOTES, 'UTF-8'),
 				'markerColor' => $marker->marker_color,
-				'type' => $marker->type,
+				'type' => htmlspecialchars($marker->type, ENT_QUOTES, 'UTF-8'),
 				'thread_id' => $marker->thread_id,
 				'thread_url' => \XF::app()->router()->buildLink('threads', ['thread_id' => $marker->thread_id]),
 				'start_date' => $marker->start_date,
@@ -406,14 +406,15 @@ class MapMarkerRepository extends Repository
 		foreach ($markers AS $marker)
 		{
 			$markerData = [
-				'title' => $marker['title'],
-				'thread_id' => $marker['thread_id'],
-				'thread_url' => $marker['thread_id'] ? \XF::app()->router()->buildLink('threads', ['thread_id' => $marker['thread_id']]) : '',
-				'start_date' => $marker['start_date'],
-				'end_date' => $marker['end_date'],
-				'icon' => $marker['icon'],
-				'icon_var' => $marker['icon_var'],
-				'icon_color' => $marker['icon_color'],
+				'title' => $marker->title,
+				'thread_id' => $marker->thread_id,
+				'thread_url' => $marker->thread_id ? \XF::app()->router()->buildLink('threads', ['thread_id' => $marker->thread_id]) : '',
+				'start_date' => $marker->start_date,
+				'end_date' => $marker->end_date,
+				'icon' => $marker->icon,
+				'icon_var' => $marker->icon_var,
+				'icon_color' => $marker->icon_color,
+
 			];
 
 			$iconVarMap = [
@@ -453,23 +454,23 @@ class MapMarkerRepository extends Repository
 
 		if ($count > 0)
 		{
-            $markersData = [];
+			$markersData = [];
 
-            foreach ($expiredMarkers AS $marker)
-            {
-                $markersData[] = [
-                    'marker_id' => $marker->marker_id,
-                    'title' => $marker->title,
-                    'type' => $marker->type,
-                    'end_date' => $marker->end_date,
-                    'thread_id' => $marker->thread_id
-                ];
+			foreach ($expiredMarkers AS $marker)
+			{
+				$markersData[] = [
+					'marker_id' => $marker->marker_id,
+					'title' => $marker->title,
+					'type' => $marker->type,
+					'end_date' => $marker->end_date,
+					'thread_id' => $marker->thread_id,
+				];
 
-                $marker->active = false;
-                $marker->save();
-            }
+				$marker->active = false;
+				$marker->save();
+			}
 
-            Logger::notice('Cleaned up ' . $count . ' expired event markers.', ['markers' => $markersData]);
+			Logger::notice('Cleaned up ' . $count . ' expired event markers.', ['markers' => $markersData]);
 		}
 
 		return $count;
