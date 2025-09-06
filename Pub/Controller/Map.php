@@ -287,63 +287,22 @@ class Map extends Controller
 	}
 
 	/**
-	 * Approves a marker suggestion, creating a permanent marker
+	 * Approve or Reject suggestions
 	 *
 	 * @throws PrintableException If suggestion retrieval fails
-	 * @return Redirect|View|Error
+	 * @return View
 	 */
-	public function actionApproveSuggestion(): Redirect|View|Error
+	public function actionProcessSuggestion(): View
 	{
 		$suggestionRepo = $this->getMapMarkerSuggestionRepo();
 		$suggestionId = $this->filter('suggestion_id', 'uint');
 
-		if (!$this->isPost())
-		{
-			$suggestion = $suggestionRepo->getSuggestionOrFail($suggestionId);
-			$viewParams = [
-				'suggestion' => $suggestion,
-				'actionType' => 'approve',
-				'processTitle' => 'suggestion_process_approve_title',
-			];
-			return $this->view('Sylphian\Map:Suggestion\Process', 'sylphian_map_suggestion_process', $viewParams);
-		}
+		$suggestion = $suggestionRepo->getSuggestionOrFail($suggestionId);
+		$viewParams = [
+			'suggestion' => $suggestion,
+		];
 
-		if (!$suggestionRepo->approveSuggestion($suggestionId))
-		{
-			return Logger::loggedError('Error occurred while approving marker suggestion', ['suggestion_id' => $suggestionId]);
-		}
-
-		return $this->redirect($this->buildLink('map'));
-	}
-
-	/**
-	 * Rejects a marker suggestion
-	 *
-	 * @throws PrintableException If suggestion retrieval fails
-	 * @return Redirect|View|Error
-	 */
-	public function actionRejectSuggestion(): Redirect|View|Error
-	{
-		$suggestionRepo = $this->getMapMarkerSuggestionRepo();
-		$suggestionId = $this->filter('suggestion_id', 'uint');
-
-		if (!$this->isPost())
-		{
-			$suggestion = $suggestionRepo->getSuggestionOrFail($suggestionId);
-			$viewParams = [
-				'suggestion' => $suggestion,
-				'actionType' => 'reject',
-				'processTitle' => 'suggestion_process_reject_title',
-			];
-			return $this->view('Sylphian\Map:Suggestion\Process', 'sylphian_map_suggestion_process', $viewParams);
-		}
-
-		if (!$suggestionRepo->rejectSuggestion($suggestionId))
-		{
-			return Logger::loggedError('Error occurred while rejecting marker suggestion', ['suggestion_id' => $suggestionId]);
-		}
-
-		return $this->redirect($this->buildLink('map'));
+		return $this->view('Sylphian\Map:Suggestion\Process', 'sylphian_map_suggestion_process', $viewParams);
 	}
 
 	/**
