@@ -305,6 +305,42 @@ class Map extends Controller
 		return $this->view('Sylphian\Map:Suggestion\Process', 'sylphian_map_suggestion_process', $viewParams);
 	}
 
+    /**
+     * Approves a map marker suggestion
+     *
+     * @return Redirect|View|Error
+     */
+    public function actionApproveSuggestion(): Redirect|View|Error
+    {
+        $suggestionRepo = $this->getMapMarkerSuggestionRepo();
+        $suggestionId = $this->filter('suggestion_id', 'uint');
+
+        if (!$suggestionRepo->approveSuggestion($suggestionId))
+        {
+            return $this->error(\XF::phrase('sylphian_map_suggestion_approval_failed'));
+        }
+
+        return $this->redirect($this->buildLink('map/management'));
+    }
+
+    /**
+     * Rejects a map marker suggestion
+     *
+     * @return Redirect|View|Error
+     */
+    public function actionRejectSuggestion(): Redirect|View|Error
+    {
+        $suggestionRepo = $this->getMapMarkerSuggestionRepo();
+        $suggestionId = $this->filter('suggestion_id', 'uint');
+
+        if (!$suggestionRepo->rejectSuggestion($suggestionId))
+        {
+            return $this->error(\XF::phrase('sylphian_map_suggestion_rejection_failed'));
+        }
+
+        return $this->redirect($this->buildLink('map/management'));
+    }
+
 	/**
 	 * Displays the map management interface
 	 * Allows administrators to view, edit, add, and delete markers

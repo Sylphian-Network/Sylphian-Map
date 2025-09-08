@@ -65,6 +65,12 @@
         "version_string": "1.0.5",
         "hash": "23f945ae60a574099cb480838ab6deaa"
     },
+    "option.sylphian_map_attached_thread_layout.txt": {
+        "global_cache": false,
+        "version_id": 1000810,
+        "version_string": "1.0.8 Alpha",
+        "hash": "a7a653362d9ce576a58b2688d8266a90"
+    },
     "option.threadCreationLocation.txt": {
         "global_cache": false,
         "version_id": 1000510,
@@ -112,6 +118,12 @@
         "version_id": 1000510,
         "version_string": "1.0.5",
         "hash": "fb0a2b0e887eb985e978985bccb438e2"
+    },
+    "option_explain.sylphian_map_attached_thread_layout.txt": {
+        "global_cache": false,
+        "version_id": 1000810,
+        "version_string": "1.0.8 Alpha",
+        "hash": "b05345c8c53d6e3dbe3180045481b62a"
     },
     "option_explain.threadCreationLocation.txt": {
         "global_cache": false,

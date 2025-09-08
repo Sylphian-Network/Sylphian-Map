@@ -1,0 +1,3 @@
+<p>You are able to use BBCode here. You also have access to the properties {title}, {content}, {lat}, {lng}, {status}, {type}, {last_updated}, {start_date}, {end_date}.</p>
+<p>To conditionally show content only if a property is set, use: {if:property}...content...{endif}</p>
+<p>Example: [B]Event Time:[/B] {if:start_date}{start_date} - {end_date}{endif}</p>
