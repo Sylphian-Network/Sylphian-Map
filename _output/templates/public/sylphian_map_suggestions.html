@@ -13,7 +13,6 @@
                         <xf:cell>{{ phrase('sylphian_map_suggested_by') }}</xf:cell>
                         <xf:cell>{{ phrase('sylphian_map_suggestion_date') }}</xf:cell>
                         <xf:cell></xf:cell>
-                        <xf:cell></xf:cell>
                     </xf:datarow>
             
                     <xf:foreach loop="$pendingSuggestions" value="$suggestion">
@@ -38,16 +37,11 @@
                             <xf:cell>
                                 {{ date($suggestion.create_date, 'M j, Y g:i A') }}
                             </xf:cell>
-                            <xf:action href="{{ link('map/approve-suggestion', null, {'suggestion_id': $suggestion.suggestion_id}) }}" 
-                                     overlay="true"
-                                     title="{{ phrase('sylphian_map_approve_suggestion') }}">
-                                <xf:fa icon="fa-check" class="u-accentColor" />
-                            </xf:action>
-                            <xf:action href="{{ link('map/reject-suggestion', null, {'suggestion_id': $suggestion.suggestion_id}) }}"
-                                      overlay="true"
-                                      title="{{ phrase('sylphian_map_reject_suggestion') }}">
-                                <xf:fa icon="fa-times" class="u-negativeColor" />
-                            </xf:action>
+							<xf:action href="{{ link('map/process-suggestion', null, {'suggestion_id': $suggestion.suggestion_id}) }}" 
+									 overlay="true"
+									 title="{{ phrase('sylphian_map_process_suggestion') }}">
+								<xf:fa icon="far fa-cog" />
+							</xf:action>
                         </xf:datarow>
                     </xf:foreach>
                 </xf:datalist>

@@ -10,3 +10,4 @@ A simple map addon I designed for my forum. This addon allows your community mem
 - [Leaflet js](https://leafletjs.com/) - Map library
 - [Leaflet awesome markers](https://github.com/lennardv2/Leaflet.awesome-markers) A heavily modified version of the original library
 - [OpenStreetMap](https://www.openstreetmap.org) - Map tile provider
+- [Nominatim](https://nominatim.org/) - Geocoding service

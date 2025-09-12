@@ -1,121 +1,118 @@
-<xf:title>{{ phrase_dynamic('sylphian_map_' . $processTitle) }}</xf:title>
+<xf:title>{{ phrase('sylphian_map_suggestion_details') }}</xf:title>
 
-<xf:form action="{{ link($actionType == 'approve' ? 'map/approve-suggestion' : 'map/reject-suggestion', null, {'suggestion_id': $suggestion.suggestion_id}) }}" class="block" ajax="true">
-    <div class="block-container">
-        <h2 class="block-tabHeader tabs" data-xf-init="tabs" role="tablist">
-            <a class="tabs-tab is-active" role="tab" tabindex="0" aria-controls="detailsTab">{{ phrase('details') }}</a>
-            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="appearanceTab">{{ phrase('sylphian_map_appearance') }}</a>
-            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="locationTab">{{ phrase('location') }}</a>
-        </h2>
+<div class="block-container">
+    <h2 class="block-tabHeader tabs" data-xf-init="tabs" role="tablist">
+        <a class="tabs-tab is-active" role="tab" tabindex="0" aria-controls="detailsTab">{{ phrase('details') }}</a>
+        <a class="tabs-tab" role="tab" tabindex="0" aria-controls="locationTab">{{ phrase('location') }}</a>
+        <xf:if is="$suggestion.create_thread">
+            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="threadTab">{{ phrase('sylphian_map_thread_options') }}</a>
+        </xf:if>
+        <xf:if is="$suggestion.start_date && $suggestion.end_date">
+            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="eventTab">{{ phrase('sylphian_map_event_timing') }}</a>
+        </xf:if>
+    </h2>
 
-        <ul class="tabPanes">
-            <!-- Details Tab -->
-            <li class="is-active" role="tabpanel" id="detailsTab">
-                <div class="block-body">
-                    <xf:formrow label="{{ phrase('title') }}">
-                        {{ $suggestion.title }}
-                    </xf:formrow>
-                    
-                    <xf:formrow label="{{ phrase('content') }}">
-                        {{ $suggestion.content ?: phrase('none') }}
-                    </xf:formrow>
-                    
-                    <xf:formrow label="{{ phrase('type') }}">
-                        {{ $suggestion.type ?: phrase('none') }}
-                    </xf:formrow>
-                    
-                    <xf:formrow label="{{ phrase('sylphian_map_suggested_by') }}">
-                        <xf:if is="$suggestion.User">
-                            <xf:username user="$suggestion.User" />
-                        <xf:else />
-                            {{ phrase('unknown') }}
-                        </xf:if>
-                    </xf:formrow>
-                    
-                    <xf:formrow label="{{ phrase('sylphian_map_suggested_on') }}">
-                        {{ date($suggestion.create_date, 'M j, Y g:i A') }}
-                    </xf:formrow>
-					
-					<xf:checkboxrow>
-						<xf:option name="create_thread" value="1"
-								  label="{{ phrase('sylphian_map_create_thread_for_marker') }}"
-								  checked="{{$suggestion.create_thread}}"
-								  readonly="true" />
-					</xf:checkboxrow>
-					
-					<xf:checkboxrow>
-						<xf:option name="thread_lock" value="1"
-								  label="{{ phrase('sylphian_map_lock_thread_replies') }}"
-								  checked="{{$suggestion.thread_lock}}"
-								  readonly="true" />
-					</xf:checkboxrow>
-                    
-                    <xf:if is="$actionType == 'reject'">
-                        <xf:formrow rowtype="explainRow">
-                            <div class="blockMessage blockMessage--warning">
-                                {{ phrase('sylphian_map_reject_marker_warning') }}
-                            </div>
-                        </xf:formrow>
+    <ul class="tabPanes">
+        <!-- Details Tab -->
+        <li class="is-active" role="tabpanel" id="detailsTab">
+            <div class="block-body">
+                <xf:formrow label="{{ phrase('title') }}">
+                    {{ $suggestion.title }}
+                </xf:formrow>
+                
+                <xf:formrow label="{{ phrase('content') }}">
+                    {{ $suggestion.content ?: phrase('none') }}
+                </xf:formrow>
+                
+                <xf:formrow label="{{ phrase('type') }}">
+                    {{ $suggestion.type ?: phrase('none') }}
+                </xf:formrow>
+                
+                <xf:formrow label="{{ phrase('sylphian_map_suggested_by') }}">
+                    <xf:if is="$suggestion.User">
+                        <xf:username user="$suggestion.User" />
+                    <xf:else />
+                        {{ phrase('unknown') }}
                     </xf:if>
-                </div>
-            </li>
-            
-            <!-- Appearance Tab -->
-            <li role="tabpanel" id="appearanceTab">
+                </xf:formrow>
+                
+                <xf:formrow label="{{ phrase('sylphian_map_suggested_on') }}">
+                    {{ date($suggestion.create_date, 'M j, Y g:i A') }}
+                </xf:formrow>
+            </div>
+        </li>
+        
+        <!-- Location Tab -->
+        <li role="tabpanel" id="locationTab">
+            <div class="block-body">
+                <xf:formrow label="{{ phrase('sylphian_map_latitude') }}">
+                    {{ $suggestion.lat }}
+                </xf:formrow>
+                
+                <xf:formrow label="{{ phrase('sylphian_map_longitude') }}">
+                    {{ $suggestion.lng }}
+                </xf:formrow>
+                
+                <xf:formrow label="{{ phrase('preview') }}">
+                    <div class="mapPreviewContainer" style="height: 300px; width: 100%;" data-lat="{{ $suggestion.lat }}" data-lng="{{ $suggestion.lng }}" data-icon="{{ $suggestion.icon }}" data-icon-var="{{ $suggestion.icon_var }}" data-icon-color="{{ $suggestion.icon_color }}" data-marker-color="{{ $suggestion.marker_color }}" data-title="{{ $suggestion.title }}">
+                        <div id="suggestionMapPreview" data-xf-init="sylphian-map-preview" style="height: 100%; width: 100%;"></div>
+                    </div>
+                </xf:formrow>
+            </div>
+        </li>
+        
+        <!-- Thread Tab -->
+        <xf:if is="$suggestion.create_thread">
+            <li role="tabpanel" id="threadTab">
                 <div class="block-body">
-                    <xf:formrow label="{{ phrase('icon') }}">
-                        <div class="iconPreview">
-                            <span class="iconContainer" style="background-color: {{ $suggestion.marker_color }}; color: {{ $suggestion.icon_color }}; display: inline-block; width: 30px; height: 30px; border-radius: 50%; text-align: center; line-height: 30px;">
-                                <xf:fa icon="fa-{{ $suggestion.icon ?: 'map-marker-alt' }}" fw="true" />
-                            </span>
-                            {{ $suggestion.icon ?: phrase('default') }}
-                        </div>
-                    </xf:formrow>
-                    
-                    <xf:formrow label="{{ phrase('sylphian_map_icon_variant') }}">
-                        {{ $suggestion.icon_var ?: 'solid' }}
-                    </xf:formrow>
-                    
-                    <xf:formrow label="{{ phrase('sylphian_map_icon_color') }}">
-                        <div style="display: flex; align-items: center;">
-                            <div style="width: 20px; height: 20px; background-color: {{ $suggestion.icon_color }}; border-radius: 3px; margin-right: 10px;"></div>
-                            {{ $suggestion.icon_color }}
-                        </div>
-                    </xf:formrow>
-                    
-                    <xf:formrow label="{{ phrase('sylphian_map_marker_color') }}">
-                        <div style="display: flex; align-items: center;">
-                            <div style="width: 20px; height: 20px; background-color: {{ $suggestion.marker_color }}; border-radius: 3px; margin-right: 10px;"></div>
-                            {{ $suggestion.marker_color }}
-                        </div>
-                    </xf:formrow>
+                    <xf:checkboxrow>
+                        <xf:option name="create_thread" value="1"
+                                  label="{{ phrase('sylphian_map_create_thread_for_marker') }}"
+                                  checked="{{$suggestion.create_thread}}"
+                                  readonly="true" />
+                    </xf:checkboxrow>
+
+                    <xf:checkboxrow>
+                        <xf:option name="thread_lock" value="1"
+                                  label="{{ phrase('sylphian_map_lock_thread_replies') }}"
+                                  checked="{{$suggestion.thread_lock}}"
+                                  readonly="true" />
+                    </xf:checkboxrow>
                 </div>
             </li>
-            
-            <!-- Location Tab -->
-            <li role="tabpanel" id="locationTab">
+        </xf:if>
+        
+        <!-- Event Tab -->
+        <xf:if is="$suggestion.start_date && $suggestion.end_date">
+            <li role="tabpanel" id="eventTab">
                 <div class="block-body">
-                    <xf:formrow label="{{ phrase('sylphian_map_latitude') }}">
-                        {{ $suggestion.lat }}
+                    <xf:formrow label="{{ phrase('sylphian_map_start_date_time') }}">
+                        {{ date($suggestion.start_date, 'M j, Y g:i A') }}
                     </xf:formrow>
-                    
-                    <xf:formrow label="{{ phrase('sylphian_map_longitude') }}">
-                        {{ $suggestion.lng }}
-                    </xf:formrow>
-                    
-                    <xf:formrow label="{{ phrase('preview') }}">
-                        <div class="mapPreviewContainer" style="height: 300px; width: 100%;" data-lat="{{ $suggestion.lat }}" data-lng="{{ $suggestion.lng }}" data-icon="{{ $suggestion.icon }}" data-icon-var="{{ $suggestion.icon_var }}" data-icon-color="{{ $suggestion.icon_color }}" data-marker-color="{{ $suggestion.marker_color }}" data-title="{{ $suggestion.title }}">
-                            <div id="suggestionMapPreview" data-xf-init="sylphian-map-preview" style="height: 100%; width: 100%;"></div>
-                        </div>
+
+                    <xf:formrow label="{{ phrase('sylphian_map_end_date_time') }}">
+                        {{ date($suggestion.end_date, 'M j, Y g:i A') }}
                     </xf:formrow>
                 </div>
             </li>
-        </ul>
-		
-        <xf:submitrow sticky="true" 
-                      icon="{{ $actionType == 'approve' ? 'check' : 'delete' }}"/>
+        </xf:if>
+    </ul>
+    
+    <div class="block-footer">
+		<xf:form action="{{ link('map/approve-suggestion', null, {'suggestion_id': $suggestion.suggestion_id}) }}" ajax="true" class="formSubmitRow">
+			<xf:button type="submit" class="button button--primary">
+				<xf:fa icon="fa-check" />
+				{{ phrase('sylphian_map_approve_suggestion') }}
+			</xf:button>
+		</xf:form>
+                
+		<xf:form action="{{ link('map/reject-suggestion', null, {'suggestion_id': $suggestion.suggestion_id}) }}" ajax="true" class="formSubmitRow">
+			<xf:button type="submit" class="button button--cta button--negative" icon="delete">
+				{{ phrase('sylphian_map_reject_suggestion') }}
+			</xf:button>
+		</xf:form>
     </div>
-</xf:form>
+</div>
 
 <xf:css src="public:leaflet.less" />
 <xf:js src="sylphian/map/leaflet/leaflet.js" min="1" addon="Sylphian/Map" />
@@ -123,3 +120,18 @@
 <xf:js src="sylphian/map/leaflet/leaflet.awesome-markers.js" min="1" addon="Sylphian/Map" />
 
 <xf:js src="sylphian/map/suggestion-process.js" min="1" addon="Sylphian/Map" />
+
+<xf:css>
+.block-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+.formSubmitRow {
+    display: inline-flex;
+    margin: 0;
+}
+</xf:css>

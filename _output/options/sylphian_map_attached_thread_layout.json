@@ -1,0 +1,13 @@
+{
+    "edit_format": "textbox",
+    "edit_format_params": "rows=6",
+    "data_type": "string",
+    "sub_options": [],
+    "validation_class": "",
+    "validation_method": "",
+    "advanced": false,
+    "default_value": "[B]Title:[/B] {title}\n[B]Description:[/B] {content}\n[B]Location:[/B] {lat}, {lng}\n[B]Status:[/B] {status}\n[B]Type:[/B] {type}\n\n[URL={mapUrl}]View on Map[/URL]\n{if:start_date}\n[B]Event Time:[/B] {start_date} - {end_date}\n{endif}\n[CENTER][SIZE=1]Last updated: {last_updated}[/SIZE][/CENTER]",
+    "relations": {
+        "sylphian_map": 2201
+    }
+}
