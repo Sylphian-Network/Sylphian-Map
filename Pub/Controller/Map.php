@@ -3,12 +3,14 @@
 namespace Sylphian\Map\Pub\Controller;
 
 use Sylphian\Library\Logger\Logger;
+use Sylphian\Map\Repository\MapGeocodingRepository;
 use Sylphian\Map\Repository\MapMarkerRepository;
 use Sylphian\Map\Repository\MapMarkerSuggestionRepository;
 use Sylphian\Map\Repository\ThreadMarkerRepository;
 use XF\ControllerPlugin\DeletePlugin;
 use XF\Mvc\Controller;
 use XF\Mvc\Reply\Error;
+use XF\Mvc\Reply\Exception;
 use XF\Mvc\Reply\Redirect;
 use XF\Mvc\Reply\View;
 use XF\PrintableException;
@@ -287,6 +289,52 @@ class Map extends Controller
 	}
 
 	/**
+	 * Server-side geocoding action for address lookup
+	 *
+	 * @return View|Error
+	 */
+	public function actionGeocode(): View|Error
+	{
+		try
+		{
+			$this->assertPostOnly();
+
+			$address = $this->filter('address', 'str');
+
+			/** @var MapGeocodingRepository $geocodingRepo */
+			$geocodingRepo = $this->repository('Sylphian\Map:MapGeocoding');
+
+			try
+			{
+				$coordinates = $geocodingRepo->geocodeAddress($address);
+
+				if (!$coordinates)
+				{
+					return $this->error(\XF::phrase('sylphian_map_address_not_found'));
+				}
+
+				$view = $this->view();
+				$view->setJsonParams([
+					'success' => true,
+					'lat' => $coordinates['lat'],
+					'lng' => $coordinates['lng'],
+					'address' => $address,
+				]);
+
+				return $view;
+			}
+			catch (\Exception $e)
+			{
+				return Logger::loggedError('Geocoding error: ' . $e->getMessage(), ['address' => $address]);
+			}
+		}
+		catch (Exception $e)
+		{
+			return Logger::loggedError('Geocoding request failed: ' . $e->getMessage(), ['exception' => $e]);
+		}
+	}
+
+	/**
 	 * Approve or Reject suggestions
 	 *
 	 * @throws PrintableException If suggestion retrieval fails
@@ -305,41 +353,41 @@ class Map extends Controller
 		return $this->view('Sylphian\Map:Suggestion\Process', 'sylphian_map_suggestion_process', $viewParams);
 	}
 
-    /**
-     * Approves a map marker suggestion
-     *
-     * @return Redirect|View|Error
-     */
-    public function actionApproveSuggestion(): Redirect|View|Error
-    {
-        $suggestionRepo = $this->getMapMarkerSuggestionRepo();
-        $suggestionId = $this->filter('suggestion_id', 'uint');
+	/**
+	 * Approves a map marker suggestion
+	 *
+	 * @return Redirect|View|Error
+	 */
+	public function actionApproveSuggestion(): Redirect|View|Error
+	{
+		$suggestionRepo = $this->getMapMarkerSuggestionRepo();
+		$suggestionId = $this->filter('suggestion_id', 'uint');
 
-        if (!$suggestionRepo->approveSuggestion($suggestionId))
-        {
-            return $this->error(\XF::phrase('sylphian_map_suggestion_approval_failed'));
-        }
+		if (!$suggestionRepo->approveSuggestion($suggestionId))
+		{
+			return $this->error(\XF::phrase('sylphian_map_suggestion_approval_failed'));
+		}
 
-        return $this->redirect($this->buildLink('map/management'));
-    }
+		return $this->redirect($this->buildLink('map/management'));
+	}
 
-    /**
-     * Rejects a map marker suggestion
-     *
-     * @return Redirect|View|Error
-     */
-    public function actionRejectSuggestion(): Redirect|View|Error
-    {
-        $suggestionRepo = $this->getMapMarkerSuggestionRepo();
-        $suggestionId = $this->filter('suggestion_id', 'uint');
+	/**
+	 * Rejects a map marker suggestion
+	 *
+	 * @return Redirect|View|Error
+	 */
+	public function actionRejectSuggestion(): Redirect|View|Error
+	{
+		$suggestionRepo = $this->getMapMarkerSuggestionRepo();
+		$suggestionId = $this->filter('suggestion_id', 'uint');
 
-        if (!$suggestionRepo->rejectSuggestion($suggestionId))
-        {
-            return $this->error(\XF::phrase('sylphian_map_suggestion_rejection_failed'));
-        }
+		if (!$suggestionRepo->rejectSuggestion($suggestionId))
+		{
+			return $this->error(\XF::phrase('sylphian_map_suggestion_rejection_failed'));
+		}
 
-        return $this->redirect($this->buildLink('map/management'));
-    }
+		return $this->redirect($this->buildLink('map/management'));
+	}
 
 	/**
 	 * Displays the map management interface

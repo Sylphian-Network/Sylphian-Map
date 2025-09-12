@@ -53,7 +53,24 @@
                                      required="required"
                                      step="any" />
 
-                    <xf:formrow label="">
+					<xf:textboxrow name="address" value="{{ $entity.address }}"
+								   label="{{ phrase('sylphian_map_address') }}"
+								   placeholder="{{ phrase('sylphian_map_address_placeholder') }}"
+								   maxlength="200" />
+
+					<xf:if is="{{ $xf.visitor.hasPermission('general', 'sylphianMapAddressConvert') }}">
+						<xf:formrow label="" explain="{{ phrase('sylphian_map_address_button_explanation') }}">
+							<xf:button type="button" class="button--primary" id="geocode-address" data-xf-init="sylphian-geocode-button">
+								<xf:fa icon="fa-search-location" />
+								{{ phrase('sylphian_map_geocode_address') }}
+							</xf:button>
+							<span id="geocode-status" style="margin-left: 10px; display: none;">
+								<xf:fa icon="fa-spinner fa-spin" /> {{ phrase('sylphian_map_geocoding_address') }}
+							</span>
+						</xf:formrow>
+					</xf:if>
+					
+                    <xf:formrow label="" explain="{{ phrase('sylphian_map_current_location_button_explanation') }}">
                         <xf:button class="button--primary" id="use-my-location" data-xf-init="sylphian-location-button">
                             <xf:fa icon="fa-map-marker-alt" />
                             {{ phrase('sylphian_map_use_my_location') }}

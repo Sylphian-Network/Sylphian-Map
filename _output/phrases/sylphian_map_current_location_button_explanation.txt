@@ -1,0 +1,1 @@
+Fetch the latitude and longitude of your current location. This is most accurate when used on a mobile phone.

@@ -167,6 +167,12 @@
         "version_string": "1.0.2",
         "hash": "f175805af1674a4538b719e02085b384"
     },
+    "permission.general_sylphianMapAddressConvert.txt": {
+        "global_cache": false,
+        "version_id": 1000810,
+        "version_string": "1.0.8 Alpha",
+        "hash": "48ac43be51d11a2825475a0c0e8067cd"
+    },
     "permission.general_viewMap.txt": {
         "global_cache": false,
         "version_id": 1000040,
@@ -196,6 +202,30 @@
         "version_id": 1000710,
         "version_string": "1.0.7 Alpha",
         "hash": "cfc46908a8c6307535ec531e9406a26e"
+    },
+    "sylphian_map_address.txt": {
+        "global_cache": false,
+        "version_id": 1000810,
+        "version_string": "1.0.8 Alpha",
+        "hash": "dd7bf230fde8d4836917806aff6a6b27"
+    },
+    "sylphian_map_address_button_explanation.txt": {
+        "global_cache": false,
+        "version_id": 1000810,
+        "version_string": "1.0.8 Alpha",
+        "hash": "fc94e0562505b1ba59434ec3be901969"
+    },
+    "sylphian_map_address_not_found.txt": {
+        "global_cache": false,
+        "version_id": 1000810,
+        "version_string": "1.0.8 Alpha",
+        "hash": "a50b98ad2181c24807273c7f34226b42"
+    },
+    "sylphian_map_address_placeholder.txt": {
+        "global_cache": false,
+        "version_id": 1000810,
+        "version_string": "1.0.8 Alpha",
+        "hash": "fdf95105fc31152cc255cd7777d7c071"
     },
     "sylphian_map_appearance.txt": {
         "global_cache": false,
@@ -238,6 +268,12 @@
         "version_id": 1000710,
         "version_string": "1.0.7 Alpha",
         "hash": "3112209b2dd9b55cf5dbc4865dd15afd"
+    },
+    "sylphian_map_current_location_button_explanation.txt": {
+        "global_cache": false,
+        "version_id": 1000810,
+        "version_string": "1.0.8 Alpha",
+        "hash": "503c38d59cdd0d9b72fe18ad51aca39b"
     },
     "sylphian_map_delete_marker.txt": {
         "global_cache": false,
@@ -310,6 +346,12 @@
         "version_id": 1000710,
         "version_string": "1.0.7 Alpha",
         "hash": "d16f71a779d2791fbb152e99eda7f0e6"
+    },
+    "sylphian_map_geocode_address.txt": {
+        "global_cache": false,
+        "version_id": 1000810,
+        "version_string": "1.0.8 Alpha",
+        "hash": "fc7607c14cc9f740ef869885608a36ab"
     },
     "sylphian_map_icon_color.txt": {
         "global_cache": false,
@@ -412,6 +454,12 @@
         "version_id": 1000710,
         "version_string": "1.0.7 Alpha",
         "hash": "a942625941595e5d25536ab925d8b96a"
+    },
+    "sylphian_map_nominatim_header_placeholder.txt": {
+        "global_cache": false,
+        "version_id": 1000810,
+        "version_string": "1.0.8 Alpha",
+        "hash": "06faa879c88076f41d9ebd8e6caee823"
     },
     "sylphian_map_process_suggestion.txt": {
         "global_cache": false,

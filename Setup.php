@@ -40,6 +40,7 @@ class Setup extends AbstractSetup
 				$table->addColumn('active', 'tinyint', 1)->setDefault(1);
 				$table->addColumn('start_date', 'int')->nullable()->setDefault(null);
 				$table->addColumn('end_date', 'int')->nullable()->setDefault(null);
+				$table->addColumn('address', 'varchar', 200)->nullable()->setDefault(null);
 
 				$table->addPrimaryKey('marker_id');
 				$table->addKey(['lat', 'lng']);
@@ -81,6 +82,7 @@ class Setup extends AbstractSetup
 				$table->addColumn('thread_lock', 'tinyint', 1)->setDefault(0);
 				$table->addColumn('start_date', 'int')->nullable()->setDefault(null);
 				$table->addColumn('end_date', 'int')->nullable()->setDefault(null);
+				$table->addColumn('address', 'varchar', 200)->nullable()->setDefault(null);
 
 				$table->addPrimaryKey('suggestion_id');
 				$table->addKey(['lat', 'lng']);
@@ -244,6 +246,54 @@ class Setup extends AbstractSetup
 		catch (\Exception $e)
 		{
 			\XF::logException($e, false, 'Error adding time-based columns to map markers table: ');
+
+			if (str_contains($e->getMessage(), 'Duplicate column name'))
+			{
+				return true;
+			}
+
+			return false;
+		}
+	}
+
+	public function upgrade1000810Step1(): bool
+	{
+		try
+		{
+			$this->schemaManager()->alterTable('xf_map_markers', function (Alter $table)
+			{
+				$table->addColumn('address', 'varchar', 200)->nullable()->setDefault(null);
+			});
+
+			return true;
+		}
+		catch (\Exception $e)
+		{
+			\XF::logException($e, false, 'Error adding address column: ');
+
+			if (str_contains($e->getMessage(), 'Duplicate column name'))
+			{
+				return true;
+			}
+
+			return false;
+		}
+	}
+
+	public function upgrade1000810Step2(): bool
+	{
+		try
+		{
+			$this->schemaManager()->alterTable('xf_map_marker_suggestions', function (Alter $table)
+			{
+				$table->addColumn('address', 'varchar', 200)->nullable()->setDefault(null);
+			});
+
+			return true;
+		}
+		catch (\Exception $e)
+		{
+			\XF::logException($e, false, 'Error adding address column: ');
 
 			if (str_contains($e->getMessage(), 'Duplicate column name'))
 			{

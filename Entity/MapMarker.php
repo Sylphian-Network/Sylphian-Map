@@ -27,6 +27,7 @@ use XF\Mvc\Entity\Structure;
  * @property bool $active
  * @property int|null $start_date
  * @property int|null $end_date
+ * @property string|null $address
  *
  * RELATIONS
  * @property-read User|null $User
@@ -58,6 +59,7 @@ class MapMarker extends Entity
 			'active' => ['type' => self::BOOL, 'default' => true],
 			'start_date' => ['type' => self::UINT, 'nullable' => true],
 			'end_date' => ['type' => self::UINT, 'nullable' => true],
+			'address' => ['type' => self::STR, 'maxLength' => 200, 'nullable' => true],
 		];
 
 		$structure->getters = [];
