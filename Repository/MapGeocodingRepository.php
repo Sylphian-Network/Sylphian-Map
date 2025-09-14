@@ -10,13 +10,35 @@ use XF\PrintableException;
 class MapGeocodingRepository extends Repository
 {
 	/**
+	 * Geocodes an address to latitude and longitude using Nominatim API, this method enforces a rate limit of 2 request per second
+	 *
+	 * @param string $address The address to geocode
+	 * @return array|string|null Returns [lat, lng] if successful, null if not found
+	 * @throws PrintableException If the request fails for technical reasons
+	 */
+	public function geocodeWithRateLimit(string $address): array|string|null
+	{
+		$now = microtime(true);
+		$lastRequestTime = \XF::app()->registry()->get('syl_map_last_geocode') ?? 0;
+
+		if ($now - $lastRequestTime < 2)
+		{
+			return 'rate_limited';
+		}
+
+		\XF::app()->registry()->set('syl_map_last_geocode', $now);
+
+		return $this->geocodeAddress($address);
+	}
+
+	/**
 	 * Geocodes an address to latitude and longitude using Nominatim API
 	 *
 	 * @param string $address The address to geocode
 	 * @return array|null Returns [lat, lng] if successful, null if not found
 	 * @throws PrintableException If the request fails for technical reasons
 	 */
-	public function geocodeAddress(string $address): ?array
+	protected function geocodeAddress(string $address): ?array
 	{
 		if (empty(trim($address)))
 		{

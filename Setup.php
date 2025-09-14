@@ -100,16 +100,22 @@ class Setup extends AbstractSetup
 		}
 	}
 
-	public function uninstallStep1()
+	public function uninstallStep1(): void
 	{
 		$this->schemaManager()->dropTable('xf_map_markers');
-		return true;
 	}
 
-	public function uninstallStep2()
+	public function uninstallStep2(): void
 	{
 		$this->schemaManager()->dropTable('xf_map_marker_suggestions');
-		return true;
+	}
+
+	/**
+	 * Remove any stored registry values
+	 */
+	public function uninstallStep3(): void
+	{
+		\XF::app()->registry()->delete('syl_map_last_geocode');
 	}
 
 	public function upgrade1000020Step1(): bool

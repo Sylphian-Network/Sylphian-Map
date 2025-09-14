@@ -11,8 +11,8 @@
     "extra_urls": [],
     "require": {
         "Sylphian/Library": [
-            1000270,
-            "Sylphian - Library [1.0.2] by QuackieMackie"
+            1000370,
+            "Sylphian - Library [1.0.3] by QuackieMackie"
         ]
     },
     "icon": "fa-map-marked"

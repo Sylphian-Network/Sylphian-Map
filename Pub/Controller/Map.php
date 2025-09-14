@@ -306,9 +306,13 @@ class Map extends Controller
 
 			try
 			{
-				$coordinates = $geocodingRepo->geocodeAddress($address);
+				$result = $geocodingRepo->geocodeWithRateLimit($address);
 
-				if (!$coordinates)
+				if ($result === 'rate_limited')
+				{
+					return $this->error(\XF::phrase('sylphian_map_geocoding_rate_limited'));
+				}
+				if (!$result)
 				{
 					return $this->error(\XF::phrase('sylphian_map_address_not_found'));
 				}
@@ -316,11 +320,10 @@ class Map extends Controller
 				$view = $this->view();
 				$view->setJsonParams([
 					'success' => true,
-					'lat' => $coordinates['lat'],
-					'lng' => $coordinates['lng'],
+					'lat' => $result['lat'],
+					'lng' => $result['lng'],
 					'address' => $address,
 				]);
-
 				return $view;
 			}
 			catch (\Exception $e)

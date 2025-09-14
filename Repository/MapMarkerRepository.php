@@ -397,7 +397,7 @@ class MapMarkerRepository extends Repository
 			->where('start_date', '!=', null)
 			->where('end_date', '!=', null)
 			->where('end_date', '>=', \XF::$time)
-			->order('start_date', 'ASC')
+			->order('start_date')
 			->limit($limit);
 
 		$markers = $finder->fetch();
@@ -447,7 +447,9 @@ class MapMarkerRepository extends Repository
 
 		$finder = \XF::finder('Sylphian\Map:MapMarker')
 			->where('end_date', '<', $now)
-			->where('end_date', '!=', null);
+			->where('end_date', '!=', null)
+			->where('end_date', '=', 0)
+			->where('active', true);
 
 		$expiredMarkers = $finder->fetch();
 		$count = $expiredMarkers->count();
