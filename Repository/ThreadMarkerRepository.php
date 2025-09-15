@@ -251,14 +251,52 @@ class ThreadMarkerRepository extends Repository
 	{
 		$status = MarkerStatus::fromMarker($marker->active);
 		$mapUrl = \XF::app()->router()->buildLink('full:map');
+		$template = \XF::options()->sylphian_map_attached_thread_layout;
 
-		return "[B]Title:[/B] {$marker->title}\n" .
-			"[B]Description:[/B] {$marker->content}\n" .
-			"[B]Location:[/B] {$marker->lat}, {$marker->lng}\n" .
-			"[B]Status:[/B] {$status->value}\n" .
-			"[B]Type:[/B] {$marker->type}\n\n" .
-			"[URL={$mapUrl}]View on Map[/URL]\n\n" .
-			"[CENTER][B]This thread is associated with a map marker[/B][/CENTER]\n" .
-			"[CENTER][SIZE=1]Last updated: " . \XF::language()->dateTime(\XF::$time) . "[/SIZE][/CENTER]";
+		if (empty($template))
+		{
+			return "[B]Title:[/B] {$marker->title}\n" .
+				"[B]Description:[/B] {$marker->content}\n" .
+				"[B]Location:[/B] {$marker->lat}, {$marker->lng}\n" .
+				"[B]Status:[/B] {$status->value}\n" .
+				"[B]Type:[/B] {$marker->type}\n\n" .
+				"[URL={$mapUrl}]View on Map[/URL]\n\n" .
+				"[CENTER][B]This thread is associated with a map marker[/B][/CENTER]\n" .
+				"[CENTER][SIZE=1]Last updated: " . \XF::language()->dateTime(\XF::$time) . "[/SIZE][/CENTER]";
+		}
+
+		$replacements = [
+			'title' => $marker->title,
+			'content' => $marker->content,
+			'lat' => $marker->lat,
+			'lng' => $marker->lng,
+			'status' => $status->value,
+			'type' => $marker->type,
+			'last_updated' => \XF::language()->dateTime(\XF::$time),
+			'mapUrl' => $mapUrl,
+			'start_date' => (!empty($marker->start_date) ? \XF::language()->dateTime($marker->start_date) : ''),
+			'end_date'   => (!empty($marker->end_date) ? \XF::language()->dateTime($marker->end_date) : ''),
+		];
+
+		$template = preg_replace_callback(
+			'/\{if:([a-zA-Z0-9_]+)}(.*?)\{endif}/s',
+			function ($matches) use ($replacements)
+			{
+				$property = $matches[1];
+				$content = $matches[2];
+				return !empty($replacements[$property]) ? $content : '';
+			},
+			$template
+		);
+
+		$search = [];
+		$replace = [];
+		foreach ($replacements AS $key => $value)
+		{
+			$search[] = '{' . $key . '}';
+			$replace[] = $value;
+		}
+
+		return str_replace($search, $replace, $template);
 	}
 }

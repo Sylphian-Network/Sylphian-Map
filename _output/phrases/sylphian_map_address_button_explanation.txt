@@ -1,0 +1,1 @@
+Fetch the the latitude and longitude of the address, this is not always accurate, it is recommended you input the details in manually.
