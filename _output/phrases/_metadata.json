@@ -353,6 +353,12 @@
         "version_string": "1.0.8 Alpha",
         "hash": "fc7607c14cc9f740ef869885608a36ab"
     },
+    "sylphian_map_geocoding_rate_limited.txt": {
+        "global_cache": false,
+        "version_id": 1000810,
+        "version_string": "1.0.8 Alpha",
+        "hash": "0820eee9549a45076f5326462bbba736"
+    },
     "sylphian_map_icon_color.txt": {
         "global_cache": false,
         "version_id": 1000710,
