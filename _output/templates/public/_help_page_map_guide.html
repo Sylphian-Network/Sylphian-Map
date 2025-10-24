@@ -1,0 +1,121 @@
+<div class="block">
+    <div class="block-container">
+        <h3 class="block-header">What is a map marker?</h3>
+        <div class="block-body block-row">
+            <p>
+                Map markers are locations on the <a href="{{ link('map') }}">community map</a>.
+                Each marker includes some <b>required details</b> and several <b>optional extras</b> to better describe the place or event.
+            </p>
+
+            <h4>Required fields</h4>
+            <ul>
+                <li><b>Title</b> – The name of the place or event.</li>
+                <li><b>Type</b> – Specify what kind of marker it is (e.g. event, business, member).</li>
+                <li><b>Latitude & Longitude</b> – The coordinates where the marker will appear.</li>
+            </ul>
+
+            <h4>Optional fields</h4>
+            <ul>
+                <li><b>Content</b> – A description, notes, or further details about the marker.</li>
+                <li><b>Address</b> – Street address or location reference.</li>
+                <li><b>Icon / Variant / Colour</b> – Customise how the marker appears on the map.</li>
+                <li><b>Marker colour</b> – Highlight different categories with distinct colours.</li>
+                <li><b>Create a thread</b> – Automatically start a discussion linked to this marker.</li>
+                <li><b>Lock thread replies</b> – Prevent replies if you’d like the thread to be read-only.</li>
+                <li><b>Start / End date</b> – Show when an event begins and finishes.</li>
+            </ul>
+
+            <h4>Example</h4>
+            <p>
+                Adding a marker for <i>“Community Meet-up”</i> might look like this:
+            </p>
+            <ul>
+                <li>Title: Community Meet-up</li>
+                <li>Type: Event</li>
+                <li>Latitude/Longitude: 51.5072, -0.1276</li>
+                <li>Content: Join us for coffee and a chat!</li>
+                <li>Start Date: 5 October 2025, 6:00pm</li>
+                <li>End Date: 5 October 2025, 7:00pm</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="block">
+    <div class="block-container">
+        <h3 class="block-header">Suggesting a marker</h3>
+        <div class="block-body block-row">
+            <p>
+                Suggesting a marker is simple: go to the <a href="{{ link('map') }}">community map</a> and click
+                the <b>Suggest marker</b> button. A form will appear where you can enter the details of the place or event
+                you’d like to add.
+            </p>
+
+            <p>
+                After adding all the details, click <b>Save</b> to submit your marker for review.
+                A moderator (or another approved user) will review your submission before it appears on the map.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="block">
+    <div class="block-container">
+        <h3 class="block-header">Event markers</h3>
+        <div class="block-body block-row">
+            <p>
+                Event markers behave a little differently from other types of markers.
+                They can animate on the map to make it easier to spot upcoming or ongoing events:
+            </p>
+            <ul>
+                <li><b>Active events</b> – Events currently in progress will <i>pulse</i> on the map,
+                    drawing attention so you can find them at a glance.</li>
+                <li><b>Upcoming events</b> – Events starting within the next 7 days will <i>bounce</i>
+                    gently to show they’re about to happen.</li>
+                <li><b>Past events</b> – When an event has ended, its marker will disappear from the map
+                    (or be hidden automatically during clean-up).</li>
+            </ul>
+            <p>
+                This makes it easy to see not only where events are happening,
+                but also which ones you can still attend soon.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="block">
+    <div class="block-container">
+        <h3 class="block-header">Events widget</h3>
+        <div class="block-body block-row">
+            <p>
+                The events widget gives you a quick way to see what’s happening in the community
+                without needing to browse the whole map. It lists the most recent event markers that
+                are currently active or coming up soon.
+            </p>
+            <ul>
+                <li><b>Active events</b> – If an event is in progress right now, it will appear at the top of the widget.</li>
+                <li><b>Upcoming events</b> – Events that are starting soon will also be shown, ordered by start date.</li>
+                <li><b>Quick links</b> – Each event entry includes a link to the full discussion thread if one was created.</li>
+            </ul>
+            <p>
+                This makes the widget a handy “at a glance” view of what’s happening in the community.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="block">
+    <div class="block-container">
+        <h3 class="block-header">FAQ</h3>
+        <div class="block-body block-row">
+            <p><b>Can I edit my marker after submitting?</b><br>
+                Not directly, you can request an update from a moderator or suggest a new version.</p>
+            <hr>
+            <p><b>Why isn’t my event showing on the map?</b><br>
+                It may be waiting for approval or the event date may have passed.</p>
+            <hr>
+            <p><b>What should I add to the map?</b><br>
+                {{ phrase('sylphian_map_help_page_what_to_add_to_map') }}</p>
+        </div>
+    </div>
+</div>

@@ -92,6 +92,127 @@
 	</xf:if>
 </xf:macro>]]></template>
   <template type="admin" title="widget_def_options_sylphian_map_events" version_id="1000710" version_string="1.0.7 Alpha"><![CDATA[]]></template>
+  <template type="public" title="_help_page_map_guide" version_id="1000970" version_string="1.0.9"><![CDATA[<div class="block">
+    <div class="block-container">
+        <h3 class="block-header">What is a map marker?</h3>
+        <div class="block-body block-row">
+            <p>
+                Map markers are locations on the <a href="{{ link('map') }}">community map</a>.
+                Each marker includes some <b>required details</b> and several <b>optional extras</b> to better describe the place or event.
+            </p>
+
+            <h4>Required fields</h4>
+            <ul>
+                <li><b>Title</b> – The name of the place or event.</li>
+                <li><b>Type</b> – Specify what kind of marker it is (e.g. event, business, member).</li>
+                <li><b>Latitude & Longitude</b> – The coordinates where the marker will appear.</li>
+            </ul>
+
+            <h4>Optional fields</h4>
+            <ul>
+                <li><b>Content</b> – A description, notes, or further details about the marker.</li>
+                <li><b>Address</b> – Street address or location reference.</li>
+                <li><b>Icon / Variant / Colour</b> – Customise how the marker appears on the map.</li>
+                <li><b>Marker colour</b> – Highlight different categories with distinct colours.</li>
+                <li><b>Create a thread</b> – Automatically start a discussion linked to this marker.</li>
+                <li><b>Lock thread replies</b> – Prevent replies if you’d like the thread to be read-only.</li>
+                <li><b>Start / End date</b> – Show when an event begins and finishes.</li>
+            </ul>
+
+            <h4>Example</h4>
+            <p>
+                Adding a marker for <i>“Community Meet-up”</i> might look like this:
+            </p>
+            <ul>
+                <li>Title: Community Meet-up</li>
+                <li>Type: Event</li>
+                <li>Latitude/Longitude: 51.5072, -0.1276</li>
+                <li>Content: Join us for coffee and a chat!</li>
+                <li>Start Date: 5 October 2025, 6:00pm</li>
+                <li>End Date: 5 October 2025, 7:00pm</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="block">
+    <div class="block-container">
+        <h3 class="block-header">Suggesting a marker</h3>
+        <div class="block-body block-row">
+            <p>
+                Suggesting a marker is simple: go to the <a href="{{ link('map') }}">community map</a> and click
+                the <b>Suggest marker</b> button. A form will appear where you can enter the details of the place or event
+                you’d like to add.
+            </p>
+
+            <p>
+                After adding all the details, click <b>Save</b> to submit your marker for review.
+                A moderator (or another approved user) will review your submission before it appears on the map.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="block">
+    <div class="block-container">
+        <h3 class="block-header">Event markers</h3>
+        <div class="block-body block-row">
+            <p>
+                Event markers behave a little differently from other types of markers.
+                They can animate on the map to make it easier to spot upcoming or ongoing events:
+            </p>
+            <ul>
+                <li><b>Active events</b> – Events currently in progress will <i>pulse</i> on the map,
+                    drawing attention so you can find them at a glance.</li>
+                <li><b>Upcoming events</b> – Events starting within the next 7 days will <i>bounce</i>
+                    gently to show they’re about to happen.</li>
+                <li><b>Past events</b> – When an event has ended, its marker will disappear from the map
+                    (or be hidden automatically during clean-up).</li>
+            </ul>
+            <p>
+                This makes it easy to see not only where events are happening,
+                but also which ones you can still attend soon.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="block">
+    <div class="block-container">
+        <h3 class="block-header">Events widget</h3>
+        <div class="block-body block-row">
+            <p>
+                The events widget gives you a quick way to see what’s happening in the community
+                without needing to browse the whole map. It lists the most recent event markers that
+                are currently active or coming up soon.
+            </p>
+            <ul>
+                <li><b>Active events</b> – If an event is in progress right now, it will appear at the top of the widget.</li>
+                <li><b>Upcoming events</b> – Events that are starting soon will also be shown, ordered by start date.</li>
+                <li><b>Quick links</b> – Each event entry includes a link to the full discussion thread if one was created.</li>
+            </ul>
+            <p>
+                This makes the widget a handy “at a glance” view of what’s happening in the community.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="block">
+    <div class="block-container">
+        <h3 class="block-header">FAQ</h3>
+        <div class="block-body block-row">
+            <p><b>Can I edit my marker after submitting?</b><br>
+                Not directly, you can request an update from a moderator or suggest a new version.</p>
+            <hr>
+            <p><b>Why isn’t my event showing on the map?</b><br>
+                It may be waiting for approval or the event date may have passed.</p>
+            <hr>
+            <p><b>What should I add to the map?</b><br>
+                {{ phrase('sylphian_map_help_page_what_to_add_to_map') }}</p>
+        </div>
+    </div>
+</div>]]></template>
   <template type="public" title="leaflet.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[/* required styles */
 
 .leaflet-pane,
@@ -1282,7 +1403,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 				link="map/management" 
 				params="{$pageNavParams}"/>
 </div>]]></template>
-  <template type="public" title="sylphian_map_marker_form" version_id="1000710" version_string="1.0.7 Alpha"><![CDATA[<xf:title>{{ phrase_dynamic('sylphian_map_' . $formType) }}</xf:title>
+  <template type="public" title="sylphian_map_marker_form" version_id="1000810" version_string="1.0.8 Alpha"><![CDATA[<xf:title>{{ phrase_dynamic('sylphian_map_' . $formType) }}</xf:title>
 
 <xf:js src="sylphian/map/form-geolocation-fetcher.js" min="1" addon="Sylphian/Map" />
 
@@ -1337,7 +1458,24 @@ svg.leaflet-image-layer.leaflet-interactive path {
                                      required="required"
                                      step="any" />
 
-                    <xf:formrow label="">
+					<xf:textboxrow name="address" value="{{ $entity.address }}"
+								   label="{{ phrase('sylphian_map_address') }}"
+								   placeholder="{{ phrase('sylphian_map_address_placeholder') }}"
+								   maxlength="200" />
+
+					<xf:if is="{{ $xf.visitor.hasPermission('general', 'sylphianMapAddressConvert') }}">
+						<xf:formrow label="" explain="{{ phrase('sylphian_map_address_button_explanation') }}">
+							<xf:button type="button" class="button--primary" id="geocode-address" data-xf-init="sylphian-geocode-button">
+								<xf:fa icon="fa-search-location" />
+								{{ phrase('sylphian_map_geocode_address') }}
+							</xf:button>
+							<span id="geocode-status" style="margin-left: 10px; display: none;">
+								<xf:fa icon="fa-spinner fa-spin" /> {{ phrase('sylphian_map_geocoding_address') }}
+							</span>
+						</xf:formrow>
+					</xf:if>
+					
+                    <xf:formrow label="" explain="{{ phrase('sylphian_map_current_location_button_explanation') }}">
                         <xf:button class="button--primary" id="use-my-location" data-xf-init="sylphian-location-button">
                             <xf:fa icon="fa-map-marker-alt" />
                             {{ phrase('sylphian_map_use_my_location') }}
@@ -1453,132 +1591,144 @@ svg.leaflet-image-layer.leaflet-interactive path {
                       label="{{ $formType == 'suggest' ? phrase('sylphian_map_suggest_marker') : '' }}" />
     </div>
 </xf:form>]]></template>
-  <template type="public" title="sylphian_map_suggestion_process" version_id="1000710" version_string="1.0.7 Alpha"><![CDATA[<xf:title>{{ phrase_dynamic('sylphian_map_' . $processTitle) }}</xf:title>
+  <template type="public" title="sylphian_map_suggestion_process" version_id="1000810" version_string="1.0.8 Alpha"><![CDATA[<xf:title>{{ phrase('sylphian_map_suggestion_details') }}</xf:title>
 
-<xf:form action="{{ link($actionType == 'approve' ? 'map/approve-suggestion' : 'map/reject-suggestion', null, {'suggestion_id': $suggestion.suggestion_id}) }}" class="block" ajax="true">
-    <div class="block-container">
-        <h2 class="block-tabHeader tabs" data-xf-init="tabs" role="tablist">
-            <a class="tabs-tab is-active" role="tab" tabindex="0" aria-controls="detailsTab">{{ phrase('details') }}</a>
-            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="appearanceTab">{{ phrase('sylphian_map_appearance') }}</a>
-            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="locationTab">{{ phrase('location') }}</a>
-        </h2>
+<div class="block-container">
+    <h2 class="block-tabHeader tabs" data-xf-init="tabs" role="tablist">
+        <a class="tabs-tab is-active" role="tab" tabindex="0" aria-controls="detailsTab">{{ phrase('details') }}</a>
+        <a class="tabs-tab" role="tab" tabindex="0" aria-controls="locationTab">{{ phrase('location') }}</a>
+        <xf:if is="$suggestion.create_thread">
+            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="threadTab">{{ phrase('sylphian_map_thread_options') }}</a>
+        </xf:if>
+        <xf:if is="$suggestion.start_date && $suggestion.end_date">
+            <a class="tabs-tab" role="tab" tabindex="0" aria-controls="eventTab">{{ phrase('sylphian_map_event_timing') }}</a>
+        </xf:if>
+    </h2>
 
-        <ul class="tabPanes">
-            <!-- Details Tab -->
-            <li class="is-active" role="tabpanel" id="detailsTab">
-                <div class="block-body">
-                    <xf:formrow label="{{ phrase('title') }}">
-                        {{ $suggestion.title }}
-                    </xf:formrow>
-                    
-                    <xf:formrow label="{{ phrase('content') }}">
-                        {{ $suggestion.content ?: phrase('none') }}
-                    </xf:formrow>
-                    
-                    <xf:formrow label="{{ phrase('type') }}">
-                        {{ $suggestion.type ?: phrase('none') }}
-                    </xf:formrow>
-                    
-                    <xf:formrow label="{{ phrase('sylphian_map_suggested_by') }}">
-                        <xf:if is="$suggestion.User">
-                            <xf:username user="$suggestion.User" />
-                        <xf:else />
-                            {{ phrase('unknown') }}
-                        </xf:if>
-                    </xf:formrow>
-                    
-                    <xf:formrow label="{{ phrase('sylphian_map_suggested_on') }}">
-                        {{ date($suggestion.create_date, 'M j, Y g:i A') }}
-                    </xf:formrow>
-					
-					<xf:checkboxrow>
-						<xf:option name="create_thread" value="1"
-								  label="{{ phrase('sylphian_map_create_thread_for_marker') }}"
-								  checked="{{$suggestion.create_thread}}"
-								  readonly="true" />
-					</xf:checkboxrow>
-					
-					<xf:checkboxrow>
-						<xf:option name="thread_lock" value="1"
-								  label="{{ phrase('sylphian_map_lock_thread_replies') }}"
-								  checked="{{$suggestion.thread_lock}}"
-								  readonly="true" />
-					</xf:checkboxrow>
-                    
-                    <xf:if is="$actionType == 'reject'">
-                        <xf:formrow rowtype="explainRow">
-                            <div class="blockMessage blockMessage--warning">
-                                {{ phrase('sylphian_map_reject_marker_warning') }}
-                            </div>
-                        </xf:formrow>
+    <ul class="tabPanes">
+        <!-- Details Tab -->
+        <li class="is-active" role="tabpanel" id="detailsTab">
+            <div class="block-body">
+                <xf:formrow label="{{ phrase('title') }}">
+                    {{ $suggestion.title }}
+                </xf:formrow>
+                
+                <xf:formrow label="{{ phrase('content') }}">
+                    {{ $suggestion.content ?: phrase('none') }}
+                </xf:formrow>
+                
+                <xf:formrow label="{{ phrase('type') }}">
+                    {{ $suggestion.type ?: phrase('none') }}
+                </xf:formrow>
+                
+                <xf:formrow label="{{ phrase('sylphian_map_suggested_by') }}">
+                    <xf:if is="$suggestion.User">
+                        <xf:username user="$suggestion.User" />
+                    <xf:else />
+                        {{ phrase('unknown') }}
                     </xf:if>
-                </div>
-            </li>
-            
-            <!-- Appearance Tab -->
-            <li role="tabpanel" id="appearanceTab">
+                </xf:formrow>
+                
+                <xf:formrow label="{{ phrase('sylphian_map_suggested_on') }}">
+                    {{ date($suggestion.create_date, 'M j, Y g:i A') }}
+                </xf:formrow>
+            </div>
+        </li>
+        
+        <!-- Location Tab -->
+        <li role="tabpanel" id="locationTab">
+            <div class="block-body">
+                <xf:formrow label="{{ phrase('sylphian_map_latitude') }}">
+                    {{ $suggestion.lat }}
+                </xf:formrow>
+                
+                <xf:formrow label="{{ phrase('sylphian_map_longitude') }}">
+                    {{ $suggestion.lng }}
+                </xf:formrow>
+                
+                <xf:formrow label="{{ phrase('preview') }}">
+                    <div class="mapPreviewContainer" style="height: 300px; width: 100%;" data-lat="{{ $suggestion.lat }}" data-lng="{{ $suggestion.lng }}" data-icon="{{ $suggestion.icon }}" data-icon-var="{{ $suggestion.icon_var }}" data-icon-color="{{ $suggestion.icon_color }}" data-marker-color="{{ $suggestion.marker_color }}" data-title="{{ $suggestion.title }}">
+                        <div id="suggestionMapPreview" data-xf-init="sylphian-map-preview" style="height: 100%; width: 100%;"></div>
+                    </div>
+                </xf:formrow>
+            </div>
+        </li>
+        
+        <!-- Thread Tab -->
+        <xf:if is="$suggestion.create_thread">
+            <li role="tabpanel" id="threadTab">
                 <div class="block-body">
-                    <xf:formrow label="{{ phrase('icon') }}">
-                        <div class="iconPreview">
-                            <span class="iconContainer" style="background-color: {{ $suggestion.marker_color }}; color: {{ $suggestion.icon_color }}; display: inline-block; width: 30px; height: 30px; border-radius: 50%; text-align: center; line-height: 30px;">
-                                <xf:fa icon="fa-{{ $suggestion.icon ?: 'map-marker-alt' }}" fw="true" />
-                            </span>
-                            {{ $suggestion.icon ?: phrase('default') }}
-                        </div>
-                    </xf:formrow>
-                    
-                    <xf:formrow label="{{ phrase('sylphian_map_icon_variant') }}">
-                        {{ $suggestion.icon_var ?: 'solid' }}
-                    </xf:formrow>
-                    
-                    <xf:formrow label="{{ phrase('sylphian_map_icon_color') }}">
-                        <div style="display: flex; align-items: center;">
-                            <div style="width: 20px; height: 20px; background-color: {{ $suggestion.icon_color }}; border-radius: 3px; margin-right: 10px;"></div>
-                            {{ $suggestion.icon_color }}
-                        </div>
-                    </xf:formrow>
-                    
-                    <xf:formrow label="{{ phrase('sylphian_map_marker_color') }}">
-                        <div style="display: flex; align-items: center;">
-                            <div style="width: 20px; height: 20px; background-color: {{ $suggestion.marker_color }}; border-radius: 3px; margin-right: 10px;"></div>
-                            {{ $suggestion.marker_color }}
-                        </div>
-                    </xf:formrow>
+                    <xf:checkboxrow>
+                        <xf:option name="create_thread" value="1"
+                                  label="{{ phrase('sylphian_map_create_thread_for_marker') }}"
+                                  checked="{{$suggestion.create_thread}}"
+                                  readonly="true" />
+                    </xf:checkboxrow>
+
+                    <xf:checkboxrow>
+                        <xf:option name="thread_lock" value="1"
+                                  label="{{ phrase('sylphian_map_lock_thread_replies') }}"
+                                  checked="{{$suggestion.thread_lock}}"
+                                  readonly="true" />
+                    </xf:checkboxrow>
                 </div>
             </li>
-            
-            <!-- Location Tab -->
-            <li role="tabpanel" id="locationTab">
+        </xf:if>
+        
+        <!-- Event Tab -->
+        <xf:if is="$suggestion.start_date && $suggestion.end_date">
+            <li role="tabpanel" id="eventTab">
                 <div class="block-body">
-                    <xf:formrow label="{{ phrase('sylphian_map_latitude') }}">
-                        {{ $suggestion.lat }}
+                    <xf:formrow label="{{ phrase('sylphian_map_start_date_time') }}">
+                        {{ date($suggestion.start_date, 'M j, Y g:i A') }}
                     </xf:formrow>
-                    
-                    <xf:formrow label="{{ phrase('sylphian_map_longitude') }}">
-                        {{ $suggestion.lng }}
-                    </xf:formrow>
-                    
-                    <xf:formrow label="{{ phrase('preview') }}">
-                        <div class="mapPreviewContainer" style="height: 300px; width: 100%;" data-lat="{{ $suggestion.lat }}" data-lng="{{ $suggestion.lng }}" data-icon="{{ $suggestion.icon }}" data-icon-var="{{ $suggestion.icon_var }}" data-icon-color="{{ $suggestion.icon_color }}" data-marker-color="{{ $suggestion.marker_color }}" data-title="{{ $suggestion.title }}">
-                            <div id="suggestionMapPreview" data-xf-init="sylphian-map-preview" style="height: 100%; width: 100%;"></div>
-                        </div>
+
+                    <xf:formrow label="{{ phrase('sylphian_map_end_date_time') }}">
+                        {{ date($suggestion.end_date, 'M j, Y g:i A') }}
                     </xf:formrow>
                 </div>
             </li>
-        </ul>
-		
-        <xf:submitrow sticky="true" 
-                      icon="{{ $actionType == 'approve' ? 'check' : 'delete' }}"/>
+        </xf:if>
+    </ul>
+    
+    <div class="block-footer">
+		<xf:form action="{{ link('map/approve-suggestion', null, {'suggestion_id': $suggestion.suggestion_id}) }}" ajax="true" class="formSubmitRow">
+			<xf:button type="submit" class="button button--primary">
+				<xf:fa icon="fa-check" />
+				{{ phrase('sylphian_map_approve_suggestion') }}
+			</xf:button>
+		</xf:form>
+                
+		<xf:form action="{{ link('map/reject-suggestion', null, {'suggestion_id': $suggestion.suggestion_id}) }}" ajax="true" class="formSubmitRow">
+			<xf:button type="submit" class="button button--cta button--negative" icon="delete">
+				{{ phrase('sylphian_map_reject_suggestion') }}
+			</xf:button>
+		</xf:form>
     </div>
-</xf:form>
+</div>
 
 <xf:css src="public:leaflet.less" />
 <xf:js src="sylphian/map/leaflet/leaflet.js" min="1" addon="Sylphian/Map" />
 <xf:css src="public:leaflet_awesome_markers.less" />
 <xf:js src="sylphian/map/leaflet/leaflet.awesome-markers.js" min="1" addon="Sylphian/Map" />
 
-<xf:js src="sylphian/map/suggestion-process.js" min="1" addon="Sylphian/Map" />]]></template>
-  <template type="public" title="sylphian_map_suggestions" version_id="1000710" version_string="1.0.7 Alpha"><![CDATA[<xf:title>{{ phrase('sylphian_map_marker_suggestions') }}</xf:title>
+<xf:js src="sylphian/map/suggestion-process.js" min="1" addon="Sylphian/Map" />
+
+<xf:css>
+.block-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+.formSubmitRow {
+    display: inline-flex;
+    margin: 0;
+}
+</xf:css>]]></template>
+  <template type="public" title="sylphian_map_suggestions" version_id="1000810" version_string="1.0.8 Alpha"><![CDATA[<xf:title>{{ phrase('sylphian_map_marker_suggestions') }}</xf:title>
 
 <div class="block">
     <div class="block-container">
@@ -1592,7 +1742,6 @@ svg.leaflet-image-layer.leaflet-interactive path {
                         <xf:cell>{{ phrase('position') }}</xf:cell>
                         <xf:cell>{{ phrase('sylphian_map_suggested_by') }}</xf:cell>
                         <xf:cell>{{ phrase('sylphian_map_suggestion_date') }}</xf:cell>
-                        <xf:cell></xf:cell>
                         <xf:cell></xf:cell>
                     </xf:datarow>
             
@@ -1618,16 +1767,11 @@ svg.leaflet-image-layer.leaflet-interactive path {
                             <xf:cell>
                                 {{ date($suggestion.create_date, 'M j, Y g:i A') }}
                             </xf:cell>
-                            <xf:action href="{{ link('map/approve-suggestion', null, {'suggestion_id': $suggestion.suggestion_id}) }}" 
-                                     overlay="true"
-                                     title="{{ phrase('sylphian_map_approve_suggestion') }}">
-                                <xf:fa icon="fa-check" class="u-accentColor" />
-                            </xf:action>
-                            <xf:action href="{{ link('map/reject-suggestion', null, {'suggestion_id': $suggestion.suggestion_id}) }}"
-                                      overlay="true"
-                                      title="{{ phrase('sylphian_map_reject_suggestion') }}">
-                                <xf:fa icon="fa-times" class="u-negativeColor" />
-                            </xf:action>
+							<xf:action href="{{ link('map/process-suggestion', null, {'suggestion_id': $suggestion.suggestion_id}) }}" 
+									 overlay="true"
+									 title="{{ phrase('sylphian_map_process_suggestion') }}">
+								<xf:fa icon="far fa-cog" />
+							</xf:action>
                         </xf:datarow>
                     </xf:foreach>
                 </xf:datalist>

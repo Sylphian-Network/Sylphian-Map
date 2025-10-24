@@ -19,6 +19,11 @@
         "version_string": "1.0.7 Alpha",
         "hash": "d41d8cd98f00b204e9800998ecf8427e"
     },
+    "public/_help_page_map_guide.html": {
+        "version_id": 1000970,
+        "version_string": "1.0.9",
+        "hash": "248f1b85858bdfd2f2b3215624d56ddb"
+    },
     "public/leaflet.less": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",

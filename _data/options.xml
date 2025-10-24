@@ -34,6 +34,21 @@ max=50</edit_format_params>
     <default_value>1</default_value>
     <relation group_id="sylphian_map" display_order="2110"/>
   </option>
+  <option option_id="sylphian_map_attached_thread_layout" edit_format="textbox" data_type="string" advanced="0">
+    <default_value>[B]Title:[/B] {title}
+[B]Description:[/B] {content}
+[B]Location:[/B] {lat}, {lng}
+[B]Status:[/B] {status}
+[B]Type:[/B] {type}
+
+[URL={mapUrl}]View on Map[/URL]
+{if:start_date}
+[B]Event Time:[/B] {start_date} - {end_date}
+{endif}
+[CENTER][SIZE=1]Last updated: {last_updated}[/SIZE][/CENTER]</default_value>
+    <edit_format_params>rows=6</edit_format_params>
+    <relation group_id="sylphian_map" display_order="2201"/>
+  </option>
   <option option_id="threadCreationLocation" edit_format="callback" data_type="string" validation_class="Sylphian\Map\Option\ThreadCreationLocation" validation_method="verifyOption" advanced="0">
     <default_value>0</default_value>
     <edit_format_params>Sylphian\Map\Option\ThreadCreationLocation::renderOption</edit_format_params>

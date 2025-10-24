@@ -5,6 +5,18 @@
         "version_string": "1.0.7 Alpha",
         "hash": "4343a8da55b9a7b9d365956feac1f800"
     },
+    "help_page_desc.map_guide.txt": {
+        "global_cache": false,
+        "version_id": 1000970,
+        "version_string": "1.0.9",
+        "hash": "c94f7bc53ccaca4a0e0db37fe4951190"
+    },
+    "help_page_title.map_guide.txt": {
+        "global_cache": false,
+        "version_id": 1000970,
+        "version_string": "1.0.9",
+        "hash": "ad054f09dd9ea1adf83abf6b1396a1e9"
+    },
     "nav.map.txt": {
         "global_cache": false,
         "version_id": 1000010,
@@ -358,6 +370,12 @@
         "version_id": 1000810,
         "version_string": "1.0.8 Alpha",
         "hash": "0820eee9549a45076f5326462bbba736"
+    },
+    "sylphian_map_help_page_what_to_add_to_map.txt": {
+        "global_cache": false,
+        "version_id": 1000970,
+        "version_string": "1.0.9",
+        "hash": "7965e7765d3340285a0f256805628c51"
     },
     "sylphian_map_icon_color.txt": {
         "global_cache": false,
