@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<navigation>
-  <navigation_entry navigation_id="map" display_order="700" navigation_type_id="basic" enabled="1"><![CDATA[{"link":"{{ link('map') }}","display_condition":"$xf.visitor.hasPermission('general', 'viewMap')","extra_attributes":[]}]]></navigation_entry>
-  <navigation_entry navigation_id="map_marker_management" parent_navigation_id="map" display_order="90" navigation_type_id="basic" enabled="1"><![CDATA[{"link":"{{ link('map\/management') }}","display_condition":"$xf.visitor.hasPermission('general', 'manageMapMarkers')","extra_attributes":[]}]]></navigation_entry>
-  <navigation_entry navigation_id="map_sub" parent_navigation_id="map" display_order="10" navigation_type_id="basic" enabled="1"><![CDATA[{"link":"{{ link('map') }}","display_condition":"$xf.visitor.hasPermission('general', 'manageMapMarkers') || $xf.visitor.hasPermission('general', 'manageSuggestedMapMarkers')","extra_attributes":[]}]]></navigation_entry>
-  <navigation_entry navigation_id="map_suggestion_management" parent_navigation_id="map" display_order="100" navigation_type_id="basic" enabled="1"><![CDATA[{"link":"{{ link('map\/suggestion') }}","display_condition":"$xf.visitor.hasPermission('general', 'manageSuggestedMapMarkers')","extra_attributes":[]}]]></navigation_entry>
-</navigation>
