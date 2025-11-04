@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<permissions>
-  <permission permission_group_id="general" permission_id="manageMapMarkers" permission_type="flag" interface_group_id="generalModeratorPermissions" display_order="200"/>
-  <permission permission_group_id="general" permission_id="manageSuggestedMapMarkers" permission_type="flag" interface_group_id="generalModeratorPermissions" display_order="210"/>
-  <permission permission_group_id="general" permission_id="suggestMarkers" permission_type="flag" interface_group_id="generalPermissions" display_order="15010"/>
-  <permission permission_group_id="general" permission_id="sylphianMapAddressConvert" permission_type="flag" interface_group_id="generalPermissions" display_order="15020"/>
-  <permission permission_group_id="general" permission_id="viewMap" permission_type="flag" interface_group_id="generalPermissions" display_order="15000"/>
-</permissions>
