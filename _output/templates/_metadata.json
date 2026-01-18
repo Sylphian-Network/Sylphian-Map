@@ -10,9 +10,9 @@
         "hash": "292ee5c42e1fc625f6fe95e074aaa5d1"
     },
     "admin/sylphian_map_option_macros.html": {
-        "version_id": 1000710,
-        "version_string": "1.0.7 Alpha",
-        "hash": "116537ee8baa93b94c6ae577c87a07c4"
+        "version_id": 2000010,
+        "version_string": "2.0.0 Alpha",
+        "hash": "a31ba518375d87894e29e053015b81c9"
     },
     "admin/widget_def_options_sylphian_map_events.html": {
         "version_id": 1000710,
@@ -50,9 +50,9 @@
         "hash": "7561617197a4257a5791b99fe2bfc723"
     },
     "public/sylphian_map_marker_form.html": {
-        "version_id": 1000810,
-        "version_string": "1.0.8 Alpha",
-        "hash": "2b038463ec331c2594d9cf55e97635c6"
+        "version_id": 2000010,
+        "version_string": "2.0.0 Alpha",
+        "hash": "304cc6bfd2c431f6d3742520f3a5c1da"
     },
     "public/sylphian_map_suggestion_process.html": {
         "version_id": 1000810,

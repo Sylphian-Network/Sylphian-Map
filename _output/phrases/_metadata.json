@@ -317,6 +317,12 @@
         "version_string": "1.0.7 Alpha",
         "hash": "84be54bb4bd1b755a27d86388700d097"
     },
+    "sylphian_map_control_options.txt": {
+        "global_cache": false,
+        "version_id": 2000010,
+        "version_string": "2.0.0 Alpha",
+        "hash": "d10fd9a2fa14e1500159df39f6812012"
+    },
     "sylphian_map_create_thread_for_marker.txt": {
         "global_cache": false,
         "version_id": 1000710,
