@@ -1,41 +1,41 @@
 {
-    "enableThreadCreation.json": {
-        "hash": "8be84b6a0121712ab0595937dcc5d47b"
-    },
-    "map_markers_per_page.json": {
-        "hash": "e61b93d32b1c6429095fad3cdafc0c59"
-    },
-    "map_max_zoom.json": {
-        "hash": "45f2d9f3fae08fcadf6b77a88cd502a5"
-    },
-    "map_min_zoom.json": {
-        "hash": "aebb84feb94501eaa68972220fc6d8a0"
-    },
-    "map_starting_lat.json": {
-        "hash": "83c3368cdd2328a73525c698a8560524"
-    },
-    "map_starting_lng.json": {
-        "hash": "ff596c8696fb83be40fdf7bcc384976d"
-    },
-    "map_starting_zoom.json": {
-        "hash": "6e11ebc6f52f398ff9c4fe418f1438d4"
-    },
-    "specific_account_for_thread.json": {
-        "hash": "abc86d886782e3f22f120ef008141202"
-    },
     "sylphian_map_attached_thread_layout.json": {
         "hash": "cfd53376d1b19a675d86fcc8b2ee344e"
     },
     "sylphian_map_attribution.json": {
         "hash": "9f24aded79a4235f83cb1f10e1e0ba83"
     },
+    "sylphian_map_enable_thread_creation.json": {
+        "hash": "8be84b6a0121712ab0595937dcc5d47b"
+    },
+    "sylphian_map_markers_per_page.json": {
+        "hash": "e61b93d32b1c6429095fad3cdafc0c59"
+    },
+    "sylphian_map_max_zoom.json": {
+        "hash": "45f2d9f3fae08fcadf6b77a88cd502a5"
+    },
+    "sylphian_map_min_zoom.json": {
+        "hash": "aebb84feb94501eaa68972220fc6d8a0"
+    },
+    "sylphian_map_specific_account_for_thread.json": {
+        "hash": "abc86d886782e3f22f120ef008141202"
+    },
+    "sylphian_map_starting_lat.json": {
+        "hash": "83c3368cdd2328a73525c698a8560524"
+    },
+    "sylphian_map_starting_lng.json": {
+        "hash": "ff596c8696fb83be40fdf7bcc384976d"
+    },
+    "sylphian_map_starting_zoom.json": {
+        "hash": "6e11ebc6f52f398ff9c4fe418f1438d4"
+    },
+    "sylphian_map_thread_creation_location.json": {
+        "hash": "69070c4c4910948d11e734b45de947a2"
+    },
     "sylphian_map_tile_layer_url.json": {
         "hash": "885f7f1e1fe1c337b5cd37765b5db566"
     },
-    "threadCreationLocation.json": {
-        "hash": "69070c4c4910948d11e734b45de947a2"
-    },
-    "use_specific_account_for_threads.json": {
+    "sylphian_map_use_specific_account_for_threads.json": {
         "hash": "ce9504c3a0d494eb62f5daaae32ae1cc"
     }
 }

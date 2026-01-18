@@ -65,12 +65,12 @@ class Map extends Controller
 			'canManageMarkers' => $canManageMarkers,
 			'pendingSuggestions' => $pendingSuggestions,
 			'mapCenter' => [
-				'lat' => \XF::options()->map_starting_lat,
-				'lng' => \XF::options()->map_starting_lng,
+				'lat' => \XF::options()->sylphian_map_starting_lat,
+				'lng' => \XF::options()->sylphian_map_starting_lng,
 			],
-			'startingZoom' => \XF::options()->map_starting_zoom,
-			'minZoom' => \XF::options()->map_min_zoom,
-			'maxZoom' => \XF::options()->map_max_zoom,
+			'startingZoom' => \XF::options()->sylphian_map_starting_zoom,
+			'minZoom' => \XF::options()->sylphian_map_min_zoom,
+			'maxZoom' => \XF::options()->sylphian_map_max_zoom,
             'tileLayerUrl' => \XF::options()->sylphian_map_tile_layer_url,
             'attribution' => \XF::options()->sylphian_map_attribution ,
 		];
@@ -419,7 +419,7 @@ class Map extends Controller
 		$suggestionRepo = $this->getMapMarkerSuggestionRepo();
 
 		$page = $this->filterPage();
-		$perPage = \XF::options()->map_markers_per_page ?? 20;
+		$perPage = \XF::options()->sylphian_map_markers_per_page ?? 20;
 
 		$totalMarkers = 0;
 		$markersCollection = $markerRepo->getAllMapMarkers('User', $page, $perPage, $totalMarkers);
@@ -451,7 +451,7 @@ class Map extends Controller
 		$suggestionRepo = $this->getMapMarkerSuggestionRepo();
 
 		$page = $this->filterPage();
-		$perPage = \XF::options()->map_markers_per_page ?? 20;
+		$perPage = \XF::options()->sylphian_map_markers_per_page ?? 20;
 
 		$totalSuggestions = 0;
 		$pendingSuggestions = $suggestionRepo->getPendingSuggestions('User', $page, $perPage, $totalSuggestions)->toArray();

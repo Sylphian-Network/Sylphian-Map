@@ -73,12 +73,12 @@ class ThreadMarkerRepository extends Repository
 	 */
 	public function createThreadForMarker(MapMarker $marker, ?string $customTitle = null): bool
 	{
-		if (!\XF::options()->enableThreadCreation)
+		if (!\XF::options()->sylphian_map_enable_thread_creation)
 		{
 			return false;
 		}
 
-		$threadCreationLocation = \XF::options()->threadCreationLocation;
+		$threadCreationLocation = \XF::options()->sylphian_map_thread_creation_location;
 		if (!$threadCreationLocation)
 		{
 			return false;
@@ -92,9 +92,9 @@ class ThreadMarkerRepository extends Repository
 		}
 
 		$threadUser = null;
-		if (\XF::options()->use_specific_account_for_threads)
+		if (\XF::options()->sylphian_map_use_specific_account_for_threads)
 		{
-			$threadUser = \XF::em()->find('XF:User', \XF::options()->specific_account_for_thread);
+			$threadUser = \XF::em()->find('XF:User', \XF::options()->sylphian_map_specific_account_for_thread);
 		}
 		else if ($marker->user_id)
 		{

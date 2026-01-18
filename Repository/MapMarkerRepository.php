@@ -351,8 +351,8 @@ class MapMarkerRepository extends Repository
 		if (empty($markers))
 		{
 			$defaultMarker = [
-				'lat' => \XF::options()->map_starting_lat ?: 51.505,
-				'lng' => \XF::options()->map_starting_lng ?: -0.09,
+				'lat' => \XF::options()->sylphian_map_starting_lat ?: 51.505,
+				'lng' => \XF::options()->sylphian_map_starting_lng ?: -0.09,
 				'title' => 'Default Marker',
 				'content' => 'No markers currently exist.',
 				'icon' => 'frown',

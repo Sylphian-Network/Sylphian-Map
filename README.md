@@ -8,6 +8,13 @@ A simple map addon I designed for my forum. This addon allows your community mem
 
 ## Libraries used:
 - [Leaflet js](https://leafletjs.com/) - Map library
-- [Leaflet awesome markers](https://github.com/lennardv2/Leaflet.awesome-markers) A heavily modified version of the original library
-- [OpenStreetMap](https://www.openstreetmap.org) - Map tile provider
-- [Nominatim](https://nominatim.org/) - Geocoding service
+- [Leaflet awesome markers](https://github.com/lennardv2/Leaflet.awesome-markers) A heavily modified version of the original plugin
+- [OpenStreetMap](https://www.openstreetmap.org) - Default map tile provider
+- [Nominatim](https://nominatim.org/) - Optional geocoding service
+
+## Creating a custom map
+### Required application
+https://qgis.org/
+
+### Command to be used:
+"C:\Program Files\QGIS 3.40.14\bin\python.exe" -m osgeo_utils.gdal2tiles --tilesize=256 --profile=raster --zoom={minZoom}-{maxZoom} --xyz "C:\path\to\original\world.png" "C:\path\to\tiles\folder"
