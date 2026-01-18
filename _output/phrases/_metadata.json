@@ -467,6 +467,12 @@
         "version_string": "1.0.7 Alpha",
         "hash": "62c14a28d5cac39f32ef62fc20dea93f"
     },
+    "sylphian_map_marker_too_close.txt": {
+        "global_cache": false,
+        "version_id": 2000010,
+        "version_string": "2.0.0 Alpha",
+        "hash": "47a01636cb90c1cff7ce87fb188302a3"
+    },
     "sylphian_map_no_events.txt": {
         "global_cache": false,
         "version_id": 1000710,
@@ -544,6 +550,12 @@
         "version_id": 1000710,
         "version_string": "1.0.7 Alpha",
         "hash": "3e987d9da744747e387757dd3686c88d"
+    },
+    "sylphian_map_suggest_marker_here.txt": {
+        "global_cache": false,
+        "version_id": 2000010,
+        "version_string": "2.0.0 Alpha",
+        "hash": "9ce881165d6e9f685885e4e57999c3ec"
     },
     "sylphian_map_suggested_by.txt": {
         "global_cache": false,

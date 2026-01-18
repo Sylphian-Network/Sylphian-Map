@@ -89,14 +89,100 @@
 
     const map = L.map('mapContainer').setView(
         [{{ $mapCenter.lat }}, {{ $mapCenter.lng }}],
-    {{ $startingZoom }}
-);
+		{{ $startingZoom }}
+	);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         minZoom: {{ $minZoom }},
-    maxZoom: {{ $maxZoom }},
-    attribution: 'Map data from <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
+		maxZoom: {{ $maxZoom }},
+		attribution: 'Map data from <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+	
+	<xf:if is="$xf.visitor.hasPermission('general', 'suggestMarkers')">
+		let selectionMarker = null;
+		let selectionPopup = null;
+
+		map.on('popupclose', function() {
+			if (selectionMarker) {
+				map.removeLayer(selectionMarker);
+				selectionMarker = null;
+			}
+		});
+
+		map.on('click', function(e) {
+			if (selectionMarker) {
+				map.removeLayer(selectionMarker);
+				selectionMarker = null;
+			}
+		});
+
+		map.on('contextmenu', function(e) {
+			const isMapBackground = e.originalEvent.target.id === 'mapContainer' 
+								 || e.originalEvent.target.classList.contains('leaflet-container')
+								 || e.originalEvent.target.classList.contains('leaflet-zoom-animated');
+
+			if (!isMapBackground) return;
+
+			const minDistanceMeters = 50;
+    		let tooClose = false;
+		
+			markersData.forEach(markerData => {
+				const markerLatLng = L.latLng(markerData.lat, markerData.lng);
+				const distance = e.latlng.distanceTo(markerLatLng);
+
+				if (distance < minDistanceMeters) {
+					tooClose = true;
+				}
+			});
+
+			if (tooClose) {
+				if (XF && XF.flashMessage) {
+					XF.flashMessage("{{ phrase('sylphian_map_marker_too_close') }}", 3000);
+				}
+				return; 
+			}
+		
+			if (selectionMarker) {
+				map.removeLayer(selectionMarker);
+				selectionMarker = null;
+			}
+
+			if (selectionPopup) {
+				map.closePopup(selectionPopup);
+				selectionPopup = null;
+			}
+
+			const lat = e.latlng.lat;
+			const lng = e.latlng.lng;
+			const suggestUrl = "{{ link('map/suggest') }}" + (("{{ link('map/suggest') }}".includes('?') ? '&' : '?')) + 'lat=' + lat + '&lng=' + lng;
+
+			const dotIcon = L.divIcon({
+				className: 'map-selection-marker',
+				html: '<div class="map-selection-dot"></div>',
+				iconSize: [12, 12],
+				iconAnchor: [6, 6]
+			});
+
+			selectionMarker = L.marker(e.latlng, { icon: dotIcon }).addTo(map);
+
+			const menuContent = `
+				<div style="text-align: center;">
+					<a href="${suggestUrl}" class="button button--primary" data-xf-click="overlay">
+						<xf:fa icon="fa-lightbulb" /> {{ phrase('sylphian_map_suggest_marker_here') }}
+					</a>
+				</div>
+			`;
+
+			selectionPopup = L.popup({
+				className: 'map-minimal-popup',
+				closeButton: true,
+				offset: [0, -5]
+			})
+			.setLatLng(e.latlng)
+			.setContent(menuContent)
+			.openOn(map);
+		});
+	</xf:if>
 
     const markerGroup = L.layerGroup().addTo(map);
     const markersByType = {};

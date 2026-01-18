@@ -3,6 +3,7 @@
 namespace Sylphian\Map\Pub\Controller;
 
 use Sylphian\Library\Logger\Logger;
+use Sylphian\Map\Entity\MapMarkerSuggestion;
 use Sylphian\Map\Repository\MapGeocodingRepository;
 use Sylphian\Map\Repository\MapMarkerRepository;
 use Sylphian\Map\Repository\MapMarkerSuggestionRepository;
@@ -255,8 +256,20 @@ class Map extends Controller
 	{
 		if (!$this->isPost())
 		{
+			/** @var MapMarkerSuggestion $entity */
+			$entity = $this->em()->create('Sylphian\Map:MapMarkerSuggestion');
+
+			$lat = $this->filter('lat', 'float');
+			$lng = $this->filter('lng', 'float');
+
+			if ($lat && $lng)
+			{
+				$entity->lat = $lat;
+				$entity->lng = $lng;
+			}
+
 			$viewParams = [
-				'entity' => $this->em()->create('Sylphian\Map:MapMarkerSuggestion'),
+				'entity' => $entity,
 				'formAction' => $this->buildLink('map/suggest'),
 				'formType' => 'suggest_form_title',
 				'canManageActive' => false,
