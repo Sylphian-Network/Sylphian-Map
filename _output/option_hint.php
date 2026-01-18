@@ -20,6 +20,8 @@ namespace XF;
  * @property int|null $map_starting_zoom Starting Zoom
  * @property int|null $specific_account_for_thread Specific account for threads
  * @property string|null $sylphian_map_attached_thread_layout Attached thread layout
+ * @property string|null $sylphian_map_attribution Map Attribution
+ * @property string|null $sylphian_map_tile_layer_url Map Tile Layer URL
  * @property string|null $threadCreationLocation Thread Creation Location
  * @property bool|null $use_specific_account_for_threads Use specific account for threads
  */

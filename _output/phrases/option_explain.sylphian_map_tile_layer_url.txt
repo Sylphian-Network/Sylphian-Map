@@ -1,0 +1,1 @@
+The URL pattern used to fetch map tiles. Use {z}, {x}, and {y} as placeholders for zoom and coordinates. {s} in the default option is used as a load balancer.<br>(e.g., https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png)

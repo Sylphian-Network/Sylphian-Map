@@ -26,6 +26,12 @@
     "sylphian_map_attached_thread_layout.json": {
         "hash": "cfd53376d1b19a675d86fcc8b2ee344e"
     },
+    "sylphian_map_attribution.json": {
+        "hash": "9f24aded79a4235f83cb1f10e1e0ba83"
+    },
+    "sylphian_map_tile_layer_url.json": {
+        "hash": "885f7f1e1fe1c337b5cd37765b5db566"
+    },
     "threadCreationLocation.json": {
         "hash": "69070c4c4910948d11e734b45de947a2"
     },

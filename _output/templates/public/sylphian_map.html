@@ -95,10 +95,10 @@
 		{{ $startingZoom }}
 	);
 
-    new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        minZoom: {{ $minZoom }},
+	new L.TileLayer('{{ $tileLayerUrl|escape('js') }}', {
+		minZoom: {{ $minZoom }},
 		maxZoom: {{ $maxZoom }},
-		attribution: 'Map data from <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+		attribution: '{{ $attribution|raw }}'
 	}).addTo(map);
 	
 	<xf:if is="$xf.visitor.hasPermission('general', 'suggestMarkers')">

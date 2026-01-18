@@ -83,6 +83,18 @@
         "version_string": "1.0.8 Alpha",
         "hash": "a7a653362d9ce576a58b2688d8266a90"
     },
+    "option.sylphian_map_attribution.txt": {
+        "global_cache": false,
+        "version_id": 2000010,
+        "version_string": "2.0.0 Alpha",
+        "hash": "4465d412cb31caa99a356abb60c2ce8f"
+    },
+    "option.sylphian_map_tile_layer_url.txt": {
+        "global_cache": false,
+        "version_id": 2000010,
+        "version_string": "2.0.0 Alpha",
+        "hash": "546d15be4c0859ec0b28e50f7df638bf"
+    },
     "option.threadCreationLocation.txt": {
         "global_cache": false,
         "version_id": 1000510,
@@ -136,6 +148,18 @@
         "version_id": 1000810,
         "version_string": "1.0.8 Alpha",
         "hash": "b05345c8c53d6e3dbe3180045481b62a"
+    },
+    "option_explain.sylphian_map_attribution.txt": {
+        "global_cache": false,
+        "version_id": 2000010,
+        "version_string": "2.0.0 Alpha",
+        "hash": "96ed43d005c485ab1784609e40f64177"
+    },
+    "option_explain.sylphian_map_tile_layer_url.txt": {
+        "global_cache": false,
+        "version_id": 2000010,
+        "version_string": "2.0.0 Alpha",
+        "hash": "594e772c1f216bb25faab59327b85ea8"
     },
     "option_explain.threadCreationLocation.txt": {
         "global_cache": false,

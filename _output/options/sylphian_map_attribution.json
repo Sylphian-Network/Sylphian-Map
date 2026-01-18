@@ -1,0 +1,13 @@
+{
+    "edit_format": "textbox",
+    "edit_format_params": "",
+    "data_type": "string",
+    "sub_options": [],
+    "validation_class": "",
+    "validation_method": "",
+    "advanced": false,
+    "default_value": "Map data from <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a>",
+    "relations": {
+        "sylphian_map": 110
+    }
+}

@@ -71,6 +71,8 @@ class Map extends Controller
 			'startingZoom' => \XF::options()->map_starting_zoom,
 			'minZoom' => \XF::options()->map_min_zoom,
 			'maxZoom' => \XF::options()->map_max_zoom,
+            'tileLayerUrl' => \XF::options()->sylphian_map_tile_layer_url,
+            'attribution' => \XF::options()->sylphian_map_attribution ,
 		];
 
 		return $this->view('Sylphian\Map:Map', 'sylphian_map', $viewParams);

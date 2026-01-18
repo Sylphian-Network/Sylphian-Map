@@ -1,0 +1,1 @@
+The attribution text/HTML displayed in the corner of the map. This is often required by map tile providers (e.g., &copy; OpenStreetMap contributors).
