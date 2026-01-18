@@ -50,15 +50,18 @@
             <div class="block-row">
                 <div class="formRow">
                     <div class="formRow-main">
-						<div id="mapIconFilters" class="inputChoices inputChoices--multiple">
+						<div id="mapIconFilters" class="inputChoices inputChoices--multiple mapIconFilters--custom">
 							<xf:foreach loop="$markerTypes" value="$type">
-								<label class="inputChoice">
+								<label class="mapFilter-item">
 									<input type="checkbox" 
 										   class="js-typeFilter" 
 										   value="{{ $type.name }}" 
 										   checked="checked" 
 										   data-type="{{ $type.name }}" />
-									<span class="inputChoice-label">{{ $type.name }}</span>
+									<span class="mapFilter-label">
+										<xf:fa icon="{{ $type.icon_var }} fa-{{ $type.icon }}" fw="true" />
+										<span class="mapFilter-text">{{ $type.name }}</span>
+									</span>
 								</label>
 							</xf:foreach>
 						</div>

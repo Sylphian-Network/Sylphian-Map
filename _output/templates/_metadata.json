@@ -35,14 +35,14 @@
         "hash": "5986daeb629cd0fbdc78061f6aa0e080"
     },
     "public/sylphian_map.html": {
-        "version_id": 1000710,
-        "version_string": "1.0.7 Alpha",
-        "hash": "5fc6423ff1f2675b7d4dbf49936c1d67"
+        "version_id": 2000010,
+        "version_string": "2.0.0 Alpha",
+        "hash": "0a73a4802ff7eb1130cdd608e44b6d49"
     },
     "public/sylphian_map.less": {
-        "version_id": 1000710,
-        "version_string": "1.0.7 Alpha",
-        "hash": "640785010bbae85c1bff7989c849b560"
+        "version_id": 2000010,
+        "version_string": "2.0.0 Alpha",
+        "hash": "0656ccf46ed037ce6b3ea002175488e6"
     },
     "public/sylphian_map_management.html": {
         "version_id": 1000710,

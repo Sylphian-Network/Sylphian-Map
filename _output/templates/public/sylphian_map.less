@@ -56,6 +56,40 @@
     height: 2em;
 }
 
+.mapIconFilters--custom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    
+    .mapFilter-item {
+        cursor: pointer;
+        user-select: none;
+
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        .mapFilter-label {
+            font-size: @xf-fontSizeNormal;
+            color: @xf-textColor;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            i {
+                color: inherit;
+            }
+        }
+
+        input[type="checkbox"]:not(:checked) + .mapFilter-label {
+            color: @xf-textColorMuted;
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+    }
+}
+
 @keyframes map-icon-heartbeat {
     0%, 100% { transform: scale(1); }
     10% { transform: scale(1.2); }
