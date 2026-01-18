@@ -3,12 +3,16 @@
 <xf:js src="sylphian/map/form-geolocation-fetcher.js" min="1" addon="Sylphian/Map" />
 
 <xf:form action="{{ $formAction }}" class="block" ajax="true">
+	<xf:set var="$enableThreadCreation" value="{{ $xf.options.sylphian_map_enable_thread_creation }}" />
+	
     <div class="block-container">
         <h2 class="block-tabHeader tabs" data-xf-init="tabs" role="tablist">
             <a class="tabs-tab is-active" role="tab" tabindex="0" aria-controls="markerBasicInfo">{{ phrase('sylphian_map_basic_information') }}</a>
             <a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerLocation">{{ phrase('location') }}</a>
             <a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerAppearance">{{ phrase('sylphian_map_appearance') }}</a>
-			<a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerThread">{{ phrase('sylphian_map_thread_options') }}</a>
+			<xf:if is="$enableThreadCreation">
+				<a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerThread">{{ phrase('sylphian_map_thread_options') }}</a>
+			</xf:if>
        		<a class="tabs-tab" role="tab" tabindex="0" aria-controls="markerTiming">{{ phrase('sylphian_map_event_timing') }}</a>
 		</h2>
 
@@ -132,9 +136,9 @@
             </li>
 			
 			<!-- Thread Options Tab -->
-            <li role="tabpanel" id="markerThread">
-                <div class="block-body">
-                    <xf:if is="$xf.options.enableThreadCreation">
+			<xf:if is="$enableThreadCreation">
+                <li role="tabpanel" id="markerThread">
+                    <div class="block-body">
                         <xf:if is="($formType === 'add' || $formType === 'suggest') && $entity.create_thread">
                             <xf:checkboxrow>
                                 <xf:option name="create_thread" value="1"
@@ -154,11 +158,11 @@
                             <xf:option name="thread_lock" value="1"
                                        label="{{ phrase('sylphian_map_lock_thread_replies') }}"
                                        checked="{{ $entity.thread_lock ? true : false }}"
-									   explain="{{ phrase('sylphian_map_thread_lock_explanation') }}" />
+                                       explain="{{ phrase('sylphian_map_thread_lock_explanation') }}" />
                         </xf:checkboxrow>
-                    </xf:if>
-                </div>
-            </li>
+                    </div>
+                </li>
+            </xf:if>
 			
 			<!-- Event Timing Tab -->
 			<li role="tabpanel" id="markerTiming">
