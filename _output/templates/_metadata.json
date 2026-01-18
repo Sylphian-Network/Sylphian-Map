@@ -25,9 +25,9 @@
         "hash": "248f1b85858bdfd2f2b3215624d56ddb"
     },
     "public/leaflet.less": {
-        "version_id": 1000010,
-        "version_string": "1.0.0 Alpha",
-        "hash": "5e4a7d9eab0fc5afd6e3b237d304af06"
+        "version_id": 2000010,
+        "version_string": "2.0.0 Alpha",
+        "hash": "0cc757f71da817c403e3af911a2e80fc"
     },
     "public/leaflet_awesome_markers.less": {
         "version_id": 1000020,
@@ -37,7 +37,7 @@
     "public/sylphian_map.html": {
         "version_id": 2000010,
         "version_string": "2.0.0 Alpha",
-        "hash": "0a73a4802ff7eb1130cdd608e44b6d49"
+        "hash": "2032f6bd2ef6adc33e30060db588d91d"
     },
     "public/sylphian_map.less": {
         "version_id": 2000010,

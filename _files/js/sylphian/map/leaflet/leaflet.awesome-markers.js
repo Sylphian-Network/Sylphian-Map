@@ -82,13 +82,13 @@
 
         _setIconStyles: function (img, name) {
             var options = this.options,
-                size = L.point(options[name === 'shadow' ? 'shadowSize' : 'iconSize']),
+                size = new L.Point(options[name === 'shadow' ? 'shadowSize' : 'iconSize']),
                 anchor;
 
             if (name === 'shadow') {
-                anchor = L.point(options.shadowAnchor || options.iconAnchor);
+                anchor = new L.Point(options.shadowAnchor || options.iconAnchor);
             } else {
-                anchor = L.point(options.iconAnchor);
+                anchor = new L.Point(options.iconAnchor);
             }
 
             if (!anchor && size) {
@@ -120,4 +120,4 @@
         return new L.AwesomeMarkers.Icon(options);
     };
 
-}(this, document));
+}(window, document));

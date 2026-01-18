@@ -40,14 +40,14 @@ XF.SylphianMapSuggestionPreview = XF.Element.newHandler({
         const markerColor = mapPreviewContainer.dataset.markerColor || 'blue';
 
         setTimeout(() => {
-            const map = L.map(container.id).setView([lat, lng], 13);
+            const map = new L.Map(container.id).setView([lat, lng], 13);
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: 'Map data from <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }).addTo(map);
 
-            L.marker([lat, lng], {
+            new L.Marker([lat, lng], {
                 icon: L.AwesomeMarkers.icon({
                     icon: icon,
                     iconVar: iconVar,

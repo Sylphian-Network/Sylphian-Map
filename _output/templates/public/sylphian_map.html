@@ -90,12 +90,12 @@
     const markersData = {{ $markers|json }};
     const markerTypes = {{ $markerTypes|json }};
 
-    const map = L.map('mapContainer').setView(
+    const map = new L.Map('mapContainer').setView(
         [{{ $mapCenter.lat }}, {{ $mapCenter.lng }}],
 		{{ $startingZoom }}
 	);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         minZoom: {{ $minZoom }},
 		maxZoom: {{ $maxZoom }},
 		attribution: 'Map data from <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -130,7 +130,7 @@
     		let tooClose = false;
 		
 			markersData.forEach(markerData => {
-				const markerLatLng = L.latLng(markerData.lat, markerData.lng);
+				const markerLatLng = new L.LatLng(markerData.lat, markerData.lng);
 				const distance = e.latlng.distanceTo(markerLatLng);
 
 				if (distance < minDistanceMeters) {
@@ -159,14 +159,14 @@
 			const lng = e.latlng.lng;
 			const suggestUrl = "{{ link('map/suggest') }}" + (("{{ link('map/suggest') }}".includes('?') ? '&' : '?')) + 'lat=' + lat + '&lng=' + lng;
 
-			const dotIcon = L.divIcon({
+			const dotIcon = new L.DivIcon({
 				className: 'map-selection-marker',
 				html: '<div class="map-selection-dot"></div>',
 				iconSize: [12, 12],
 				iconAnchor: [6, 6]
 			});
 
-			selectionMarker = L.marker(e.latlng, { icon: dotIcon }).addTo(map);
+			selectionMarker = new L.Marker(e.latlng, { icon: dotIcon }).addTo(map);
 
 			const menuContent = `
 				<div style="text-align: center;">
@@ -176,7 +176,7 @@
 				</div>
 			`;
 
-			selectionPopup = L.popup({
+			selectionPopup = new L.Popup({
 				className: 'map-minimal-popup',
 				closeButton: true,
 				offset: [0, -5]
@@ -187,7 +187,7 @@
 		});
 	</xf:if>
 
-    const markerGroup = L.layerGroup().addTo(map);
+    const markerGroup = new L.LayerGroup().addTo(map);
     const markersByType = {};
 
     markerTypes.forEach(type => {
@@ -214,7 +214,7 @@
             }
         }
 
-        const marker = L.marker(
+        const marker = new L.Marker(
             [markerData.lat, markerData.lng],
             {
                 icon: L.AwesomeMarkers.icon({
