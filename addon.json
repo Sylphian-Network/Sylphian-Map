@@ -7,7 +7,7 @@
     "dev": "QuackieMackie",
     "dev_url": "https://github.com/QuackieMackie",
     "faq_url": "",
-    "support_url": "",
+    "support_url": "https://github.com/Sylphian-Network/Sylphian-Map/issues",
     "extra_urls": [],
     "require": {
         "Sylphian/Library": [
