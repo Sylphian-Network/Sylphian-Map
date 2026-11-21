@@ -1,0 +1,16 @@
+name: Add to project
+
+on:
+  issues:
+    types: [opened, reopened, transferred]
+  pull_request_target:
+    types: [opened, reopened]
+
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@v2
+        with:
+          project-url: ${{ vars.XENFORO_PROJECT_URL }}
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
